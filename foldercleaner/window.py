@@ -118,4 +118,4 @@ class FolderCleaner(Gtk.ApplicationWindow):
         else:
             self._main_revealer.set_reveal_child(False)
 
-#test_dev
+

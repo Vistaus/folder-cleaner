@@ -44,7 +44,7 @@ msgstr ""
 msgid "A list of the folders which are saved."
 msgstr ""
 
-#: foldercleaner/folder_box.py:77 foldercleaner/folder_cleaner.ui:101
+#: foldercleaner/folder_box.py:77 foldercleaner/folder_cleaner.ui:58
 #: foldercleaner/main.py:39 foldercleaner/window.py:38
 #: foldercleaner/window.py:40
 msgid "Folder Cleaner"
@@ -86,31 +86,27 @@ msgstr ""
 msgid "Sort files in folder"
 msgstr ""
 
-#: foldercleaner/folder_cleaner.ui:11
+#: foldercleaner/aboutdialog.ui:12
 msgid "Program for folder management."
 msgstr ""
 
-#: foldercleaner/folder_cleaner.ui:13
-msgid "Github"
-msgstr ""
-
-#: foldercleaner/folder_cleaner.ui:65
+#: foldercleaner/folder_cleaner.ui:22
 msgid "Preferences"
 msgstr ""
 
-#: foldercleaner/folder_cleaner.ui:79
+#: foldercleaner/folder_cleaner.ui:36
 msgid "About"
 msgstr ""
 
-#: foldercleaner/folder_cleaner.ui:184
+#: foldercleaner/folder_cleaner.ui:141
 msgid "Click \"Add\" for adding your folders here"
 msgstr ""
 
-#: foldercleaner/folder_cleaner.ui:222
+#: foldercleaner/folder_cleaner.ui:179
 msgid "Files were sorted."
 msgstr ""
 
-#: foldercleaner/folder_cleaner.ui:232
+#: foldercleaner/folder_cleaner.ui:189
 msgid "Undo"
 msgstr ""
 
