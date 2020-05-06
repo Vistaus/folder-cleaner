@@ -30,6 +30,7 @@ folder_cleaner_sources = [
 	'constants.py',
 	'window.py',
 	'preferences.py',
+	'aboutdialog.py',
     'helpers.py',
     'folder_box.py',
 	'main.py',

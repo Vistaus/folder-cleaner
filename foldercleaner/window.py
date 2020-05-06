@@ -20,6 +20,7 @@ from gi.repository import Gtk, Gio, GLib
 
 from .folder_box import FolderBox
 from .preferences import PreferencesWindow
+from .aboutdialog import AboutWindow
 from .constants import folder_cleaner_constants as constants
 from .helpers import operations, folders_made, labels
 
@@ -28,7 +29,6 @@ class FolderCleaner(Gtk.ApplicationWindow):
 
     __gtype_name__ = "_main_window"
 
-    _about_window = Gtk.Template.Child()
     _add_label = Gtk.Template.Child()
     _main_list_box_row = Gtk.Template.Child()
     _main_list_box = Gtk.Template.Child()
@@ -75,7 +75,7 @@ class FolderCleaner(Gtk.ApplicationWindow):
 
     @Gtk.Template.Callback()
     def on__about_button_clicked(self, button):
-        about = self._about_window
+        about = AboutWindow(self)
         about.set_logo_icon_name(constants["APP_ID"])
         about.set_copyright("GPLv3+")
         about.run()

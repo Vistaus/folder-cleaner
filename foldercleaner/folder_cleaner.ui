@@ -2,52 +2,7 @@
 <!-- Generated with glade 3.22.1 -->
 <interface>
   <requires lib="gtk+" version="3.20"/>
-  <object class="GtkAboutDialog" id="_about_window">
-    <property name="can_focus">False</property>
-    <property name="icon_name">com.github.Latesil.folder-cleaner</property>
-    <property name="type_hint">dialog</property>
-    <property name="program_name">Folder Cleaner</property>
-    <property name="version">0.0.1</property>
-    <property name="copyright">Copyleft (c)</property>
-    <property name="comments" translatable="yes">Program for folder management.</property>
-    <property name="website">https://github.com</property>
-    <property name="website_label" translatable="yes">Github</property>
-    <property name="authors">Lateseal</property>
-    <property name="translator_credits" translatable="yes">Lateseal</property>
-    <property name="artists">Lateseal</property>
-    <property name="logo_icon_name">folder_color_default</property>
-    <property name="license_type">gpl-3-0</property>
-    <child>
-      <placeholder/>
-    </child>
-    <child internal-child="vbox">
-      <object class="GtkBox">
-        <property name="can_focus">False</property>
-        <property name="orientation">vertical</property>
-        <property name="spacing">2</property>
-        <child internal-child="action_area">
-          <object class="GtkButtonBox">
-            <property name="can_focus">False</property>
-            <property name="layout_style">end</property>
-            <child>
-              <placeholder/>
-            </child>
-            <child>
-              <placeholder/>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">False</property>
-            <property name="position">0</property>
-          </packing>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-      </object>
-    </child>
-  </object>
+
   <object class="GtkPopover" id="popover1">
     <property name="can_focus">False</property>
     <child>

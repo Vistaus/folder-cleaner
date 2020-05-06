@@ -4,5 +4,6 @@
     <file>folder_box.ui</file>
     <file>preferences.ui</file>
     <file>folder_cleaner.ui</file>
+    <file>aboutdialog.ui</file>
   </gresource>
 </gresources>
