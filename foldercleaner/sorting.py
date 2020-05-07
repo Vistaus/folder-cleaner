@@ -45,6 +45,7 @@ class Sorting():
                 for k, v in self.extensions.items():
                     if ext == k:
                         content_type = v.capitalize()
+                #test
 
                 destination_folder = Gio.File.new_for_path(self.base_folder + '/' + content_type)
                 full_path_to_file = destination_folder.get_path() + '/' + simple_file.get_basename()
