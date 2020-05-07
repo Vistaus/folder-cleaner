@@ -30,6 +30,7 @@ class FolderBox(Gtk.ListBox):
     __gtype_name__ = "_list_box"
 
     _folder_box_label = Gtk.Template.Child()
+    _sort_button = Gtk.Template.Child()
 
     i = 0
 
@@ -49,6 +50,7 @@ class FolderBox(Gtk.ListBox):
         FolderBox.i += 1
         self.settings.set_int('count', FolderBox.i)
         self.sort = Sorting(self.label)
+        self.settings.connect("changed::photo-sort", self.on_photos_sort_change, None)
 
     @Gtk.Template.Callback()
     def on__sort_button_clicked(self, button):
@@ -84,4 +86,10 @@ class FolderBox(Gtk.ListBox):
         
         self.settings.set_int('count', FolderBox.i)
         self.get_parent().destroy()
+        
+    def on_photos_sort_change(self, settings, key, button):
+        if self.settings.get_boolean('photo-sort'):
+            self._sort_button.props.visible = True
+        else:
+            self._sort_button.props.visible = False
         

@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.22.1 -->
+<!-- Generated with glade 3.22.0 -->
 <interface>
   <requires lib="gtk+" version="3.20"/>
+  <object class="GtkImage" id="image2">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="stock">gtk-open</property>
+    <property name="icon_size">3</property>
+  </object>
   <template class="_list_box" parent="GtkListBox">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -98,11 +104,9 @@
                   <object class="GtkButtonBox">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="layout_style">start</property>
                     <child>
                       <object class="GtkButton" id="_sort_button">
                         <property name="label" translatable="yes">Sort Photos</property>
-                        <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
                         <property name="tooltip_text" translatable="yes">Sort photos in folder</property>
@@ -151,10 +155,4 @@
       </object>
     </child>
   </template>
-  <object class="GtkImage" id="image2">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="stock">gtk-open</property>
-    <property name="icon_size">3</property>
-  </object>
 </interface>

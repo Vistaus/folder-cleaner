@@ -11,6 +11,11 @@
       <summary>Is files sorted</summary>
       <description>Only for internal usage.</description>
     </key>
+    <key type="b" name="photo-sort">
+      <default>false</default>
+      <summary>Is photo sort active</summary>
+      <description>Check if photo sorting feature is active</description>
+    </key>
     <key type="b" name="sort-by-category">
       <default>false</default>
       <summary>File sort by category</summary>

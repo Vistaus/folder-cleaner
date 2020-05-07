@@ -5,7 +5,7 @@
   <metadata_license>CC0</metadata_license>
   <project_license>GPL-3.0-or-later</project_license>
   <name>Folder Cleaner</name>
-  <summary>Switch dark/light GTK theme automatically during day/night</summary>
+  <summary>Sort files and photos in selected folder</summary>
   <description>
     <p>A simple program for sorting files in specific folder
 
@@ -20,6 +20,6 @@
     </screenshot>
   </screenshots> -->
   <developer_name>Lateseal and contrubutors of GNOME Ru Telegram chat: https://t.me/gnome_rus</developer_name>
-  <url type="homepage">https://github.com/Latesil/folder-cleaner</url>
-  <url type="bugtracker">https://github.com/Latesil/folder-cleaner/issues</url>
+  <url type="homepage">https://gitlab.com/Latesil/folder-cleaner</url>
+  <url type="bugtracker">https://gitlab.com/Latesil/folder-cleaner/-/issues</url>
 </component>
