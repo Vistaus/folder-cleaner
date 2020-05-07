@@ -22,6 +22,7 @@ from gi.repository import Gtk, Gio, GLib, Notify, GExiv2
 
 from .helpers import get_files_and_folders, operations, folders_made, labels
 from .constants import folder_cleaner_constants as constants
+from .sorting import Sorting
 
 ARCHIVES = ['application/x-tar', 'application/zip', 'application/gzip',
             'application/x-bzip2', 'application/x-xz', 'application/x-7z-compressed',
@@ -53,34 +54,11 @@ class FolderBox(Gtk.ListBox):
 
     @Gtk.Template.Callback()
     def on__sort_button_clicked(self, button):
-        GExiv2.initialize()
-        folders, files = get_files_and_folders(self.label)
-        for f in files:
-            try:
-                photo = GExiv2.Metadata.new()
-                photo.open_path(f)
-                if photo.has_exif() and photo.has_tag('Exif.Image.DateTime'):
-                    tag = photo.get_tag_string('Exif.Image.DateTime')
-                    filedate = tag[:10].replace(':', '')
-                    folder_for_photo = self.label + filedate
+        sort = Sorting(self.label)
 
-                    #Gio.Files
-                    photo_file = Gio.File.new_for_path(f)
-                    destination_folder = Gio.File.new_for_path(folder_for_photo)
-                    destination_for_photo = Gio.File.new_for_path(folder_for_photo + '/' + photo_file.get_basename())
-
-                    if GLib.file_test(folder_for_photo, GLib.FileTest.IS_DIR):
-                        photo_file.move(destination_for_photo, Gio.FileCopyFlags.NONE)
-                    else:
-                        Gio.File.make_directory(destination_folder)
-                        photo_file.move(destination_for_photo, Gio.FileCopyFlags.NONE)
-                else:
-                    print('cannot read data in:', f)
-            except GLib.Error as err:
-                print('%s: %s in file: %s, (code: %s)' % (err.domain, err.message, f, err.code))
-        
-        notification = Notify.Notification.new(_('Folder Cleaner'), _("All photos were successfully sorted"))
-        notification.show()
+        if sort.sort_photos_by_exif('Exif.Image.DateTime'):
+            notification = Notify.Notification.new(_('Folder Cleaner'), _("All photos were successfully sorted"))
+            notification.show()
 
 
     @Gtk.Template.Callback()

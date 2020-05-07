@@ -1,6 +1,6 @@
 project(
 	'folder-cleaner',
-	version: '1.0.0',
+	version: '1.0.7',
 	meson_version: '>= 0.50.0',
 )
 
