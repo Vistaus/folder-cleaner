@@ -56,7 +56,7 @@ class FolderBox(Gtk.ListBox):
             notification = Notify.Notification.new(_('Folder Cleaner'), _("All photos were successfully sorted"))
             notification.show()
         else:
-            notification = Notify.Notification.new(_('Folder Cleaner'), _("Some photos weren't successfully sorted"))
+            notification = Notify.Notification.new(_('Folder Cleaner'), _("Some files weren't successfully sorted"))
             notification.show()
 
 

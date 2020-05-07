@@ -14,40 +14,41 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from .helpers import get_files_and_folders, operations, folders_made, labels
+from .formats import Formats
 import gi
 gi.require_version('GExiv2', '0.10')
 from gi.repository import Gio, GLib, GExiv2
 
-ARCHIVES = ['application/x-tar', 'application/zip', 'application/gzip',
-            'application/x-bzip2', 'application/x-xz', 'application/x-7z-compressed',
-            'application/vnd.ms-cab-compressed', 'application/java-archive',
-            'application/x-rar-compressed', 'application/x-gtar', 'application/vnd.rar']
 
 class Sorting():
 
-    def __init__(self, folder):
-        self.folder = folder
-        self.folders, self.files = get_files_and_folders(self.folder)
+    def __init__(self, base_folder):
+        self.base_folder = base_folder
+
+        self.formats = Formats()
+        self.extensions = self.formats.get_formats()
 
     def files_by_content(self):
-        for f in self.files:
+        folders, files = get_files_and_folders(self.base_folder)
+        for f in files:
             try:
-                content_type, uncertain = Gio.content_type_guess(f)
+                #content_type, uncertain = Gio.content_type_guess(f)
                 simple_file = Gio.File.new_for_path(f)
-                print(content_type)
-                if content_type in ARCHIVES:
-                    content_type_modified = _('Archives')
-                else:
-                    content_type_modified = content_type.split('/')[0].capitalize()
-                destination_folder = Gio.File.new_for_path(self.folder + '/' + content_type_modified)
+                name, ext = simple_file.get_basename().rsplit('.', 1)
+
+                for k, v in self.extensions.items():
+                    if ext == k:
+                        content_type = v.capitalize()
+
+                destination_folder = Gio.File.new_for_path(self.base_folder + '/' + content_type)
                 full_path_to_file = destination_folder.get_path() + '/' + simple_file.get_basename()
                 destination_for_files = Gio.File.new_for_path(full_path_to_file)
 
-                if destination_folder.get_path() not in self.folders:
+                if destination_folder.get_path() not in folders:
                     Gio.File.make_directory(destination_folder)
                     folders_made.append(destination_folder.get_path())
                     simple_file.move(destination_for_files, Gio.FileCopyFlags.NONE)
-                    self.folders.append(destination_folder.get_path())
+                    folders.append(destination_folder.get_path())
                     operations[f] = full_path_to_file
                 else:
                     simple_file.move(destination_for_files, Gio.FileCopyFlags.NONE)
@@ -60,19 +61,20 @@ class Sorting():
         return True
 
     def files_by_extension(self):
-        for f in self.files:
+        folders, files = get_files_and_folders(self.base_folder)
+        for f in files:
             try:
                 simple_file = Gio.File.new_for_path(f)
                 name, ext = simple_file.get_basename().rsplit('.', 1)
-                destination_folder = Gio.File.new_for_path(self.folder + '/' + ext)
+                destination_folder = Gio.File.new_for_path(self.base_folder + '/' + ext)
                 destination_path = destination_folder.get_path() + '/' + simple_file.get_basename()
                 destination_for_files = Gio.File.new_for_path(destination_path)
 
-                if ext not in self.folders:
+                if ext not in folders:
                     Gio.File.make_directory(destination_folder)
                     folders_made.append(destination_folder.get_path())
                     simple_file.move(destination_for_files, Gio.FileCopyFlags.NONE)
-                    self.folders.append(ext)
+                    folders.append(ext)
                     operations[f] = destination_path
                 else:
                     simple_file.move(destination_for_files, Gio.FileCopyFlags.NONE)

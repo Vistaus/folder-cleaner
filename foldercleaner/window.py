@@ -87,7 +87,7 @@ class FolderCleaner(Gtk.ApplicationWindow):
             from_file = Gio.File.new_for_path(value)
             to_file = Gio.File.new_for_path(key)
             from_file.move(to_file, Gio.FileCopyFlags.NONE)
-        
+
         operations.clear()
 
         for folder in folders_made:
