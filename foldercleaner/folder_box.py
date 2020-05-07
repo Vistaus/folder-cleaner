@@ -24,11 +24,6 @@ from .helpers import get_files_and_folders, operations, folders_made, labels
 from .constants import folder_cleaner_constants as constants
 from .sorting import Sorting
 
-ARCHIVES = ['application/x-tar', 'application/zip', 'application/gzip',
-            'application/x-bzip2', 'application/x-xz', 'application/x-7z-compressed',
-            'application/vnd.ms-cab-compressed', 'application/java-archive',
-            'application/x-rar-compressed', 'application/x-gtar']
-
 @Gtk.Template(resource_path = constants['UI_PATH'] + 'folder_box.ui')
 class FolderBox(Gtk.ListBox):
 
@@ -46,6 +41,8 @@ class FolderBox(Gtk.ListBox):
         #TODO
         labels.append(self.label[:-1])
 
+        #GDBus.Error:org.freedesktop.DBus.Error.ServiceUnknown
+        #TODO
         Notify.init('com.github.Latesil.folder-cleaner')
         
         self.settings = Gio.Settings.new(constants['main_settings_path'])
@@ -55,15 +52,22 @@ class FolderBox(Gtk.ListBox):
     @Gtk.Template.Callback()
     def on__sort_button_clicked(self, button):
         sort = Sorting(self.label)
-
-        if sort.sort_photos_by_exif('Exif.Image.DateTime'):
+        if sort.photos_by_exif('Exif.Image.DateTime'):
             notification = Notify.Notification.new(_('Folder Cleaner'), _("All photos were successfully sorted"))
             notification.show()
 
 
     @Gtk.Template.Callback()
     def on__sort_files_clicked(self, button):
-        folders, files = get_files_and_folders(self.label, absolute_folders_paths=False)
+        sort = Sorting(self.label)
+        if self.settings.get_boolean('sort-by-category'):
+            if sort.files_by_content():
+                self.settings.set_boolean('is-sorted', True)
+        else:
+            if sort.files_by_extension():
+                self.settings.set_boolean('is-sorted', True)
+
+        """folders, files = get_files_and_folders(self.label, absolute_folders_paths=False)
         for f in files:
             content_type, val = Gio.content_type_guess(f)
             simple_file = Gio.File.new_for_path(f)
@@ -89,9 +93,7 @@ class FolderBox(Gtk.ListBox):
                 operations[f] = destination_path
             else:
                 simple_file.move(destination_for_files, Gio.FileCopyFlags.NONE)
-                operations[f] = destination_path
-
-        self.settings.set_boolean('is-sorted', True)
+                operations[f] = destination_path"""
 
 
     @Gtk.Template.Callback()
