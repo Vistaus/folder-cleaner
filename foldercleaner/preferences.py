@@ -25,6 +25,7 @@ class PreferencesWindow(Gtk.Dialog):
 
 
     sorting_combobox = Gtk.Template.Child()
+    photo_sort_switcher = Gtk.Template.Child()
 
     def __init__(self, app, *args, **kwargs):
         super().__init__(**kwargs)
@@ -32,6 +33,7 @@ class PreferencesWindow(Gtk.Dialog):
         self.settings = Gio.Settings.new(constants['main_settings_path'])
         self.sorted_by_category = self.settings.get_boolean('sort-by-category')
         self.photo_sort = self.settings.get_boolean('photo-sort')
+        self.photo_sort_switcher.set_active(self.photo_sort)
 
         if self.sorted_by_category:
             self.sorting_combobox.props.active = 1

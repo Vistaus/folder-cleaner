@@ -52,6 +52,11 @@ class FolderBox(Gtk.ListBox):
         self.sort = Sorting(self.label)
         self.settings.connect("changed::photo-sort", self.on_photos_sort_change, None)
 
+        if self.settings.get_boolean('photo-sort'):
+            self._sort_button.props.visible = True
+        else:
+            self._sort_button.props.visible = False
+
     @Gtk.Template.Callback()
     def on__sort_button_clicked(self, button):
         if self.sort.photos_by_exif('Exif.Image.DateTime') == 0:
