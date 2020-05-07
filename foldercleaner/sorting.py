@@ -36,6 +36,9 @@ class Sorting():
                 simple_file = Gio.File.new_for_path(f)
                 name, ext = simple_file.get_basename().rsplit('.', 1)
 
+                if ext not in self.extensions:
+                    content_type = _("Unsorted")
+
                 for k, v in self.extensions.items():
                     if ext == k:
                         content_type = v.capitalize()
