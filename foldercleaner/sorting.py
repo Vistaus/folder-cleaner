@@ -95,9 +95,10 @@ class Sorting():
     def photos_by_exif(self, exif):
         # returns 0 if there are no errors
         # returns 1 if some files were not sorted
+        folders, files = get_files_and_folders(self.base_folder)
         GExiv2.initialize()
         is_error = False
-        for f in self.files:
+        for f in files:
             try:
                 photo = GExiv2.Metadata.new()
                 photo.open_path(f)
