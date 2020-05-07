@@ -34,9 +34,12 @@ class Sorting():
             try:
                 #content_type, uncertain = Gio.content_type_guess(f)
                 simple_file = Gio.File.new_for_path(f)
-                name, ext = simple_file.get_basename().rsplit('.', 1)
+                try:
+                    name, ext = simple_file.get_basename().rsplit('.', 1)
+                except ValueError:
+                    ext = ""
 
-                if ext not in self.extensions:
+                if ext not in self.extensions or ext == "":
                     content_type = _("Unsorted")
 
                 for k, v in self.extensions.items():
