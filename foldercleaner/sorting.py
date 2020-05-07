@@ -85,7 +85,10 @@ class Sorting():
 
 
     def photos_by_exif(self, exif):
+        # returns 0 if there are no errors
+        # returns 1 if some files were not sorted
         GExiv2.initialize()
+        is_error = False
         for f in self.files:
             try:
                 photo = GExiv2.Metadata.new()
@@ -113,8 +116,12 @@ class Sorting():
                 else:
                     print('cannot read data in:', f)
             except GLib.Error as err:
+                is_error = True
                 print('%s: %s in file: %s, (code: %s)' % (err.domain, err.message, f, err.code))
 
-        return True
+        if is_error:
+            return 1
+        else:
+            return 0
 
         

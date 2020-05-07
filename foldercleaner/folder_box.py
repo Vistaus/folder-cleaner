@@ -43,57 +43,31 @@ class FolderBox(Gtk.ListBox):
 
         #GDBus.Error:org.freedesktop.DBus.Error.ServiceUnknown
         #TODO
-        Notify.init('com.github.Latesil.folder-cleaner')
+        Notify.init(constants['APP_ID'])
         
         self.settings = Gio.Settings.new(constants['main_settings_path'])
         FolderBox.i += 1
         self.settings.set_int('count', FolderBox.i)
+        self.sort = Sorting(self.label)
 
     @Gtk.Template.Callback()
     def on__sort_button_clicked(self, button):
-        sort = Sorting(self.label)
-        if sort.photos_by_exif('Exif.Image.DateTime'):
+        if self.sort.photos_by_exif('Exif.Image.DateTime') == 0:
             notification = Notify.Notification.new(_('Folder Cleaner'), _("All photos were successfully sorted"))
+            notification.show()
+        else:
+            notification = Notify.Notification.new(_('Folder Cleaner'), _("Some photos weren't successfully sorted"))
             notification.show()
 
 
     @Gtk.Template.Callback()
     def on__sort_files_clicked(self, button):
-        sort = Sorting(self.label)
         if self.settings.get_boolean('sort-by-category'):
-            if sort.files_by_content():
+            if self.sort.files_by_content():
                 self.settings.set_boolean('is-sorted', True)
         else:
-            if sort.files_by_extension():
+            if self.sort.files_by_extension():
                 self.settings.set_boolean('is-sorted', True)
-
-        """folders, files = get_files_and_folders(self.label, absolute_folders_paths=False)
-        for f in files:
-            content_type, val = Gio.content_type_guess(f)
-            simple_file = Gio.File.new_for_path(f)
-            name, ext = simple_file.get_basename().rsplit('.', 1)
-
-            if self.settings.get_boolean('sort-by-category'):
-                if content_type in ARCHIVES:
-                    content_type_modified = _('Archives')
-                else:
-                    content_type_modified = content_type.split('/')[0].capitalize()
-                destination_folder = Gio.File.new_for_path(self.label + '/' + content_type_modified)
-                ext = content_type.split('/')[0].capitalize()
-            else:
-                destination_folder = Gio.File.new_for_path(self.label + '/' + ext)
-            destination_path = destination_folder.get_path() + '/' + simple_file.get_basename()
-            destination_for_files = Gio.File.new_for_path(destination_path)
-
-            if ext not in folders:
-                Gio.File.make_directory(destination_folder)
-                folders_made.append(destination_folder.get_path())
-                simple_file.move(destination_for_files, Gio.FileCopyFlags.NONE)
-                folders.append(ext)
-                operations[f] = destination_path
-            else:
-                simple_file.move(destination_for_files, Gio.FileCopyFlags.NONE)
-                operations[f] = destination_path"""
 
 
     @Gtk.Template.Callback()
@@ -110,3 +84,4 @@ class FolderBox(Gtk.ListBox):
         
         self.settings.set_int('count', FolderBox.i)
         self.get_parent().destroy()
+        
