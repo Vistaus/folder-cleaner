@@ -7,15 +7,17 @@
     <property name="can_focus">False</property>
     <child>
       <object class="GtkListBoxRow">
-        <property name="width_request">100</property>
-        <property name="height_request">80</property>
+        <property name="width_request">-1</property>
+        <property name="height_request">-1</property>
         <property name="visible">True</property>
         <property name="can_focus">True</property>
+        <property name="activatable">False</property>
+        <property name="selectable">False</property>
         <child>
           <object class="GtkBox" id="user_folders_box">
             <property name="name">UserFolder</property>
-            <property name="width_request">100</property>
-            <property name="height_request">80</property>
+            <property name="width_request">-1</property>
+            <property name="height_request">-1</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <child>
