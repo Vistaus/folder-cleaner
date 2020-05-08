@@ -17,6 +17,7 @@ import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, Gio
 from .constants import folder_cleaner_constants as constants
+from .user_folder import UserFoldersBox
 
 @Gtk.Template(resource_path = constants['UI_PATH'] + 'preferences.ui')
 class PreferencesWindow(Gtk.Dialog):
@@ -28,6 +29,8 @@ class PreferencesWindow(Gtk.Dialog):
     photo_sort_switcher = Gtk.Template.Child()
     user_folders_box = Gtk.Template.Child()
     user_folders_switcher = Gtk.Template.Child()
+    user_folders_list_box = Gtk.Template.Child()
+    user_folders_frame = Gtk.Template.Child()
 
     def __init__(self, app, *args, **kwargs):
         super().__init__(**kwargs)
@@ -36,7 +39,7 @@ class PreferencesWindow(Gtk.Dialog):
         self.sorted_by_category = self.settings.get_boolean('sort-by-category')
         self.settings.connect("changed::user-folders", self.on_user_folders_change, self.user_folders_box)
         self.user_folders = self.settings.get_boolean('user-folders')
-        self.photo_sort_switcher.set_active(self.user_folders)
+        self.user_folders_switcher.set_active(self.user_folders)
         self.photo_sort = self.settings.get_boolean('photo-sort')
         self.photo_sort_switcher.set_active(self.photo_sort)
 
@@ -74,7 +77,9 @@ class PreferencesWindow(Gtk.Dialog):
 
     @Gtk.Template.Callback()
     def on_add_user_folder_button_clicked(self, btn):
-        print('on_add_user_folder_button_clicked')
+        self.user_folders_frame.props.visible = True
+        ufolder = UserFoldersBox()
+        self.user_folders_list_box.insert(ufolder, -1)
 
     def on_user_folders_change(self, s, k, w):
         if s.get_boolean(k):

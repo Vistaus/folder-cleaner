@@ -31,5 +31,10 @@
 			<summary>Saved folders list</summary>
 			<description>A list of the folders which are saved.</description>
 		</key>
+    <key name="saved-user-folders" type="a{ss}">
+			<default>{}</default>
+			<summary>Saved user folders list</summary>
+			<description>A list of the user folders which are saved.</description>
+		</key>
   </schema>
 </schemalist>
