@@ -33,6 +33,7 @@ folder_cleaner_sources = [
 	'aboutdialog.py',
 	'formats.py',
 	'basic_formats.py',
+	'user_folder.py',
 	'sorting.py',
     	'helpers.py',
     	'folder_box.py',

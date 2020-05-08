@@ -16,6 +16,11 @@
       <summary>Is photo sort active</summary>
       <description>Check if photo sorting feature is active</description>
     </key>
+    <key type="b" name="user-folders">
+      <default>false</default>
+      <summary>Adds user described folders</summary>
+      <description>Check if user folders section is active</description>
+    </key>
     <key type="b" name="sort-by-category">
       <default>false</default>
       <summary>File sort by category</summary>

@@ -26,12 +26,17 @@ class PreferencesWindow(Gtk.Dialog):
 
     sorting_combobox = Gtk.Template.Child()
     photo_sort_switcher = Gtk.Template.Child()
+    user_folders_box = Gtk.Template.Child()
+    user_folders_switcher = Gtk.Template.Child()
 
     def __init__(self, app, *args, **kwargs):
         super().__init__(**kwargs)
     
         self.settings = Gio.Settings.new(constants['main_settings_path'])
         self.sorted_by_category = self.settings.get_boolean('sort-by-category')
+        self.settings.connect("changed::user-folders", self.on_user_folders_change, self.user_folders_box)
+        self.user_folders = self.settings.get_boolean('user-folders')
+        self.photo_sort_switcher.set_active(self.user_folders)
         self.photo_sort = self.settings.get_boolean('photo-sort')
         self.photo_sort_switcher.set_active(self.photo_sort)
 
@@ -39,6 +44,11 @@ class PreferencesWindow(Gtk.Dialog):
             self.sorting_combobox.props.active = 1
         else:
             self.sorting_combobox.props.active = 0
+
+        if self.user_folders:
+            self.user_folders_box.props.visible = True
+        else:
+            self.user_folders_box.props.visible = False
 
 
     @Gtk.Template.Callback()
@@ -54,3 +64,21 @@ class PreferencesWindow(Gtk.Dialog):
             self.settings.set_boolean('photo-sort', True)
         else:
             self.settings.set_boolean('photo-sort', False)
+
+    @Gtk.Template.Callback()
+    def on_user_folders_switcher_state_set(self, switch, w):
+        if switch.get_active():
+            self.settings.set_boolean('user-folders', True)
+        else:
+            self.settings.set_boolean('user-folders', False)
+
+    @Gtk.Template.Callback()
+    def on_add_user_folder_button_clicked(self, btn):
+        print('on_add_user_folder_button_clicked')
+
+    def on_user_folders_change(self, s, k, w):
+        if s.get_boolean(k):
+            w.props.visible = True
+        else:
+            w.props.visible = False
+            self.resize(700, 200)

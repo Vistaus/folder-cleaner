@@ -5,7 +5,7 @@
   <template class="_preferences_dialog" parent="GtkDialog">
     <property name="can_focus">False</property>
     <property name="default_width">700</property>
-    <property name="default_height">300</property>
+    <property name="default_height">200</property>
     <property name="type_hint">dialog</property>
     <child internal-child="vbox">
       <object class="GtkBox" id="preferences_box">
@@ -37,16 +37,13 @@
             <property name="halign">start</property>
             <property name="margin_top">10</property>
             <property name="margin_bottom">5</property>
-            <property name="label" translatable="yes">Main Preferences</property>
+            <property name="label" translatable="yes">Main</property>
           </object>
           <packing>
             <property name="expand">False</property>
             <property name="fill">True</property>
             <property name="position">0</property>
           </packing>
-        </child>
-        <child>
-          <placeholder/>
         </child>
         <child>
           <object class="GtkFrame" id="preferences_frame">
@@ -68,33 +65,75 @@
                     <property name="can_focus">False</property>
                     <property name="selection_mode">none</property>
                     <property name="activate_on_single_click">False</property>
-                    <child type="label_item">
-                      <placeholder/>
-                    </child>
                     <child>
                       <object class="GtkListBoxRow">
                         <property name="width_request">-1</property>
                         <property name="height_request">-1</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
-                        <property name="activatable">False</property>
                         <property name="selectable">False</property>
                         <child>
-                          <object class="GtkBox" id="file_sort_box">
+                          <object class="GtkBox">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="margin_top">5</property>
-                            <property name="margin_bottom">5</property>
-                            <property name="homogeneous">True</property>
+                            <property name="orientation">vertical</property>
                             <child>
-                              <object class="GtkLabel" id="_folder_sort_label">
+                              <object class="GtkBox" id="file_sort_box">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="halign">start</property>
-                                <property name="label" translatable="yes">File sort</property>
-                                <attributes>
-                                  <attribute name="weight" value="bold"/>
-                                </attributes>
+                                <property name="margin_start">10</property>
+                                <property name="margin_end">10</property>
+                                <property name="margin_top">5</property>
+                                <property name="margin_bottom">5</property>
+                                <property name="homogeneous">True</property>
+                                <child>
+                                  <object class="GtkLabel" id="_folder_sort_label">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="halign">start</property>
+                                    <property name="label" translatable="yes">File sort</property>
+                                    <attributes>
+                                      <attribute name="weight" value="bold"/>
+                                    </attributes>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                    <property name="position">0</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkBox">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="orientation">vertical</property>
+                                    <child>
+                                      <object class="GtkComboBoxText" id="sorting_combobox">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="halign">end</property>
+                                        <property name="valign">center</property>
+                                        <property name="active">0</property>
+                                        <property name="active_id">0</property>
+                                        <items>
+                                          <item id="0" translatable="yes">By Extension</item>
+                                          <item id="1" translatable="yes">By Type</item>
+                                        </items>
+                                        <signal name="changed" handler="on_sorting_combobox_changed" swapped="no"/>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">False</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">0</property>
+                                      </packing>
+                                    </child>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                    <property name="position">1</property>
+                                  </packing>
+                                </child>
                               </object>
                               <packing>
                                 <property name="expand">False</property>
@@ -103,29 +142,9 @@
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkBox">
+                              <object class="GtkSeparator">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="orientation">vertical</property>
-                                <child>
-                                  <object class="GtkComboBoxText" id="sorting_combobox">
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">False</property>
-                                    <property name="valign">center</property>
-                                    <property name="active">0</property>
-                                    <property name="active_id">0</property>
-                                    <items>
-                                      <item id="0" translatable="yes">By Extension</item>
-                                      <item id="1" translatable="yes">By Type</item>
-                                    </items>
-                                    <signal name="changed" handler="on_sorting_combobox_changed" swapped="no"/>
-                                  </object>
-                                  <packing>
-                                    <property name="expand">True</property>
-                                    <property name="fill">False</property>
-                                    <property name="position">0</property>
-                                  </packing>
-                                </child>
                               </object>
                               <packing>
                                 <property name="expand">False</property>
@@ -143,21 +162,108 @@
                         <property name="height_request">-1</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
-                        <property name="activatable">False</property>
                         <property name="selectable">False</property>
                         <child>
-                          <object class="GtkBox" id="photo_sort_box">
+                          <object class="GtkBox">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
+                            <property name="orientation">vertical</property>
+                            <child>
+                              <object class="GtkBox" id="photo_sort_box">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="margin_start">10</property>
+                                <property name="margin_end">10</property>
+                                <property name="margin_top">5</property>
+                                <property name="margin_bottom">5</property>
+                                <property name="homogeneous">True</property>
+                                <child>
+                                  <object class="GtkLabel" id="_photo_sort_label">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="halign">start</property>
+                                    <property name="label" translatable="yes">Photo sort</property>
+                                    <attributes>
+                                      <attribute name="weight" value="bold"/>
+                                    </attributes>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                    <property name="position">0</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkBox">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="orientation">vertical</property>
+                                    <child>
+                                      <object class="GtkSwitch" id="photo_sort_switcher">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">True</property>
+                                        <property name="halign">end</property>
+                                        <signal name="state-set" handler="on_photo_sort_switcher_state_set" swapped="no"/>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">False</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">0</property>
+                                      </packing>
+                                    </child>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                    <property name="position">1</property>
+                                  </packing>
+                                </child>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">True</property>
+                                <property name="position">0</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkSeparator">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">True</property>
+                                <property name="position">1</property>
+                              </packing>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkListBoxRow">
+                        <property name="width_request">-1</property>
+                        <property name="height_request">-1</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="selectable">False</property>
+                        <child>
+                          <object class="GtkBox" id="user_folders_box_switcher">
+                            <property name="width_request">-1</property>
+                            <property name="height_request">-1</property>
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="margin_start">10</property>
+                            <property name="margin_end">10</property>
                             <property name="margin_top">5</property>
                             <property name="margin_bottom">5</property>
                             <property name="homogeneous">True</property>
                             <child>
-                              <object class="GtkLabel" id="_photo_sort_label">
+                              <object class="GtkLabel" id="_photo_sort_label1">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="halign">start</property>
-                                <property name="label" translatable="yes">Photo sort</property>
+                                <property name="label" translatable="yes">User Folders</property>
                                 <attributes>
                                   <attribute name="weight" value="bold"/>
                                 </attributes>
@@ -174,11 +280,11 @@
                                 <property name="can_focus">False</property>
                                 <property name="orientation">vertical</property>
                                 <child>
-                                  <object class="GtkSwitch" id="photo_sort_switcher">
+                                  <object class="GtkSwitch" id="user_folders_switcher">
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="halign">end</property>
-                                    <signal name="state-set" handler="on_photo_sort_switcher_state_set" swapped="no"/>
+                                    <signal name="state-set" handler="on_user_folders_switcher_state_set" swapped="no"/>
                                   </object>
                                   <packing>
                                     <property name="expand">False</property>
@@ -215,12 +321,105 @@
           <placeholder/>
         </child>
         <child>
+          <object class="GtkBox" id="user_folders_box">
+            <property name="can_focus">False</property>
+            <property name="margin_top">10</property>
+            <property name="orientation">vertical</property>
+            <child>
+              <object class="GtkButton" id="add_user_folder_button">
+                <property name="label" translatable="yes">+</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="tooltip_text" translatable="yes">Add custom folder</property>
+                <property name="halign">start</property>
+                <property name="margin_bottom">5</property>
+                <signal name="clicked" handler="on_add_user_folder_button_clicked" swapped="no"/>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkFrame" id="user_folders_frame">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label_xalign">0</property>
+                <child>
+                  <object class="GtkAlignment">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <child>
+                      <object class="GtkListBox" id="user_folders_row_box">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="selection_mode">none</property>
+                        <property name="activate_on_single_click">False</property>
+                        <child>
+                          <object class="GtkListBoxRow">
+                            <property name="width_request">100</property>
+                            <property name="height_request">80</property>
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <child>
+                              <object class="GtkBox">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="orientation">vertical</property>
+                                <child>
+                                  <placeholder/>
+                                </child>
+                                <child>
+                                  <object class="GtkSeparator">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                    <property name="position">1</property>
+                                  </packing>
+                                </child>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child type="label">
+                  <object class="GtkLabel">
+                    <property name="can_focus">False</property>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">4</property>
+          </packing>
+        </child>
+        <child>
           <placeholder/>
         </child>
       </object>
     </child>
     <child type="titlebar">
-      <placeholder/>
+      <object class="GtkLabel">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="label" translatable="yes">Settings</property>
+      </object>
     </child>
   </template>
 </interface>

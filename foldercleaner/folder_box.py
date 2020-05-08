@@ -42,15 +42,13 @@ class FolderBox(Gtk.ListBox):
         #TODO
         labels.append(self.label[:-1])
 
-        #GDBus.Error:org.freedesktop.DBus.Error.ServiceUnknown
-        #TODO
         Notify.init(constants['APP_ID'])
         
         self.settings = Gio.Settings.new(constants['main_settings_path'])
         FolderBox.i += 1
         self.settings.set_int('count', FolderBox.i)
         self.sort = Sorting(self.label)
-        self.settings.connect("changed::photo-sort", self.on_photos_sort_change, None)
+        self.settings.connect("changed::photo-sort", self.on_photos_sort_change, self._sort_button)
 
         if self.settings.get_boolean('photo-sort'):
             self._sort_button.props.visible = True
@@ -93,8 +91,9 @@ class FolderBox(Gtk.ListBox):
         self.get_parent().destroy()
         
     def on_photos_sort_change(self, settings, key, button):
-        if self.settings.get_boolean('photo-sort'):
-            self._sort_button.props.visible = True
+        if settings.get_boolean(key):
+            button.props.visible = True
         else:
-            self._sort_button.props.visible = False
+            button.props.visible = False
+
         
