@@ -13,15 +13,16 @@
       <object class="GtkBox" id="file_extension_button_popover_box">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="margin_start">10</property>
-        <property name="margin_end">10</property>
-        <property name="margin_top">10</property>
-        <property name="margin_bottom">10</property>
+        <property name="margin_start">5</property>
+        <property name="margin_end">5</property>
+        <property name="margin_top">5</property>
+        <property name="margin_bottom">5</property>
         <property name="orientation">vertical</property>
         <child>
           <object class="GtkEntry" id="file_extension_button_popover_entry">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
+            <signal name="changed" handler="on_file_extension_button_popover_entry_changed" swapped="no"/>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -39,15 +40,16 @@
       <object class="GtkBox" id="user_folder_button_popover_box">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="margin_start">10</property>
-        <property name="margin_end">10</property>
-        <property name="margin_top">10</property>
-        <property name="margin_bottom">10</property>
+        <property name="margin_start">5</property>
+        <property name="margin_end">5</property>
+        <property name="margin_top">5</property>
+        <property name="margin_bottom">5</property>
         <property name="orientation">vertical</property>
         <child>
           <object class="GtkEntry" id="user_folder_button_popover_entry">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
+            <signal name="changed" handler="on_user_folder_button_popover_entry_changed" swapped="no"/>
           </object>
           <packing>
             <property name="expand">False</property>

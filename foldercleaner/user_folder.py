@@ -15,6 +15,8 @@ class UserFoldersBox(Gtk.ListBox):
     file_extension_button = Gtk.Template.Child()
     user_folder_button = Gtk.Template.Child()
     close_user_folders_button = Gtk.Template.Child()
+    file_extension_button_label = Gtk.Template.Child()
+    user_folder_button_label = Gtk.Template.Child()
 
     i = 0
 
@@ -31,5 +33,13 @@ class UserFoldersBox(Gtk.ListBox):
         UserFoldersBox.i -= 1
         self.settings.set_int('count-user-folders', UserFoldersBox.i)
         self.get_parent().destroy()
+
+    @Gtk.Template.Callback()
+    def on_file_extension_button_popover_entry_changed(self, entry):
+        self.file_extension_button_label.props.label = entry.get_text()
+
+    @Gtk.Template.Callback()
+    def on_user_folder_button_popover_entry_changed(self, entry):
+        self.user_folder_button_label.props.label = entry.get_text()
 
 
