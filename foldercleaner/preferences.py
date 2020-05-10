@@ -46,6 +46,7 @@ class PreferencesWindow(Gtk.Dialog):
         self.photo_sort_switcher.set_active(self.photo_sort)
         self.settings.connect("changed::count-user-folders", self.on_quantity_user_folders_change, None)
 
+        print(self.settings.get_int('count-user-folders'))
         if self.settings.get_int('count-user-folders') == 0:
             self.user_folders_frame.props.visible = False
         else:
