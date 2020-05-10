@@ -46,10 +46,14 @@ class Sorting():
                         if ext == k:
                             content_type = v.capitalize()
                         else:
+                            #TODO
+                            #REWRITE
                             for k, v in extensions.items():
                                 if ext == k:
                                     content_type = v.capitalize()
                 else:
+                    #TODO
+                    #REWRITE
                     for k, v in extensions.items():
                         if ext == k:
                             content_type = v.capitalize()

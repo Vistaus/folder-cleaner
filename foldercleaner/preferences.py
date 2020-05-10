@@ -49,6 +49,8 @@ class PreferencesWindow(Gtk.Dialog):
         self.user_folders_quantity = self.settings.get_int('count-user-folders')
         self.formats = Formats()
         self.saved_user_folders = self.formats.get__user_formats()
+        print(self.saved_user_folders)
+        #self.settings.set_int('count-user-folders', 0)
 
         if self.settings.get_int('count-user-folders') == 0:
             self.user_folders_frame.props.visible = False
@@ -87,7 +89,9 @@ class PreferencesWindow(Gtk.Dialog):
     @Gtk.Template.Callback()
     def on_add_user_folder_button_clicked(self, btn):
         self.user_folders_frame.props.visible = True
-        ufolder = UserFoldersBox(constants['default_extension_name'], constants['default_folder_name'])
+        extension = constants['default_extension_name']
+        folder = constants['default_folder_name']
+        ufolder = UserFoldersBox(extension, folder)
         self.user_folders_list_box.insert(ufolder, -1)
 
         #TODO
@@ -109,9 +113,12 @@ class PreferencesWindow(Gtk.Dialog):
 
     @Gtk.Template.Callback()
     def on_delete_event(self, w, e):
-        all_user_folders = {}
+        new_user_formats = {}
         for child in self.user_folders_list_box.get_children():
             #child = Gtk.ListBoxRow
             for w in child.get_children(): # w = UserFolders
-                all_user_folders[w.file_extension_button_label.props.label] = w.user_folder_button_label.props.label
-        self.settings.set_value('saved-user-folders', GLib.Variant('a{ss}', all_user_folders))
+                extension = w.file_extension_button_label.props.label
+                folder = w.user_folder_button_label.props.label
+                new_user_formats[extension] = folder
+            self.formats.update__user_formats(new_user_formats)
+        
