@@ -13,19 +13,20 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+from gi.repository import Gio
 from .basic_formats import base
+from .constants import folder_cleaner_constants as constants
 
 class Formats:
 
     _formats = base
 
-    _user_formats = {}
+    def __init__(self):
+        self.settings = Gio.Settings.new(constants['main_settings_path'])
+        self._user_formats = self.settings.get_value('saved-user-folders').unpack()
 
     def get_formats(self):
         return self._formats
 
     def get__user_formats(self):
         return self._user_formats
-
-    def add_user_format(self, f):
-        self._user_formats.update(f)

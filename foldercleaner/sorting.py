@@ -25,11 +25,11 @@ class Sorting():
     def __init__(self, base_folder):
         self.base_folder = base_folder
 
-        self.formats = Formats()
-        self.extensions = self.formats.get_formats()
-
     def files_by_content(self):
         folders, files = get_files_and_folders(self.base_folder)
+        formats = Formats()
+        extensions = formats.get_formats()
+        user_extensions = formats.get__user_formats()
         for f in files:
             try:
                 #content_type, uncertain = Gio.content_type_guess(f)
@@ -39,12 +39,20 @@ class Sorting():
                 except ValueError:
                     ext = ""
 
-                if ext not in self.extensions or ext == "":
-                    content_type = _("Unsorted")
+                content_type = _("Unsorted")
 
-                for k, v in self.extensions.items():
-                    if ext == k:
-                        content_type = v.capitalize()
+                if user_extensions:
+                    for k, v in user_extensions.items():
+                        if ext == k:
+                            content_type = v.capitalize()
+                        else:
+                            for k, v in extensions.items():
+                                if ext == k:
+                                    content_type = v.capitalize()
+                else:
+                    for k, v in extensions.items():
+                        if ext == k:
+                            content_type = v.capitalize()
 
                 destination_folder = Gio.File.new_for_path(self.base_folder + '/' + content_type)
                 full_path_to_file = destination_folder.get_path() + '/' + simple_file.get_basename()
@@ -132,5 +140,4 @@ class Sorting():
             return 1
         else:
             return 0
-
         

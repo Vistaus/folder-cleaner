@@ -89,7 +89,6 @@
                   <object class="GtkLabel" id="file_extension_button_label">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">File Extension</property>
                   </object>
                 </child>
                 <style>
@@ -117,7 +116,6 @@
                       <object class="GtkLabel" id="user_folder_button_label">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">Folder</property>
                       </object>
                     </child>
                     <style>

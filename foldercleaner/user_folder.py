@@ -20,12 +20,14 @@ class UserFoldersBox(Gtk.ListBox):
 
     i = 0
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, extension, folder, *args, **kwargs):
         super().__init__(**kwargs)
 
         self.settings = Gio.Settings.new(constants['main_settings_path'])
         UserFoldersBox.i += 1
         self.id = UserFoldersBox.i
+        self.file_extension_button_label.props.label = extension
+        self.user_folder_button_label.props.label = folder
         self.settings.set_int('count-user-folders', UserFoldersBox.i)
 
     @Gtk.Template.Callback()

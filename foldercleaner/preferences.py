@@ -15,9 +15,10 @@
 
 import gi
 gi.require_version('Gtk', '3.0')
-from gi.repository import Gtk, Gio
+from gi.repository import Gtk, Gio, GLib
 from .constants import folder_cleaner_constants as constants
 from .user_folder import UserFoldersBox
+from .formats import Formats
 
 @Gtk.Template(resource_path = constants['UI_PATH'] + 'preferences.ui')
 class PreferencesWindow(Gtk.Dialog):
@@ -46,13 +47,15 @@ class PreferencesWindow(Gtk.Dialog):
         self.photo_sort_switcher.set_active(self.photo_sort)
         self.settings.connect("changed::count-user-folders", self.on_quantity_user_folders_change, None)
         self.user_folders_quantity = self.settings.get_int('count-user-folders')
+        self.formats = Formats()
+        self.saved_user_folders = self.formats.get__user_formats()
 
         if self.settings.get_int('count-user-folders') == 0:
             self.user_folders_frame.props.visible = False
         else:
             self.user_folders_frame.props.visible = True
-            for i in range(self.user_folders_quantity):
-                ufolder = UserFoldersBox()
+            for k, v in self.saved_user_folders.items():
+                ufolder = UserFoldersBox(k, v)
                 self.user_folders_list_box.insert(ufolder, -1)
 
         if self.sorted_by_category:
@@ -74,31 +77,21 @@ class PreferencesWindow(Gtk.Dialog):
             self.settings.set_boolean('sort-by-category', True)
 
     @Gtk.Template.Callback()
-    def on_photo_sort_switcher_state_set(self, switch, w):
-        if switch.get_active():
-            self.settings.set_boolean('photo-sort', True)
-        else:
-            self.settings.set_boolean('photo-sort', False)
+    def on_photo_sort_switcher_state_set(self, switch, state):
+        self.settings.set_boolean('photo-sort', state)
 
     @Gtk.Template.Callback()
-    def on_user_folders_switcher_state_set(self, switch, w):
-        if switch.get_active():
-            self.settings.set_boolean('user-folders', True)
-        else:
-            self.settings.set_boolean('user-folders', False)
+    def on_user_folders_switcher_state_set(self, switch, state):
+        self.settings.set_boolean('user-folders', state)
 
     @Gtk.Template.Callback()
     def on_add_user_folder_button_clicked(self, btn):
         self.user_folders_frame.props.visible = True
-        ufolder = UserFoldersBox()
+        ufolder = UserFoldersBox(constants['default_extension_name'], constants['default_folder_name'])
         self.user_folders_list_box.insert(ufolder, -1)
 
         #TODO
         # Dynamic resize scrolled window
-
-    def update_children_in_scrolled_window(self):
-        print(self.user_folders_list_box.get_children())
-        return len(self.user_folders_list_box.get_children()) > 0
 
     def on_quantity_user_folders_change(self, s, k, w):
         if self.settings.get_int('count-user-folders') == 0:
@@ -107,10 +100,18 @@ class PreferencesWindow(Gtk.Dialog):
         else:
             self.user_folders_frame.props.visible = True
 
-
     def on_user_folders_change(self, s, k, w):
         if s.get_boolean(k):
             w.props.visible = True
         else:
             w.props.visible = False
             self.resize(700, 200)
+
+    @Gtk.Template.Callback()
+    def on_delete_event(self, w, e):
+        all_user_folders = {}
+        for child in self.user_folders_list_box.get_children():
+            #child = Gtk.ListBoxRow
+            for w in child.get_children(): # w = UserFolders
+                all_user_folders[w.file_extension_button_label.props.label] = w.user_folder_button_label.props.label
+        self.settings.set_value('saved-user-folders', GLib.Variant('a{ss}', all_user_folders))
