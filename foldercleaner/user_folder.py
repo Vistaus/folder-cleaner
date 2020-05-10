@@ -14,6 +14,7 @@ class UserFoldersBox(Gtk.ListBox):
 
     file_extension_button = Gtk.Template.Child()
     user_folder_button = Gtk.Template.Child()
+    close_user_folders_button = Gtk.Template.Child()
 
     i = 0
 
@@ -22,4 +23,20 @@ class UserFoldersBox(Gtk.ListBox):
 
         self.settings = Gio.Settings.new(constants['main_settings_path'])
         UserFoldersBox.i += 1
+        self.id = UserFoldersBox.i
+        self.settings.set_int('count-user-folders', UserFoldersBox.i)
+
+    @Gtk.Template.Callback()
+    def on_close_user_folders_button_clicked(self, btn):
+        UserFoldersBox.i -= 1
+        self.settings.set_int('count-user-folders', UserFoldersBox.i)
+        self.get_parent().destroy()
+
+    @Gtk.Template.Callback()
+    def on_file_extension_button_clicked(self, btn):
+        print('on_file_extension_button_clicked')
+
+    @Gtk.Template.Callback()
+    def on_user_folder_button_clicked(self, btn):
+        print('on_user_folder_button_clicked')
 

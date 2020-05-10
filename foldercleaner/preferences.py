@@ -31,6 +31,8 @@ class PreferencesWindow(Gtk.Dialog):
     user_folders_switcher = Gtk.Template.Child()
     user_folders_list_box = Gtk.Template.Child()
     user_folders_frame = Gtk.Template.Child()
+    user_folders_scrolled_window = Gtk.Template.Child()
+    user_folders_second_box = Gtk.Template.Child()
 
     def __init__(self, app, *args, **kwargs):
         super().__init__(**kwargs)
@@ -42,6 +44,12 @@ class PreferencesWindow(Gtk.Dialog):
         self.user_folders_switcher.set_active(self.user_folders)
         self.photo_sort = self.settings.get_boolean('photo-sort')
         self.photo_sort_switcher.set_active(self.photo_sort)
+        self.settings.connect("changed::count-user-folders", self.on_quantity_user_folders_change, None)
+
+        if self.settings.get_int('count-user-folders') == 0:
+            self.user_folders_frame.props.visible = False
+        else:
+            self.user_folders_frame.props.visible = True
 
         if self.sorted_by_category:
             self.sorting_combobox.props.active = 1
@@ -80,6 +88,21 @@ class PreferencesWindow(Gtk.Dialog):
         self.user_folders_frame.props.visible = True
         ufolder = UserFoldersBox()
         self.user_folders_list_box.insert(ufolder, -1)
+
+        #TODO
+        # Dynamic resize scrolled window
+
+    def update_children_in_scrolled_window(self):
+        print(self.user_folders_list_box.get_children())
+        return len(self.user_folders_list_box.get_children()) > 0
+
+    def on_quantity_user_folders_change(self, s, k, w):
+        if self.settings.get_int('count-user-folders') == 0:
+            self.user_folders_frame.props.visible = False
+            self.resize(700, 200)
+        else:
+            self.user_folders_frame.props.visible = True
+
 
     def on_user_folders_change(self, s, k, w):
         if s.get_boolean(k):

@@ -17,13 +17,6 @@ from .basic_formats import base
 
 class Formats:
 
-    """
-    ['application/x-tar', 'application/zip', 'application/gzip',
-            'application/x-bzip2', 'application/x-xz', 'application/x-7z-compressed',
-            'application/vnd.ms-cab-compressed', 'application/java-archive',
-            'application/x-rar-compressed', 'application/x-gtar', 'application/vnd.rar']
-    """
-
     _formats = base
 
     _user_formats = {}
