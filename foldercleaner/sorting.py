@@ -13,8 +13,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from .helpers import get_files_and_folders, operations, folders_made, labels
-from .formats import Formats
+from .helpers import get_files_and_folders, operations, folders_made, labels, user_folders
+from .basic_formats import base
 import gi
 gi.require_version('GExiv2', '0.10')
 from gi.repository import Gio, GLib, GExiv2
@@ -27,9 +27,8 @@ class Sorting():
 
     def files_by_content(self):
         folders, files = get_files_and_folders(self.base_folder)
-        formats = Formats()
-        extensions = formats.get_formats()
-        user_extensions = formats.get__user_formats()
+        extensions = base
+        user_extensions = user_folders
         for f in files:
             try:
                 #content_type, uncertain = Gio.content_type_guess(f)

@@ -22,7 +22,7 @@ from .folder_box import FolderBox
 from .preferences import PreferencesWindow
 from .aboutdialog import AboutWindow
 from .constants import folder_cleaner_constants as constants
-from .helpers import operations, folders_made, labels
+from .helpers import operations, folders_made, labels, user_folders
 
 @Gtk.Template(resource_path = constants['UI_PATH'] + 'folder_cleaner.ui')
 class FolderCleaner(Gtk.ApplicationWindow):
@@ -42,6 +42,7 @@ class FolderCleaner(Gtk.ApplicationWindow):
         self.settings.connect("changed::count", self.on_count_change, None)
         self.settings.connect("changed::is-sorted", self.on_is_sorted_change, None)
         self.saved_folders = self.settings.get_value('saved-folders')
+        self.user_saved_folders = self.settings.get_value('saved-user-folders').unpack()
 
         if len(self.saved_folders) > 0:
             for path in self.saved_folders:
@@ -103,7 +104,9 @@ class FolderCleaner(Gtk.ApplicationWindow):
     @Gtk.Template.Callback()
     def on__main_window_destroy(self, w):
         self.settings.set_value('saved-folders', GLib.Variant('as', labels))
-        
+        self.settings.set_value('saved-user-folders', GLib.Variant('a{ss}', user_folders))
+
+
 
     def on_count_change(self, settings, key, button):
         if self.settings.get_int('count') > 0:

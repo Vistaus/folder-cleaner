@@ -18,7 +18,7 @@ gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, Gio, GLib
 from .constants import folder_cleaner_constants as constants
 from .user_folder import UserFoldersBox
-from .formats import Formats
+from .helpers import user_folders
 
 @Gtk.Template(resource_path = constants['UI_PATH'] + 'preferences.ui')
 class PreferencesWindow(Gtk.Dialog):
@@ -47,16 +47,11 @@ class PreferencesWindow(Gtk.Dialog):
         self.photo_sort_switcher.set_active(self.photo_sort)
         self.settings.connect("changed::count-user-folders", self.on_quantity_user_folders_change, None)
         self.user_folders_quantity = self.settings.get_int('count-user-folders')
-        self.formats = Formats()
-        self.saved_user_folders = self.formats.get__user_formats()
-        print(self.saved_user_folders)
-        #self.settings.set_int('count-user-folders', 0)
+        self.user_saved_folders = self.settings.get_value('saved-user-folders').unpack()
 
-        if self.settings.get_int('count-user-folders') == 0:
-            self.user_folders_frame.props.visible = False
-        else:
+        if self.user_folders_quantity > 0:
             self.user_folders_frame.props.visible = True
-            for k, v in self.saved_user_folders.items():
+            for k, v in self.user_saved_folders.items():
                 ufolder = UserFoldersBox(k, v)
                 self.user_folders_list_box.insert(ufolder, -1)
 
@@ -93,9 +88,7 @@ class PreferencesWindow(Gtk.Dialog):
         folder = constants['default_folder_name']
         ufolder = UserFoldersBox(extension, folder)
         self.user_folders_list_box.insert(ufolder, -1)
-
-        #TODO
-        # Dynamic resize scrolled window
+        #TODO Dynamic resize scrolled window
 
     def on_quantity_user_folders_change(self, s, k, w):
         if self.settings.get_int('count-user-folders') == 0:
@@ -120,5 +113,5 @@ class PreferencesWindow(Gtk.Dialog):
                 extension = w.file_extension_button_label.props.label
                 folder = w.user_folder_button_label.props.label
                 new_user_formats[extension] = folder
-            self.formats.update__user_formats(new_user_formats)
-        
+        user_folders.update(new_user_formats)
+            

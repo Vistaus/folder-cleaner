@@ -31,7 +31,6 @@ folder_cleaner_sources = [
 	'window.py',
 	'preferences.py',
 	'aboutdialog.py',
-	'formats.py',
 	'basic_formats.py',
 	'user_folder.py',
 	'sorting.py',

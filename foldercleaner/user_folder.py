@@ -6,6 +6,7 @@ gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, Gio, GLib
 
 from .constants import folder_cleaner_constants as constants
+from .helpers import user_folders
 
 @Gtk.Template(resource_path = constants['UI_PATH'] + 'user_folder.ui')
 class UserFoldersBox(Gtk.ListBox):
@@ -34,6 +35,12 @@ class UserFoldersBox(Gtk.ListBox):
     def on_close_user_folders_button_clicked(self, btn):
         UserFoldersBox.i -= 1
         self.settings.set_int('count-user-folders', UserFoldersBox.i)
+        try:
+            if self.file_extension_button_label.props.label in user_folders:
+                del user_folders[self.file_extension_button_label.props.label]
+        except KeyError as err:
+            print('%s in (code: %s)' % (err.message, err.code))
+
         self.get_parent().destroy()
 
     @Gtk.Template.Callback()
