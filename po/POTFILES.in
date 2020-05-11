@@ -1,6 +1,7 @@
-data/com.github.Latesil.folder-cleaner.gschema.xml
-foldercleaner/preferences.ui
-foldercleaner/window.py
-foldercleaner/folder_cleaner.ui
-foldercleaner/folder_box.ui
-foldercleaner/folder_box.py
+../data/com.github.Latesil.folder-cleaner.gschema.xml
+../foldercleaner/preferences.ui
+../foldercleaner/aboutdialog.ui
+../foldercleaner/window.py
+../foldercleaner/folder_cleaner.ui
+../foldercleaner/folder_box.ui
+../foldercleaner/folder_box.py
