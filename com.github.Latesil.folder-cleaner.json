@@ -39,7 +39,7 @@
         },
     	{
             "name": "gexiv2",
-            "cleanup" : ["/lib/girepository-1.0", "/share/gir-1.0"],
+            "cleanup" : ["/share/gir-1.0"],
             "config-opts" : ["--without-python2-girdir", "--without-python3-girdir"],
             "build-options" : {
                 "env": {
