@@ -62,7 +62,7 @@
             "sources": [
                 {
                     "type": "git",
-                    "url": "file:///home/late/Programs/folder-cleaner"
+                    "path": "/var/home/late/Documents/Prog/folder-cleaner"
                 }
             ]
         }
