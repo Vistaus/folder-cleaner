@@ -3,3 +3,4 @@ src/__pycache__
 src/photos-sort.py
 build/
 _build/
+.flatpak-builder/
