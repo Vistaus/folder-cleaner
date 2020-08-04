@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name[ru]=Сортировщик папок
+Name=Folder Cleaner
+Comment=Simple program for sorting files in specific folder
+Exec=/usr/bin/folder-cleaner
+Icon=com.github.Latesil.folder-cleaner
+Terminal=false
+Type=Application
+Categories=Utility

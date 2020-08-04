@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="32"
+   height="32"
+   viewBox="0 0 8.4666661 8.4666657"
+   version="1.1"
+   id="svg8"
+   inkscape:version="1.0beta2 (unknown)"
+   sodipodi:docname="folder-cleaner-symbolic.svg"
+   inkscape:export-filename="/home/late/Pictures/inkscape/folder-cleaner-512.png"
+   inkscape:export-xdpi="1639.9207"
+   inkscape:export-ydpi="1639.9207">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="13.090168"
+     inkscape:cx="22.671147"
+     inkscape:cy="19.198069"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     inkscape:document-rotation="0"
+     showgrid="false"
+     inkscape:window-width="1920"
+     inkscape:window-height="1016"
+     inkscape:window-x="0"
+     inkscape:window-y="27"
+     inkscape:window-maximized="1"
+     inkscape:snap-others="true"
+     inkscape:object-nodes="false"
+     inkscape:snap-intersection-paths="true"
+     units="px"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-7.8243384,-4.3049779)">
+    <rect
+       style="fill:#4d4d4d;stroke-width:0.0186233"
+       id="rect833"
+       width="7.937499"
+       height="5.6992841"
+       x="8.0889215"
+       y="6.8403358"
+       ry="0.69320977" />
+    <rect
+       style="fill:#4d4d4d;stroke-width:0.0147086"
+       id="rect835"
+       width="3.4272735"
+       height="3.268564"
+       x="8.0889215"
+       y="6.4216442"
+       ry="0.57724214" />
+    <rect
+       ry="0.47578618"
+       y="7.8137107"
+       x="8.0889215"
+       height="4.7259121"
+       width="7.937499"
+       id="rect839"
+       style="fill:#4d4d4d;stroke-width:0.0169585"
+       rx="0" />
+    <rect
+       style="fill:#999999;stroke-width:0.0184472"
+       id="rect867"
+       width="7.0747857"
+       height="1.4755265"
+       x="8.5695639"
+       y="7.3204432"
+       ry="0.59081614" />
+    <rect
+       style="fill:#4d4d4d;stroke-width:0.0180946"
+       id="rect841"
+       width="7.937499"
+       height="1.8764977"
+       x="8.0889215"
+       y="7.8137107"
+       ry="0" />
+    <path
+       id="rect877"
+       style="fill:#e6e6e6;stroke-width:0.0144641;fill-opacity:1"
+       d="m 14.04977,8.5009475 -2.681041,2.6463295 -1.283333,-1.3479857 -0.3519513,0.3559427 1.6157393,1.697151 0.35195,-0.355943 -0.0041,-0.0045 2.685143,-2.650395 z"
+       inkscape:connector-curvature="0" />
+  </g>
+</svg>

@@ -1,0 +1,25 @@
+[Application]
+name=com.github.Latesil.folder-cleaner
+runtime=org.gnome.Platform/x86_64/3.36
+sdk=org.gnome.Sdk/x86_64/3.36
+command=folder-cleaner
+
+[Context]
+shared=network;ipc;
+sockets=x11;wayland;fallback-x11;
+
+[Session Bus Policy]
+org.freedesktop.Notifications=talk
+
+[Extension com.github.Latesil.folder_cleaner.Locale]
+directory=share/runtime/locale
+autodelete=true
+locale-subset=true
+
+[Extension com.github.Latesil.folder_cleaner.Debug]
+directory=lib/debug
+autodelete=true
+no-autodownload=true
+
+[Build]
+built-extensions=com.github.Latesil.folder_cleaner.Locale;com.github.Latesil.folder_cleaner.Debug;

@@ -63,6 +63,7 @@
             "sources": [
                 {
                     "type": "git",
+                    "branch": "dev",
                     "path": "/var/home/late/Documents/Prog/folder-cleaner"
                 }
             ]
