@@ -2,9 +2,9 @@
   "id" : "com.github.Latesil.folder-cleaner",
   "runtime" : "org.gnome.Platform",
   "runtime-version" : "3.36",
-  "runtime-commit" : "1804313ebfab6a2c4e41aff477b1b8c1024e3c0ab9e7324c79574fa05e94153a",
+  "runtime-commit" : "6a3d0df724a4617ed3527ac8cd5851f6f26b1535e278d8d23df71b65dd553675",
   "sdk" : "org.gnome.Sdk",
-  "sdk-commit" : "e28f10c7364f1761e7fe7addae0c23dd93186dc8252d9c0e37080163317cc21b",
+  "sdk-commit" : "04efe9413f5bc578b6cf34f18d9e495e0568b75a653186dffc8a39abf304010c",
   "command" : "folder-cleaner",
   "modules" : [
     {
@@ -55,9 +55,8 @@
       "builddir" : true,
       "sources" : [
         {
-          "path" : "/var/home/late/Documents/Prog/folder-cleaner",
-          "commit" : "f95e9e5db65b6512b0a47bb742e8934e61488f7f",
-          "type" : "git"
+          "path" : ".",
+          "type" : "dir"
         }
       ]
     }
@@ -76,6 +75,7 @@
   "finish-args" : [
     "--share=network",
     "--share=ipc",
+    "--filesystem=home",
     "--talk-name=org.freedesktop.Notifications",
     "--socket=fallback-x11",
     "--socket=wayland"

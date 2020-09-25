@@ -87,7 +87,11 @@ class FolderCleaner(Gtk.ApplicationWindow):
         for key, value in operations.items():
             from_file = Gio.File.new_for_path(value)
             to_file = Gio.File.new_for_path(key)
-            from_file.move(to_file, Gio.FileCopyFlags.NONE)
+            try:
+                from_file.move(to_file, Gio.FileCopyFlags.NONE)
+            except gi.repository.GLib.Error as e:
+                print(e)
+                pass
 
         operations.clear()
 

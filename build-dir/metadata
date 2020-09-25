@@ -7,6 +7,7 @@ command=folder-cleaner
 [Context]
 shared=network;ipc;
 sockets=x11;wayland;fallback-x11;
+filesystems=home;
 
 [Session Bus Policy]
 org.freedesktop.Notifications=talk
