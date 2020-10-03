@@ -13,7 +13,9 @@
 
 from .helpers import get_files_and_folders, operations, folders_made, labels, user_folders
 from .basic_formats import base
+from locale import gettext as _
 import gi
+
 gi.require_version('GExiv2', '0.10')
 from gi.repository import Gio, GLib, GExiv2
 
@@ -29,7 +31,7 @@ class Sorting():
         user_extensions = user_folders
         for f in files:
             try:
-                #content_type, uncertain = Gio.content_type_guess(f)
+                # content_type, uncertain = Gio.content_type_guess(f)
                 simple_file = Gio.File.new_for_path(f)
                 try:
                     name, ext = simple_file.get_basename().rsplit('.', 1)
@@ -43,14 +45,14 @@ class Sorting():
                         if ext == k:
                             content_type = v.capitalize()
                         else:
-                            #TODO
-                            #REWRITE
+                            # TODO
+                            # REWRITE
                             for k, v in extensions.items():
                                 if ext == k:
                                     content_type = v.capitalize()
                 else:
-                    #TODO
-                    #REWRITE
+                    # TODO
+                    # REWRITE
                     for k, v in extensions.items():
                         if ext == k:
                             content_type = v.capitalize()
@@ -69,9 +71,9 @@ class Sorting():
                     simple_file.move(destination_for_files, Gio.FileCopyFlags.NONE)
                     operations[f] = full_path_to_file
 
-
             except GLib.Error as err:
                 print('%s: %s. File: %s, (code: %s)' % (err.domain, err.message, f, err.code))
+                return False
 
         return True
 
@@ -97,13 +99,11 @@ class Sorting():
 
             except GLib.Error as err:
                 print('%s: %s in file: %s, (code: %s)' % (err.domain, err.message, f, err.code))
+                return False
 
         return True
 
-
     def photos_by_exif(self, exif):
-        # returns 0 if there are no errors
-        # returns 1 if some files were not sorted
         folders, files = get_files_and_folders(self.base_folder)
         GExiv2.initialize()
         is_error = False
@@ -115,13 +115,13 @@ class Sorting():
                 if photo.has_exif() and photo.has_tag(exif):
                     tag = photo.get_tag_string(exif)
 
-                    #works only with date at the right moment
-                    #TODO
+                    # works only with date at the right moment
+                    # TODO
                     filedate = tag[:10].replace(':', '')
 
                     folder_for_photo = self.folder + filedate
 
-                    #Gio.Files
+                    # Gio.Files
                     photo_file = Gio.File.new_for_path(f)
                     destination_folder = Gio.File.new_for_path(folder_for_photo)
                     destination_for_photo = Gio.File.new_for_path(folder_for_photo + '/' + photo_file.get_basename())
@@ -137,8 +137,4 @@ class Sorting():
                 is_error = True
                 print('%s: %s in file: %s, (code: %s)' % (err.domain, err.message, f, err.code))
 
-        if is_error:
-            return 1
-        else:
-            return 0
-        
+        return is_error

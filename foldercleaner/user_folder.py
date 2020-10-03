@@ -27,17 +27,17 @@ class UserFoldersBox(Gtk.ListBox):
         self.settings = Gio.Settings.new(constants['main_settings_path'])
         UserFoldersBox.i += 1
         self.id = UserFoldersBox.i
-        self.file_extension_button_label.props.label = extension
-        self.user_folder_button_label.props.label = folder
+        self.file_extension_button_label.props.label = extension  # from button label
+        self.user_folder_button_label.props.label = folder  # from button label
         self.settings.set_int('count-user-folders', UserFoldersBox.i)
 
     @Gtk.Template.Callback()
     def on_close_user_folders_button_clicked(self, btn):
-        UserFoldersBox.i -= 1
-        self.settings.set_int('count-user-folders', UserFoldersBox.i)
         try:
             if self.file_extension_button_label.props.label in user_folders:
                 del user_folders[self.file_extension_button_label.props.label]
+                UserFoldersBox.i -= 1
+                self.settings.set_int('count-user-folders', UserFoldersBox.i)
         except KeyError as err:
             print('%s in (code: %s)' % (err.message, err.code))
 

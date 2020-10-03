@@ -4,7 +4,7 @@
   "runtime-version" : "3.36",
   "runtime-commit" : "6a3d0df724a4617ed3527ac8cd5851f6f26b1535e278d8d23df71b65dd553675",
   "sdk" : "org.gnome.Sdk",
-  "sdk-commit" : "04efe9413f5bc578b6cf34f18d9e495e0568b75a653186dffc8a39abf304010c",
+  "sdk-commit" : "24ebaeea35bb6b2512fe8c165e2bf23b2a5675baa38dabb3670e01c09b1463c3",
   "command" : "folder-cleaner",
   "modules" : [
     {

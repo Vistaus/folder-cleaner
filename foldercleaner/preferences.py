@@ -12,17 +12,17 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import gi
+
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, Gio, GLib
 from .constants import folder_cleaner_constants as constants
 from .user_folder import UserFoldersBox
 from .helpers import user_folders
 
-@Gtk.Template(resource_path = constants['UI_PATH'] + 'preferences.ui')
+
+@Gtk.Template(resource_path=constants['UI_PATH'] + 'preferences.ui')
 class PreferencesWindow(Gtk.Dialog):
-
     __gtype_name__ = "_preferences_dialog"
-
 
     sorting_combobox = Gtk.Template.Child()
     photo_sort_switcher = Gtk.Template.Child()
@@ -35,7 +35,7 @@ class PreferencesWindow(Gtk.Dialog):
 
     def __init__(self, app, *args, **kwargs):
         super().__init__(**kwargs)
-    
+
         self.settings = Gio.Settings.new(constants['main_settings_path'])
         self.sorted_by_category = self.settings.get_boolean('sort-by-category')
         self.settings.connect("changed::user-folders", self.on_user_folders_change, self.user_folders_box)
@@ -53,21 +53,13 @@ class PreferencesWindow(Gtk.Dialog):
                 ufolder = UserFoldersBox(k, v)
                 self.user_folders_list_box.insert(ufolder, -1)
 
-        if self.sorted_by_category:
-            self.sorting_combobox.props.active = 1
-        else:
-            self.sorting_combobox.props.active = 0
-
-        if self.user_folders:
-            self.user_folders_box.props.visible = True
-        else:
-            self.user_folders_box.props.visible = False
-
+        self.sorting_combobox.props.active = 1 if self.sorted_by_category else 0
+        self.user_folders_box.props.visible = True if self.user_folders else False
 
     @Gtk.Template.Callback()
     def on_sorting_combobox_changed(self, box):
-        if box.props.active == 0: #by extension
-            self.settings.set_boolean('sort-by-category', False) #by type
+        if box.props.active == 0:  # by extension
+            self.settings.set_boolean('sort-by-category', False)  # by type
         else:
             self.settings.set_boolean('sort-by-category', True)
 
@@ -84,9 +76,10 @@ class PreferencesWindow(Gtk.Dialog):
         self.user_folders_frame.props.visible = True
         extension = constants['default_extension_name']
         folder = constants['default_folder_name']
-        ufolder = UserFoldersBox(extension, folder)
+        ufolder = UserFoldersBox(extension, folder)  # quantity changed +1
+        print(ufolder)
         self.user_folders_list_box.insert(ufolder, -1)
-        #TODO Dynamic resize scrolled window
+        # TODO Dynamic resize scrolled window
 
     def on_quantity_user_folders_change(self, s, k, w):
         if self.settings.get_int('count-user-folders') == 0:
@@ -103,13 +96,12 @@ class PreferencesWindow(Gtk.Dialog):
             self.resize(700, 200)
 
     @Gtk.Template.Callback()
-    def on_delete_event(self, w, e):
+    def on_delete_event(self, w, e):  # when preference window closed
         new_user_formats = {}
         for child in self.user_folders_list_box.get_children():
-            #child = Gtk.ListBoxRow
-            for w in child.get_children(): # w = UserFolders
+            # child = Gtk.ListBoxRow
+            for w in child.get_children():  # w = UserFolders
                 extension = w.file_extension_button_label.props.label
                 folder = w.user_folder_button_label.props.label
                 new_user_formats[extension] = folder
         user_folders.update(new_user_formats)
-            
