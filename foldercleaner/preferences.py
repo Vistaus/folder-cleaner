@@ -74,11 +74,33 @@ class PreferencesWindow(Gtk.Dialog):
     @Gtk.Template.Callback()
     def on_add_user_folder_button_clicked(self, btn):
         self.user_folders_frame.props.visible = True
-        extension = constants['default_extension_name']
-        folder = constants['default_folder_name']
-        ufolder = UserFoldersBox(extension, folder)  # quantity changed +1
-        print(ufolder)
+        # extension = constants['default_extension_name']
+        # folder = constants['default_folder_name']
+        ufolder = UserFoldersBox()  # quantity changed +1
+
+        print(ufolder.extension)
+        print(ufolder.folder)
+
+        print('______________')
+        print(self.user_saved_folders.keys())
+
+        while ufolder.extension in self.user_saved_folders.keys():
+            ufolder.extension += '_copy'
+
+        ufolder.file_extension_button_label.props.label = ufolder.extension  # from button label
+        ufolder.user_folder_button_label.props.label = ufolder.folder  # from button label
+
+        print('______________')
+        print(ufolder.extension)
+        print(ufolder.folder)
+
+        self.user_saved_folders.update({ufolder.extension: ufolder.folder})  # add to internal dict
+        # print('ufolder', self.user_saved_folders)
+        # print('ufolder extension', ufolder.extension)
+        # print('ufolder folder', ufolder.folder)
+        print(self.user_folders_quantity)
         self.user_folders_list_box.insert(ufolder, -1)
+        # user_folders +=
         # TODO Dynamic resize scrolled window
 
     def on_quantity_user_folders_change(self, s, k, w):

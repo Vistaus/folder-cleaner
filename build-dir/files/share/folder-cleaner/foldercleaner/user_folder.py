@@ -2,15 +2,16 @@
 
 from locale import gettext as _
 import gi
+
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, Gio, GLib
 
 from .constants import folder_cleaner_constants as constants
 from .helpers import user_folders
 
-@Gtk.Template(resource_path = constants['UI_PATH'] + 'user_folder.ui')
-class UserFoldersBox(Gtk.ListBox):
 
+@Gtk.Template(resource_path=constants['UI_PATH'] + 'user_folder.ui')
+class UserFoldersBox(Gtk.ListBox):
     __gtype_name__ = "user_folders_list_box"
 
     file_extension_button = Gtk.Template.Child()
@@ -21,14 +22,14 @@ class UserFoldersBox(Gtk.ListBox):
 
     i = 0
 
-    def __init__(self, extension, folder, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         super().__init__(**kwargs)
 
         self.settings = Gio.Settings.new(constants['main_settings_path'])
         UserFoldersBox.i += 1
         self.id = UserFoldersBox.i
-        self.file_extension_button_label.props.label = extension  # from button label
-        self.user_folder_button_label.props.label = folder  # from button label
+        self.extension = constants['default_extension_name']
+        self.folder = constants['default_folder_name']
         self.settings.set_int('count-user-folders', UserFoldersBox.i)
 
     @Gtk.Template.Callback()
@@ -50,5 +51,3 @@ class UserFoldersBox(Gtk.ListBox):
     @Gtk.Template.Callback()
     def on_user_folder_button_popover_entry_changed(self, entry):
         self.user_folder_button_label.props.label = entry.get_text()
-
-
