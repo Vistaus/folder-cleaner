@@ -15,6 +15,7 @@
 
 from locale import gettext as _
 import gi
+
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, Gio, GLib
 
@@ -24,9 +25,9 @@ from .aboutdialog import AboutWindow
 from .constants import folder_cleaner_constants as constants
 from .helpers import operations, folders_made, labels, user_folders
 
-@Gtk.Template(resource_path = constants['UI_PATH'] + 'folder_cleaner.ui')
-class FolderCleaner(Gtk.ApplicationWindow):
 
+@Gtk.Template(resource_path=constants['UI_PATH'] + 'folder_cleaner.ui')
+class FolderCleaner(Gtk.ApplicationWindow):
     __gtype_name__ = "_main_window"
 
     _add_label = Gtk.Template.Child()
@@ -49,7 +50,6 @@ class FolderCleaner(Gtk.ApplicationWindow):
                 folder = FolderBox(path)
                 folder._folder_box_label.set_label(path)
                 self._main_list_box.insert(folder, -1)
-
 
     @Gtk.Template.Callback()
     def on__add_button_clicked(self, button):
@@ -108,9 +108,7 @@ class FolderCleaner(Gtk.ApplicationWindow):
     @Gtk.Template.Callback()
     def on__main_window_destroy(self, w):
         self.settings.set_value('saved-folders', GLib.Variant('as', labels))
-        self.settings.set_value('saved-user-folders', GLib.Variant('a{ss}', user_folders))
-
-
+        # self.settings.set_value('saved-user-folders', GLib.Variant('a{ss}', user_folders))
 
     def on_count_change(self, settings, key, button):
         if self.settings.get_int('count') > 0:
@@ -124,5 +122,3 @@ class FolderCleaner(Gtk.ApplicationWindow):
             self._main_revealer.set_reveal_child(True)
         else:
             self._main_revealer.set_reveal_child(False)
-
-

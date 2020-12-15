@@ -6,11 +6,6 @@
       <summary>Count active folders</summary>
       <description>How many folders in app.</description>
     </key>
-    <key type="i" name="count-user-folders">
-      <default>0</default>
-      <summary>Quantity of user folders</summary>
-      <description>How many user folders are set</description>
-    </key>
     <key type="b" name="is-sorted">
       <default>false</default>
       <summary>Is files sorted</summary>
@@ -32,14 +27,14 @@
       <description>Determines if files should be sorted by category instead by extension.</description>
     </key>
     <key name="saved-folders" type="as">
-			<default>[]</default>
-			<summary>Saved folders list</summary>
-			<description>A list of the folders which are saved.</description>
-		</key>
+      <default>[]</default>
+      <summary>Saved folders list</summary>
+      <description>A list of the folders which are saved.</description>
+    </key>
     <key name="saved-user-folders" type="a{ss}">
-			<default>{}</default>
-			<summary>Saved user folders list</summary>
-			<description>A list of the user folders which are saved.</description>
-		</key>
+      <default>{}</default>
+      <summary>Saved user folders list</summary>
+      <description>A list of the user folders which are saved.</description>
+    </key>
   </schema>
 </schemalist>

@@ -38,23 +38,26 @@ class PreferencesWindow(Gtk.Dialog):
 
         self.settings = Gio.Settings.new(constants['main_settings_path'])
         self.sorted_by_category = self.settings.get_boolean('sort-by-category')
+
         self.settings.connect("changed::user-folders", self.on_user_folders_change, self.user_folders_box)
+
         self.user_folders = self.settings.get_boolean('user-folders')
         self.user_folders_switcher.set_active(self.user_folders)
+
         self.photo_sort = self.settings.get_boolean('photo-sort')
         self.photo_sort_switcher.set_active(self.photo_sort)
-        self.settings.connect("changed::count-user-folders", self.on_quantity_user_folders_change, None)
-        self.user_folders_quantity = self.settings.get_int('count-user-folders')
+
         self.user_saved_folders = self.settings.get_value('saved-user-folders').unpack()
 
-        if self.user_folders_quantity > 0:
-            self.user_folders_frame.props.visible = True
-            for k, v in self.user_saved_folders.items():
-                ufolder = UserFoldersBox(k, v)
-                self.user_folders_list_box.insert(ufolder, -1)
+        # for user created formats and folders
+        self.new_user_formats = {}
 
         self.sorting_combobox.props.active = 1 if self.sorted_by_category else 0
         self.user_folders_box.props.visible = True if self.user_folders else False
+        self.user_folders_frame.props.visible = True if self.user_saved_folders else False
+
+        if self.user_saved_folders:
+            self.populate_user_folders()
 
     @Gtk.Template.Callback()
     def on_sorting_combobox_changed(self, box):
@@ -74,41 +77,19 @@ class PreferencesWindow(Gtk.Dialog):
     @Gtk.Template.Callback()
     def on_add_user_folder_button_clicked(self, btn):
         self.user_folders_frame.props.visible = True
-        # extension = constants['default_extension_name']
-        # folder = constants['default_folder_name']
-        ufolder = UserFoldersBox()  # quantity changed +1
+        ufolder = UserFoldersBox()
 
-        print(ufolder.extension)
-        print(ufolder.folder)
-
-        print('______________')
-        print(self.user_saved_folders.keys())
-
-        while ufolder.extension in self.user_saved_folders.keys():
+        while ufolder.extension in self.user_saved_folders.keys() or ufolder.extension in self.new_user_formats.keys():
             ufolder.extension += '_copy'
 
-        ufolder.file_extension_button_label.props.label = ufolder.extension  # from button label
-        ufolder.user_folder_button_label.props.label = ufolder.folder  # from button label
+        extension = ufolder.file_extension_button_label.props.label = ufolder.extension  # from button label
+        folder = ufolder.user_folder_button_label.props.label = ufolder.folder  # from button label
 
-        print('______________')
-        print(ufolder.extension)
-        print(ufolder.folder)
+        # add from widget name
+        self.user_saved_folders[extension] = folder
 
-        self.user_saved_folders.update({ufolder.extension: ufolder.folder})  # add to internal dict
-        # print('ufolder', self.user_saved_folders)
-        # print('ufolder extension', ufolder.extension)
-        # print('ufolder folder', ufolder.folder)
-        print(self.user_folders_quantity)
+        # self.new_user_formats.update({ufolder.extension: ufolder.folder})  # add to internal dict
         self.user_folders_list_box.insert(ufolder, -1)
-        # user_folders +=
-        # TODO Dynamic resize scrolled window
-
-    def on_quantity_user_folders_change(self, s, k, w):
-        if self.settings.get_int('count-user-folders') == 0:
-            self.user_folders_frame.props.visible = False
-            self.resize(700, 200)
-        else:
-            self.user_folders_frame.props.visible = True
 
     def on_user_folders_change(self, s, k, w):
         if s.get_boolean(k):
@@ -117,13 +98,24 @@ class PreferencesWindow(Gtk.Dialog):
             w.props.visible = False
             self.resize(700, 200)
 
+    def populate_user_folders(self):
+        for k, v in self.user_saved_folders.items():
+            ufolder = UserFoldersBox(k, v)
+            self.user_folders_list_box.insert(ufolder, -1)
+
     @Gtk.Template.Callback()
     def on_delete_event(self, w, e):  # when preference window closed
-        new_user_formats = {}
-        for child in self.user_folders_list_box.get_children():
-            # child = Gtk.ListBoxRow
-            for w in child.get_children():  # w = UserFolders
-                extension = w.file_extension_button_label.props.label
-                folder = w.user_folder_button_label.props.label
-                new_user_formats[extension] = folder
-        user_folders.update(new_user_formats)
+        # save new user formats to GSettings
+
+        # null before new formats from listbox added
+        self.user_saved_folders = {}
+
+        children = self.user_folders_list_box.get_children()  # children = list of Gtk.ListBox
+        for child in children:  # each child contains another child of UserFolder instance
+            user_folder = child.get_child()
+            extension = user_folder.extension
+            folder = user_folder.folder
+            self.user_saved_folders[extension] = folder
+
+        # save new user-made formats
+        self.settings.set_value('saved-user-folders', GLib.Variant('a{ss}', self.user_saved_folders))
