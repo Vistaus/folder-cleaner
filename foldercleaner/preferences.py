@@ -118,6 +118,7 @@ class PreferencesWindow(Gtk.Dialog):
             extension = user_folder.extension
             folder = user_folder.folder
             self.user_saved_folders[extension] = folder
+            print(extension)
 
         # save new user-made formats
         self.settings.set_value('saved-user-folders', GLib.Variant('a{ss}', self.user_saved_folders))

@@ -43,8 +43,8 @@ class UserFoldersBox(Gtk.ListBox):
 
     @Gtk.Template.Callback()
     def on_file_extension_button_popover_entry_changed(self, entry):
-        self.file_extension_button_label.props.label = entry.get_text()
+        self.extension = self.file_extension_button_label.props.label = entry.get_text()
 
     @Gtk.Template.Callback()
     def on_user_folder_button_popover_entry_changed(self, entry):
-        self.user_folder_button_label.props.label = entry.get_text()
+        self.folder = self.user_folder_button_label.props.label = entry.get_text()
