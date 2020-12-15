@@ -77,18 +77,21 @@ class PreferencesWindow(Gtk.Dialog):
     @Gtk.Template.Callback()
     def on_add_user_folder_button_clicked(self, btn):
         self.user_folders_frame.props.visible = True
+        children = self.user_folders_list_box.get_children()
+        extensions = []
         ufolder = UserFoldersBox()
 
-        while ufolder.extension in self.user_saved_folders.keys() or ufolder.extension in self.new_user_formats.keys():
+        for child in children:  # each child contains another child of UserFolder instance
+            user_folder = child.get_child()
+            extension = user_folder.extension
+            extensions.append(extension)
+
+        #check if extension already present
+        while ufolder.extension in extensions:
             ufolder.extension += '_copy'
 
-        extension = ufolder.file_extension_button_label.props.label = ufolder.extension  # from button label
-        folder = ufolder.user_folder_button_label.props.label = ufolder.folder  # from button label
-
-        # add from widget name
-        self.user_saved_folders[extension] = folder
-
-        # self.new_user_formats.update({ufolder.extension: ufolder.folder})  # add to internal dict
+        ufolder.file_extension_button_label.props.label = ufolder.extension  # from button label
+        ufolder.user_folder_button_label.props.label = ufolder.folder  # from button label
         self.user_folders_list_box.insert(ufolder, -1)
 
     def on_user_folders_change(self, s, k, w):
@@ -106,7 +109,6 @@ class PreferencesWindow(Gtk.Dialog):
     @Gtk.Template.Callback()
     def on_delete_event(self, w, e):  # when preference window closed
         # save new user formats to GSettings
-
         # null before new formats from listbox added
         self.user_saved_folders = {}
 
