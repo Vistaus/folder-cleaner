@@ -80,7 +80,6 @@
                             <property name="height-request">80</property>
                             <property name="visible">True</property>
                             <property name="can-focus">True</property>
-                            <property name="valign">start</property>
                             <property name="activatable">False</property>
                             <child>
                               <object class="GtkLabel" id="_add_label">

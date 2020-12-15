@@ -108,7 +108,6 @@ class FolderCleaner(Gtk.ApplicationWindow):
     @Gtk.Template.Callback()
     def on__main_window_destroy(self, w):
         self.settings.set_value('saved-folders', GLib.Variant('as', labels))
-        # self.settings.set_value('saved-user-folders', GLib.Variant('a{ss}', user_folders))
 
     def on_count_change(self, settings, key, button):
         if self.settings.get_int('count') > 0:
