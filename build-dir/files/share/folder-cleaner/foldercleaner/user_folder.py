@@ -24,6 +24,8 @@ class UserFoldersBox(Gtk.ListBox):
         super().__init__(**kwargs)
 
         self.settings = Gio.Settings.new(constants['main_settings_path'])
+        self.user_saved_folders = self.settings.get_value('saved-user-folders').unpack()
+
         self.extension = extension if extension else constants['default_extension_name']
         self.folder = folder if folder else constants['default_folder_name']
 
@@ -33,15 +35,10 @@ class UserFoldersBox(Gtk.ListBox):
     @Gtk.Template.Callback()
     def on_close_user_folders_button_clicked(self, btn):
         try:
-            self.user_saved_folders = self.settings.get_value('saved-user-folders').unpack()
             self.user_saved_folders.pop(self.extension, None)
-            if self.settings.set_value('saved-user-folders', GLib.Variant('a{ss}', self.user_saved_folders)):
-                print("ok")
-            else:
-                print('ne ok')
-            print(self.user_saved_folders)
-        except KeyError:
-            print("KeyError")
+            self.settings.set_value('saved-user-folders', GLib.Variant('a{ss}', self.user_saved_folders))
+        except:
+            print("Error")
         self.get_parent().destroy()
 
     @Gtk.Template.Callback()

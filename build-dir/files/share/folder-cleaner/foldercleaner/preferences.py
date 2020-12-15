@@ -86,17 +86,12 @@ class PreferencesWindow(Gtk.Dialog):
             extension = user_folder.extension
             extensions.append(extension)
 
-
+        #check if extension already present
         while ufolder.extension in extensions:
             ufolder.extension += '_copy'
 
-        extension = ufolder.file_extension_button_label.props.label = ufolder.extension  # from button label
-        folder = ufolder.user_folder_button_label.props.label = ufolder.folder  # from button label
-
-        # add from widget name
-        # self.user_saved_folders[extension] = folder
-
-        # self.new_user_formats.update({ufolder.extension: ufolder.folder})  # add to internal dict
+        ufolder.file_extension_button_label.props.label = ufolder.extension  # from button label
+        ufolder.user_folder_button_label.props.label = ufolder.folder  # from button label
         self.user_folders_list_box.insert(ufolder, -1)
 
     def on_user_folders_change(self, s, k, w):
