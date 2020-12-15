@@ -32,6 +32,7 @@ class PreferencesWindow(Gtk.Dialog):
     user_folders_frame = Gtk.Template.Child()
     user_folders_scrolled_window = Gtk.Template.Child()
     user_folders_second_box = Gtk.Template.Child()
+    clear_all_button = Gtk.Template.Child()
 
     def __init__(self, app, *args, **kwargs):
         super().__init__(**kwargs)
@@ -81,10 +82,11 @@ class PreferencesWindow(Gtk.Dialog):
         extensions = []
         ufolder = UserFoldersBox()
 
-        for child in children:  # each child contains another child of UserFolder instance
-            user_folder = child.get_child()
-            extension = user_folder.extension
-            extensions.append(extension)
+        if children:
+            for child in children:  # each child contains another child of UserFolder instance
+                user_folder = child.get_child()
+                extension = user_folder.extension
+                extensions.append(extension)
 
         #check if extension already present
         while ufolder.extension in extensions:
@@ -118,7 +120,12 @@ class PreferencesWindow(Gtk.Dialog):
             extension = user_folder.extension
             folder = user_folder.folder
             self.user_saved_folders[extension] = folder
-            print(extension)
 
         # save new user-made formats
         self.settings.set_value('saved-user-folders', GLib.Variant('a{ss}', self.user_saved_folders))
+
+    @Gtk.Template.Callback()
+    def on_clear_all_button_clicked(self, btn):
+        children = self.user_folders_list_box.get_children()  # children = list of Gtk.ListBox
+        for child in children:  # each child contains another child of UserFolder instance
+            child.destroy()
