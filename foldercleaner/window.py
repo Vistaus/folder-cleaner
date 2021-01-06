@@ -45,7 +45,7 @@ class FolderCleaner(Gtk.ApplicationWindow):
         self.saved_folders = self.settings.get_value('saved-folders')
         self.user_saved_folders = self.settings.get_value('saved-user-folders').unpack()
 
-        if len(self.saved_folders) > 0:
+        if self.saved_folders:
             for path in self.saved_folders:
                 folder = FolderBox(path)
                 folder._folder_box_label.set_label(path)

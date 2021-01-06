@@ -2,9 +2,9 @@
   "id" : "com.github.Latesil.folder-cleaner",
   "runtime" : "org.gnome.Platform",
   "runtime-version" : "3.36",
-  "runtime-commit" : "39af1dd22d553506fa74747d898abd853c961404c411a10c7974ec7c835b33af",
+  "runtime-commit" : "3ce8cc7f830a724c91355b1dc94caed2a93be83c267eb21cde63e701b03b4dd8",
   "sdk" : "org.gnome.Sdk",
-  "sdk-commit" : "d1646ec962e54203801c79ec7cb4249d460305c30295df96bdac0715ef4f2b64",
+  "sdk-commit" : "f959703f93dc1f08a6c8fc90c7d123f129102e03637856341c1730a4c28b82d1",
   "command" : "folder-cleaner",
   "modules" : [
     {
