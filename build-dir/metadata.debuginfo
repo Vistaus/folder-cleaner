@@ -1,5 +1,0 @@
-[Runtime]
-name=com.github.Latesil.folder_cleaner.Debug
-
-[ExtensionOf]
-ref=app/com.github.Latesil.folder-cleaner/x86_64/master
