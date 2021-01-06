@@ -1,7 +1,7 @@
 [Application]
 name=com.github.Latesil.folder-cleaner
-runtime=org.gnome.Platform/x86_64/3.36
-sdk=org.gnome.Sdk/x86_64/3.36
+runtime=org.gnome.Platform/x86_64/3.38
+sdk=org.gnome.Sdk/x86_64/3.38
 command=folder-cleaner
 
 [Context]
