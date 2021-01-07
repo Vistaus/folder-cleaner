@@ -5,7 +5,7 @@
   <object class="GtkImage" id="image2">
     <property name="visible">True</property>
     <property name="can-focus">False</property>
-    <property name="stock">gtk-open</property>
+    <property name="icon-name">document-open</property>
     <property name="icon_size">3</property>
   </object>
   <template class="_list_box" parent="GtkListBox">
@@ -78,7 +78,7 @@
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
                         <property name="receives-default">True</property>
-                        <property name="tooltip-text" translatable="yes">Open that folder</property>
+                        <property name="tooltip-text" translatable="yes">Open folder</property>
                         <property name="image">image2</property>
                         <property name="relief">none</property>
                         <signal name="clicked" handler="on__open_folder_clicked" swapped="no"/>
@@ -173,6 +173,7 @@
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">True</property>
+                <property name="pack-type">end</property>
                 <property name="position">1</property>
               </packing>
             </child>
