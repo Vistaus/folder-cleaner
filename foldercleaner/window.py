@@ -65,12 +65,9 @@ class FolderCleaner(Gtk.ApplicationWindow):
             self.main_label_box.props.visible = False
             label = chooser.get_filename()
             folder = FolderBox(label)
-            if not self._main_list_box.props.visible:
-                self._main_list_box.props.visible = True
-                folder._folder_box_label.set_label(label)
-                self._main_list_box.insert(folder, -1)
-            else:
-                print('self._main_list_box.props.visible not visible')
+            self._main_list_box.props.visible = True
+            folder._folder_box_label.set_label(label)
+            self._main_list_box.insert(folder, -1)
             chooser.destroy()
         else:
             chooser.destroy()
