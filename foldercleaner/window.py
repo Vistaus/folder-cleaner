@@ -37,6 +37,8 @@ class FolderCleaner(Gtk.ApplicationWindow):
     def __init__(self, app, *args, **kwargs):
         super().__init__(*args, title=_("Folder Cleaner"), application=app)
 
+        self.set_size_request(500, 300)
+
         self.set_wmclass("Folder Cleaner", _("Folder Cleaner"))
         self.settings = Gio.Settings.new(constants['main_settings_path'])
         self.settings.connect("changed::count", self.on_count_change, None)
