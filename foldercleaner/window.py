@@ -32,7 +32,7 @@ class FolderCleaner(Gtk.ApplicationWindow):
 
     _main_list_box = Gtk.Template.Child()
     _main_revealer = Gtk.Template.Child()
-    start_label = Gtk.Template.Child()
+    main_label_box = Gtk.Template.Child()
 
     def __init__(self, app, *args, **kwargs):
         super().__init__(*args, title=_("Folder Cleaner"), application=app)
@@ -45,7 +45,7 @@ class FolderCleaner(Gtk.ApplicationWindow):
         self.user_saved_folders = self.settings.get_value('saved-user-folders').unpack()
 
         if self.saved_folders:
-            self.start_label.props.visible = False
+            self.main_label_box.props.visible = False
             for path in self.saved_folders:
                 folder = FolderBox(path)
                 if not self._main_list_box.props.visible:
@@ -62,7 +62,7 @@ class FolderCleaner(Gtk.ApplicationWindow):
                                                  _("OK"), Gtk.ResponseType.OK))
         response = chooser.run()
         if response == Gtk.ResponseType.OK:
-            self.start_label.props.visible = False
+            self.main_label_box.props.visible = False
             label = chooser.get_filename()
             folder = FolderBox(label)
             if not self._main_list_box.props.visible:
@@ -118,9 +118,9 @@ class FolderCleaner(Gtk.ApplicationWindow):
 
     def on_count_change(self, settings, key, button):
         if self.settings.get_int('count') > 0:
-            self.start_label.props.visible = False
+            self.main_label_box.props.visible = False
         else:
-            self.start_label.props.visible = True
+            self.main_label_box.props.visible = True
             self.settings.reset('saved-folders')
 
     def on_is_sorted_change(self, settings, key, button):
