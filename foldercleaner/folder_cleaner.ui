@@ -70,27 +70,32 @@
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
                     <child>
-                      <object class="GtkListBox" id="_main_list_box">
+                      <object class="GtkBox" id="label_box">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
-                        <property name="selection-mode">none</property>
+                        <property name="orientation">vertical</property>
                         <child>
-                          <object class="GtkListBoxRow" id="_main_list_box_row">
-                            <property name="width-request">100</property>
-                            <property name="height-request">80</property>
-                            <property name="visible">True</property>
-                            <property name="can-focus">True</property>
-                            <property name="valign">start</property>
-                            <property name="activatable">False</property>
-                            <child>
-                              <object class="GtkLabel" id="_add_label">
-                                <property name="visible">True</property>
-                                <property name="can-focus">False</property>
-                                <property name="label" translatable="yes">Click "Add" for adding your folders here</property>
-                                <property name="justify">right</property>
-                              </object>
-                            </child>
+                          <object class="GtkListBox" id="_main_list_box">
+                            <property name="can-focus">False</property>
+                            <property name="selection-mode">none</property>
                           </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkLabel" id="start_label">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="label" translatable="yes">Click Add to start</property>
+                          </object>
+                          <packing>
+                            <property name="expand">True</property>
+                            <property name="fill">True</property>
+                            <property name="position">1</property>
+                          </packing>
                         </child>
                       </object>
                     </child>
