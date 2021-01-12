@@ -1,7 +1,7 @@
 %global uuid    com.github.Latesil.%{name}
 
 Name:           folder-cleaner
-Version:        1.0.8
+Version:        1.1
 Release:        1%{?dist}
 Summary:        Simple programm for sorting files in selected folder, or remove them
 
