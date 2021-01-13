@@ -98,7 +98,9 @@
                                 <property name="visible">True</property>
                                 <property name="can-focus">False</property>
                                 <property name="halign">center</property>
-                                <property name="label" translatable="yes">Click Add to choose a folder</property>
+                                <property name="label" translatable="yes">Click Add to choose a folder
+or drag folder here.</property>
+                                <property name="justify">center</property>
                                 <attributes>
                                   <attribute name="foreground" value="#88888a8a8585"/>
                                   <attribute name="size" value="15360"/>
