@@ -17,7 +17,7 @@ from locale import gettext as _
 import gi
 
 gi.require_version('Gtk', '3.0')
-from gi.repository import Gtk, Gio, GLib
+from gi.repository import Gtk, Gio, GLib, Gdk
 
 from .folder_box import FolderBox
 from .preferences import PreferencesWindow
@@ -33,6 +33,7 @@ class FolderCleaner(Gtk.ApplicationWindow):
     _main_list_box = Gtk.Template.Child()
     _main_revealer = Gtk.Template.Child()
     main_label_box = Gtk.Template.Child()
+    label_box = Gtk.Template.Child()
 
     def __init__(self, app, *args, **kwargs):
         super().__init__(*args, title=_("Folder Cleaner"), application=app)
@@ -45,6 +46,11 @@ class FolderCleaner(Gtk.ApplicationWindow):
         self.settings.connect("changed::is-sorted", self.on_is_sorted_change, None)
         self.saved_folders = self.settings.get_value('saved-folders')
         self.user_saved_folders = self.settings.get_value('saved-user-folders').unpack()
+
+        self.label_box.drag_dest_set(Gtk.DestDefaults.ALL, [], Gdk.DragAction.COPY)
+        self.label_box.connect("drag-data-received", self.on_drag_data_received)
+        self.label_box.drag_dest_set_target_list(None)
+        self.label_box.drag_dest_add_text_targets()
 
         if self.saved_folders:
             self.main_label_box.props.visible = False
@@ -127,3 +133,17 @@ class FolderCleaner(Gtk.ApplicationWindow):
             self._main_revealer.set_reveal_child(True)
         else:
             self._main_revealer.set_reveal_child(False)
+
+    def on_drag_data_received(self, widget, drag_context, x, y, data, info, time):
+        drop_source = GLib.filename_from_uri(data.get_text())
+        folder_path = drop_source[0].rstrip()
+
+        if GLib.file_test(folder_path, GLib.FileTest.IS_DIR):
+            self.main_label_box.props.visible = False
+            label = folder_path
+            folder = FolderBox(label)
+            self._main_list_box.props.visible = True
+            folder._folder_box_label.set_label(label)
+            self._main_list_box.insert(folder, -1)
+        else:
+            print(f"Error: {folder_path} is not a folder.")
