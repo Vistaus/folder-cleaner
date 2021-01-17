@@ -12,6 +12,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from .helpers import get_files_and_folders, operations, folders_made, labels, user_folders
+from .constants import folder_cleaner_constants as constants
 from .basic_formats import base
 from locale import gettext as _
 import gi
@@ -23,12 +24,14 @@ from gi.repository import Gio, GLib, GExiv2
 class Sorting():
 
     def __init__(self, base_folder):
+        self.settings = Gio.Settings.new(constants['main_settings_path'])
+        self.user_saved_folders = self.settings.get_value('saved-user-folders').unpack()
         self.base_folder = base_folder
 
     def files_by_content(self):
         folders, files = get_files_and_folders(self.base_folder)
         extensions = base
-        user_extensions = user_folders
+        user_extensions = self.user_saved_folders
         for f in files:
             try:
                 # content_type, uncertain = Gio.content_type_guess(f)
