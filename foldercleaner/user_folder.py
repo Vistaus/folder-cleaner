@@ -2,6 +2,7 @@
 
 from locale import gettext as _
 import gi
+import re
 
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, Gio, GLib
@@ -19,6 +20,7 @@ class UserFoldersBox(Gtk.ListBox):
     close_user_folders_button = Gtk.Template.Child()
     file_extension_button_label = Gtk.Template.Child()
     user_folder_button_label = Gtk.Template.Child()
+    pattern = re.compile(r'~`!@#$%^&*()_\+-=')
 
     def __init__(self, extension=None, folder=None, *args, **kwargs):
         super().__init__(**kwargs)
@@ -43,8 +45,26 @@ class UserFoldersBox(Gtk.ListBox):
 
     @Gtk.Template.Callback()
     def on_file_extension_button_popover_entry_changed(self, entry):
-        self.extension = self.file_extension_button_label.props.label = entry.get_text()
+        if self.check_entry(entry, self.non_letters_check):
+            self.extension = self.file_extension_button_label.props.label = entry.get_text().strip()
 
     @Gtk.Template.Callback()
     def on_user_folder_button_popover_entry_changed(self, entry):
-        self.folder = self.user_folder_button_label.props.label = entry.get_text()
+        if self.check_entry(entry, self.non_letters_check):
+            self.folder = self.user_folder_button_label.props.label = entry.get_text().strip()
+        
+
+    def non_letters_check(self, text):
+        if text:
+            return True if re.match('^[A-Za-z0-9 _]+$', text) else False
+
+    def check_entry(self, e, func):
+        text = e.props.text.strip()
+        e.props.secondary_icon_name = ''
+        if text:
+            if not func(text):
+                e.props.secondary_icon_name = 'dialog-warning-symbolic'
+                return False
+            else:
+                e.props.secondary_icon_name = ''
+                return True
