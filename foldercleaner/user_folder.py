@@ -20,7 +20,6 @@ class UserFoldersBox(Gtk.ListBox):
     close_user_folders_button = Gtk.Template.Child()
     file_extension_button_label = Gtk.Template.Child()
     user_folder_button_label = Gtk.Template.Child()
-    pattern = re.compile(r'~`!@#$%^&*()_\+-=')
 
     def __init__(self, extension=None, folder=None, *args, **kwargs):
         super().__init__(**kwargs)
