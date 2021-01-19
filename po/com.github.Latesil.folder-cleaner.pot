@@ -1,140 +1,196 @@
-"Project-Id-Version: folder-cleaner\n"
-"POT-Creation-Date: 2020-02-19 17:24+0300\n"
-"PO-Revision-Date: 2020-02-19 17:25+0300\n"
-"Last-Translator: \n"
-"Language-Team: \n"
-"Language: en_US\n"
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-05-11 11:10+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.3\n"
-"X-Poedit-Basepath: ..\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Poedit-SearchPath-0: .\n"
 
-#: data/com.github.Latesil.folder-cleaner.gschema.xml:6
+#: ../data/com.github.Latesil.folder-cleaner.gschema.xml:6
 msgid "Count active folders"
 msgstr ""
 
-#: data/com.github.Latesil.folder-cleaner.gschema.xml:7
+#: ../data/com.github.Latesil.folder-cleaner.gschema.xml:7
 msgid "How many folders in app."
 msgstr ""
 
-#: data/com.github.Latesil.folder-cleaner.gschema.xml:11
+#: ../data/com.github.Latesil.folder-cleaner.gschema.xml:11
+msgid "Quantity of user folders"
+msgstr ""
+
+#: ../data/com.github.Latesil.folder-cleaner.gschema.xml:12
+msgid "How many user folders are set"
+msgstr ""
+
+#: ../data/com.github.Latesil.folder-cleaner.gschema.xml:16
 msgid "Is files sorted"
 msgstr ""
 
-#: data/com.github.Latesil.folder-cleaner.gschema.xml:12
+#: ../data/com.github.Latesil.folder-cleaner.gschema.xml:17
 msgid "Only for internal usage."
 msgstr ""
 
-#: data/com.github.Latesil.folder-cleaner.gschema.xml:16
+#: ../data/com.github.Latesil.folder-cleaner.gschema.xml:21
+msgid "Is photo sort active"
+msgstr ""
+
+#: ../data/com.github.Latesil.folder-cleaner.gschema.xml:22
+msgid "Check if photo sorting feature is active"
+msgstr ""
+
+#: ../data/com.github.Latesil.folder-cleaner.gschema.xml:26
+msgid "Adds user described folders"
+msgstr ""
+
+#: ../data/com.github.Latesil.folder-cleaner.gschema.xml:27
+msgid "Check if user folders section is active"
+msgstr ""
+
+#: ../data/com.github.Latesil.folder-cleaner.gschema.xml:31
 msgid "File sort by category"
 msgstr ""
 
-#: data/com.github.Latesil.folder-cleaner.gschema.xml:17
+#: ../data/com.github.Latesil.folder-cleaner.gschema.xml:32
 msgid "Determines if files should be sorted by category instead by extension."
 msgstr ""
 
-#: data/com.github.Latesil.folder-cleaner.gschema.xml:21
+#: ../data/com.github.Latesil.folder-cleaner.gschema.xml:36
 msgid "Saved folders list"
 msgstr ""
 
-#: data/com.github.Latesil.folder-cleaner.gschema.xml:22
+#: ../data/com.github.Latesil.folder-cleaner.gschema.xml:37
 msgid "A list of the folders which are saved."
 msgstr ""
 
-#: foldercleaner/folder_box.py:77 foldercleaner/folder_cleaner.ui:101
-#: foldercleaner/main.py:39 foldercleaner/window.py:38
-#: foldercleaner/window.py:40
-msgid "Folder Cleaner"
+#: ../data/com.github.Latesil.folder-cleaner.gschema.xml:41
+msgid "Saved user folders list"
 msgstr ""
 
-#: foldercleaner/folder_box.py:77
-msgid "All photos were successfully sorted"
+#: ../data/com.github.Latesil.folder-cleaner.gschema.xml:42
+msgid "A list of the user folders which are saved."
 msgstr ""
 
-#: foldercleaner/folder_box.py:96
-msgid "Archives"
+#: ../foldercleaner/preferences.ui:46
+msgid "Main"
 msgstr ""
 
-#: foldercleaner/folder_box.ui:26
-msgid "Folder name"
-msgstr ""
-
-#: foldercleaner/folder_box.ui:49
-msgid "Open that folder"
-msgstr ""
-
-#: foldercleaner/folder_box.ui:68
-msgid "Delete"
-msgstr ""
-
-#: foldercleaner/folder_box.ui:104
-msgid "Sort Photos"
-msgstr ""
-
-#: foldercleaner/folder_box.ui:108
-msgid "Sort photos in folder"
-msgstr ""
-
-#: foldercleaner/folder_box.ui:119
-msgid "Sort Files"
-msgstr ""
-
-#: foldercleaner/folder_box.ui:123
-msgid "Sort files in folder"
-msgstr ""
-
-#: foldercleaner/folder_cleaner.ui:11
-msgid "Program for folder management."
-msgstr ""
-
-#: foldercleaner/folder_cleaner.ui:13
-msgid "Github"
-msgstr ""
-
-#: foldercleaner/folder_cleaner.ui:65
-msgid "Preferences"
-msgstr ""
-
-#: foldercleaner/folder_cleaner.ui:79
-msgid "About"
-msgstr ""
-
-#: foldercleaner/folder_cleaner.ui:184
-msgid "Click \"Add\" for adding your folders here"
-msgstr ""
-
-#: foldercleaner/folder_cleaner.ui:222
-msgid "Files were sorted."
-msgstr ""
-
-#: foldercleaner/folder_cleaner.ui:232
-msgid "Undo"
-msgstr ""
-
-#: foldercleaner/preferences.ui:50
+#: ../foldercleaner/preferences.ui:100
 msgid "File sort"
 msgstr ""
 
-#: foldercleaner/preferences.ui:70
+#: ../foldercleaner/preferences.ui:126
 msgid "By Extension"
 msgstr ""
 
-#: foldercleaner/preferences.ui:71
+#: ../foldercleaner/preferences.ui:127
 msgid "By Type"
 msgstr ""
 
-#: foldercleaner/window.py:55
+#: ../foldercleaner/preferences.ui:193
+msgid "Photo sort"
+msgstr ""
+
+#: ../foldercleaner/preferences.ui:275
+msgid "User Folders"
+msgstr ""
+
+#: ../foldercleaner/preferences.ui:341
+msgid "+"
+msgstr ""
+
+#: ../foldercleaner/preferences.ui:345
+msgid "Add custom folder"
+msgstr ""
+
+#: ../foldercleaner/preferences.ui:430
+msgid "Settings"
+msgstr ""
+
+#: ../foldercleaner/aboutdialog.ui:12
+msgid "Program for folder management"
+msgstr ""
+
+#: ../foldercleaner/window.py:38 ../foldercleaner/window.py:40
+#: ../foldercleaner/folder_cleaner.ui:180 ../foldercleaner/folder_box.py:61
+#: ../foldercleaner/folder_box.py:64
+msgid "Folder Cleaner"
+msgstr ""
+
+#: ../foldercleaner/window.py:56
 msgid "Open Folder"
 msgstr ""
 
-#: foldercleaner/window.py:58
+#: ../foldercleaner/window.py:59
 msgid "Cancel"
 msgstr ""
 
-#: foldercleaner/window.py:59
+#: ../foldercleaner/window.py:60
 msgid "OK"
 msgstr ""
 
+#: ../foldercleaner/folder_cleaner.ui:21
+msgid "Preferences"
+msgstr ""
+
+#: ../foldercleaner/folder_cleaner.ui:35
+msgid "About"
+msgstr ""
+
+#: ../foldercleaner/folder_cleaner.ui:88
+msgid "Click \"Add\" for adding your folders here"
+msgstr ""
+
+#: ../foldercleaner/folder_cleaner.ui:126
+msgid "Files were sorted."
+msgstr ""
+
+#: ../foldercleaner/folder_cleaner.ui:136
+msgid "Undo"
+msgstr ""
+
+#: ../foldercleaner/folder_box.ui:32
+msgid "Folder name"
+msgstr ""
+
+#: ../foldercleaner/folder_box.ui:55
+msgid "Open that folder"
+msgstr ""
+
+#: ../foldercleaner/folder_box.ui:74
+msgid "Delete"
+msgstr ""
+
+#: ../foldercleaner/folder_box.ui:109
+msgid "Sort Photos"
+msgstr ""
+
+#: ../foldercleaner/folder_box.ui:112
+msgid "Sort photos in folder"
+msgstr ""
+
+#: ../foldercleaner/folder_box.ui:123
+msgid "Sort Files"
+msgstr ""
+
+#: ../foldercleaner/folder_box.ui:127
+msgid "Sort files in folder"
+msgstr ""
+
+#: ../foldercleaner/folder_box.py:61
+msgid "All photos were successfully sorted"
+msgstr ""
+
+#: ../foldercleaner/folder_box.py:64
+msgid "Some files weren't successfully sorted"
+msgstr ""

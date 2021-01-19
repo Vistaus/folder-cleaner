@@ -7,13 +7,13 @@
     <property name="icon_name">com.github.Latesil.folder-cleaner</property>
     <property name="type_hint">dialog</property>
     <property name="program_name">Folder Cleaner</property>
-    <property name="version">1.0.7</property>
+    <property name="version">1.1</property>
     <property name="copyright">Copyleft (c)</property>
-    <property name="comments" translatable="yes">Program for folder management.</property>
+    <property name="comments" translatable="yes">Program for folder management</property>
     <property name="website">https://github.com</property>
-    <property name="website_label" translatable="yes">Github</property>
+    <property name="website_label">Github</property>
     <property name="authors">Lateseal</property>
-    <property name="translator_credits" translatable="yes">Lateseal</property>
+    <property name="translator_credits">Lateseal</property>
     <property name="artists">Lateseal</property>
     <property name="logo_icon_name">folder_color_default</property>
     <property name="license_type">gpl-3-0</property>

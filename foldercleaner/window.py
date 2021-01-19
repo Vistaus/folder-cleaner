@@ -15,40 +15,51 @@
 
 from locale import gettext as _
 import gi
+
 gi.require_version('Gtk', '3.0')
-from gi.repository import Gtk, Gio, GLib
+from gi.repository import Gtk, Gio, GLib, Gdk
 
 from .folder_box import FolderBox
 from .preferences import PreferencesWindow
 from .aboutdialog import AboutWindow
 from .constants import folder_cleaner_constants as constants
-from .helpers import operations, folders_made, labels
+from .helpers import operations, folders_made, labels, user_folders
 
-@Gtk.Template(resource_path = constants['UI_PATH'] + 'folder_cleaner.ui')
+
+@Gtk.Template(resource_path=constants['UI_PATH'] + 'folder_cleaner.ui')
 class FolderCleaner(Gtk.ApplicationWindow):
-
     __gtype_name__ = "_main_window"
 
-    _add_label = Gtk.Template.Child()
-    _main_list_box_row = Gtk.Template.Child()
     _main_list_box = Gtk.Template.Child()
     _main_revealer = Gtk.Template.Child()
+    main_label_box = Gtk.Template.Child()
+    label_box = Gtk.Template.Child()
 
     def __init__(self, app, *args, **kwargs):
         super().__init__(*args, title=_("Folder Cleaner"), application=app)
+
+        self.set_size_request(500, 300)
 
         self.set_wmclass("Folder Cleaner", _("Folder Cleaner"))
         self.settings = Gio.Settings.new(constants['main_settings_path'])
         self.settings.connect("changed::count", self.on_count_change, None)
         self.settings.connect("changed::is-sorted", self.on_is_sorted_change, None)
         self.saved_folders = self.settings.get_value('saved-folders')
+        self.user_saved_folders = self.settings.get_value('saved-user-folders').unpack()
 
-        if len(self.saved_folders) > 0:
+        self.label_box.drag_dest_set(Gtk.DestDefaults.ALL, [], Gdk.DragAction.COPY)
+        self.label_box.connect("drag-data-received", self.on_drag_data_received)
+        self.label_box.drag_dest_set_target_list(None)
+        self.label_box.drag_dest_add_text_targets()
+
+        if self.saved_folders:
+            self.main_label_box.props.visible = False
             for path in self.saved_folders:
                 folder = FolderBox(path)
-                folder._folder_box_label.set_label(path)
+                if not self._main_list_box.props.visible:
+                    self._main_list_box.props.visible = True
+                    folder._folder_box_label.set_label(path)
                 self._main_list_box.insert(folder, -1)
-
 
     @Gtk.Template.Callback()
     def on__add_button_clicked(self, button):
@@ -59,8 +70,10 @@ class FolderCleaner(Gtk.ApplicationWindow):
                                                  _("OK"), Gtk.ResponseType.OK))
         response = chooser.run()
         if response == Gtk.ResponseType.OK:
+            self.main_label_box.props.visible = False
             label = chooser.get_filename()
             folder = FolderBox(label)
+            self._main_list_box.props.visible = True
             folder._folder_box_label.set_label(label)
             self._main_list_box.insert(folder, -1)
             chooser.destroy()
@@ -86,8 +99,12 @@ class FolderCleaner(Gtk.ApplicationWindow):
         for key, value in operations.items():
             from_file = Gio.File.new_for_path(value)
             to_file = Gio.File.new_for_path(key)
-            from_file.move(to_file, Gio.FileCopyFlags.NONE)
-        
+            try:
+                from_file.move(to_file, Gio.FileCopyFlags.NONE)
+            except gi.repository.GLib.Error as e:
+                print(e)
+                pass
+
         operations.clear()
 
         for folder in folders_made:
@@ -103,13 +120,12 @@ class FolderCleaner(Gtk.ApplicationWindow):
     @Gtk.Template.Callback()
     def on__main_window_destroy(self, w):
         self.settings.set_value('saved-folders', GLib.Variant('as', labels))
-        
 
     def on_count_change(self, settings, key, button):
         if self.settings.get_int('count') > 0:
-            self._main_list_box_row.set_visible(False)
+            self.main_label_box.props.visible = False
         else:
-            self._main_list_box_row.set_visible(True)
+            self.main_label_box.props.visible = True
             self.settings.reset('saved-folders')
 
     def on_is_sorted_change(self, settings, key, button):
@@ -117,3 +133,17 @@ class FolderCleaner(Gtk.ApplicationWindow):
             self._main_revealer.set_reveal_child(True)
         else:
             self._main_revealer.set_reveal_child(False)
+
+    def on_drag_data_received(self, widget, drag_context, x, y, data, info, time):
+        drop_source = GLib.filename_from_uri(data.get_text())
+        folder_path = drop_source[0].rstrip()
+
+        if GLib.file_test(folder_path, GLib.FileTest.IS_DIR):
+            self.main_label_box.props.visible = False
+            label = folder_path
+            folder = FolderBox(label)
+            self._main_list_box.props.visible = True
+            folder._folder_box_label.set_label(label)
+            self._main_list_box.insert(folder, -1)
+        else:
+            print(f"Error: {folder_path} is not a folder.")

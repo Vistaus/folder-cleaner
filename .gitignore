@@ -4,3 +4,7 @@ src/photos-sort.py
 build/
 _build/
 .flatpak-builder/
+build-dir/
+builddir/
+.idea/
+*~
