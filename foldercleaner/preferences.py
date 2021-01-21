@@ -32,6 +32,8 @@ class PreferencesWindow(Gtk.Dialog):
     user_folders_scrolled_window = Gtk.Template.Child()
     user_folders_second_box = Gtk.Template.Child()
     clear_all_button = Gtk.Template.Child()
+    preferences_list_box = Gtk.Template.Child()
+    photo_sort_row = Gtk.Template.Child()
 
     def __init__(self, app, *args, **kwargs):
         super().__init__(**kwargs)
@@ -128,3 +130,16 @@ class PreferencesWindow(Gtk.Dialog):
         children = self.user_folders_list_box.get_children()  # children = list of Gtk.ListBox
         for child in children:  # each child contains another child of UserFolder instance
             child.destroy()
+
+    @Gtk.Template.Callback()
+    def on_preferences_list_box_row_activated(self, list_box, row):
+        if row.get_name() == 'photo_sort':
+            self.photo_sort_switcher.props.state = not self.photo_sort_switcher.props.state
+            self.settings.set_boolean('photo-sort', self.photo_sort_switcher.props.state)
+        elif row.get_name() == 'user_folders':
+            self.user_folders_switcher.props.state = not self.user_folders_switcher.props.state
+            self.settings.set_boolean('user-folders', self.user_folders_switcher.props.state)
+
+    @Gtk.Template.Callback()
+    def on_photo_sort_row_activate(self, w):
+        print('on_photo_sort_row_activate')
