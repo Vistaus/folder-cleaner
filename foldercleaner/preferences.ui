@@ -179,7 +179,6 @@
                         <property name="can-focus">True</property>
                         <property name="valign">center</property>
                         <property name="selectable">False</property>
-                        <signal name="activate" handler="on_photo_sort_row_activate" swapped="no"/>
                         <child>
                           <object class="GtkBox">
                             <property name="visible">True</property>

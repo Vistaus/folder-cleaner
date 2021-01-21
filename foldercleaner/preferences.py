@@ -139,7 +139,4 @@ class PreferencesWindow(Gtk.Dialog):
         elif row.get_name() == 'user_folders':
             self.user_folders_switcher.props.state = not self.user_folders_switcher.props.state
             self.settings.set_boolean('user-folders', self.user_folders_switcher.props.state)
-
-    @Gtk.Template.Callback()
-    def on_photo_sort_row_activate(self, w):
-        print('on_photo_sort_row_activate')
+            
