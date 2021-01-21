@@ -11,7 +11,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from .helpers import get_files_and_folders, operations, folders_made, labels, user_folders
+from .helpers import get_files_and_folders, operations, folders_made, labels
 from .constants import folder_cleaner_constants as constants
 from .basic_formats import base
 from locale import gettext as _

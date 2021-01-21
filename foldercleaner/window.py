@@ -23,7 +23,7 @@ from .folder_box import FolderBox
 from .preferences import PreferencesWindow
 from .aboutdialog import AboutWindow
 from .constants import folder_cleaner_constants as constants
-from .helpers import operations, folders_made, labels, user_folders
+from .helpers import operations, folders_made, labels
 
 
 @Gtk.Template(resource_path=constants['UI_PATH'] + 'folder_cleaner.ui')

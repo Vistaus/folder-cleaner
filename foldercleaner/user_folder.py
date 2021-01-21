@@ -8,7 +8,6 @@ gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, Gio, GLib
 
 from .constants import folder_cleaner_constants as constants
-from .helpers import user_folders
 
 
 @Gtk.Template(resource_path=constants['UI_PATH'] + 'user_folder.ui')
