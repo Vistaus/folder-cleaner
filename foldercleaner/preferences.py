@@ -34,6 +34,7 @@ class PreferencesWindow(Gtk.Dialog):
     clear_all_button = Gtk.Template.Child()
     preferences_list_box = Gtk.Template.Child()
     photo_sort_row = Gtk.Template.Child()
+    photo_sort_by_row = Gtk.Template.Child()
 
     def __init__(self, app, *args, **kwargs):
         super().__init__(**kwargs)
@@ -136,7 +137,10 @@ class PreferencesWindow(Gtk.Dialog):
         if row.get_name() == 'photo_sort':
             self.photo_sort_switcher.props.state = not self.photo_sort_switcher.props.state
             self.settings.set_boolean('photo-sort', self.photo_sort_switcher.props.state)
+            self.photo_sort_by_row.props.visible = self.photo_sort_switcher.props.state
+            if not self.photo_sort_by_row.props.visible:
+                self.resize(700, 200)
         elif row.get_name() == 'user_folders':
             self.user_folders_switcher.props.state = not self.user_folders_switcher.props.state
             self.settings.set_boolean('user-folders', self.user_folders_switcher.props.state)
-            
+
