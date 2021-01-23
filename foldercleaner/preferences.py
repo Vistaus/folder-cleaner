@@ -14,28 +14,30 @@
 import gi
 
 gi.require_version('Gtk', '3.0')
-from gi.repository import Gtk, Gio, GLib
+gi.require_version('Handy', '1')
+from gi.repository import Gtk, Gio, GLib, Handy
 from .constants import folder_cleaner_constants as constants
 from .user_folder import UserFoldersBox
 
+Handy.init()
 
 @Gtk.Template(resource_path=constants['UI_PATH'] + 'preferences.ui')
-class PreferencesWindow(Gtk.Dialog):
-    __gtype_name__ = "_preferences_dialog"
+class PreferencesWindow(Handy.PreferencesWindow):
+    __gtype_name__ = "hdy_preferences_dialog"
 
-    sorting_combobox = Gtk.Template.Child()
-    photo_sort_switcher = Gtk.Template.Child()
-    user_folders_box = Gtk.Template.Child()
-    user_folders_switcher = Gtk.Template.Child()
-    user_folders_list_box = Gtk.Template.Child()
-    user_folders_frame = Gtk.Template.Child()
-    user_folders_scrolled_window = Gtk.Template.Child()
-    user_folders_second_box = Gtk.Template.Child()
-    clear_all_button = Gtk.Template.Child()
-    preferences_list_box = Gtk.Template.Child()
-    photo_sort_row = Gtk.Template.Child()
-    photo_sort_by_row = Gtk.Template.Child()
-    photo_sorting_combobox = Gtk.Template.Child()
+    # sorting_combobox = Gtk.Template.Child()
+    # photo_sort_switcher = Gtk.Template.Child()
+    # user_folders_box = Gtk.Template.Child()
+    # user_folders_switcher = Gtk.Template.Child()
+    # user_folders_list_box = Gtk.Template.Child()
+    # user_folders_frame = Gtk.Template.Child()
+    # user_folders_scrolled_window = Gtk.Template.Child()
+    # user_folders_second_box = Gtk.Template.Child()
+    # clear_all_button = Gtk.Template.Child()
+    # preferences_list_box = Gtk.Template.Child()
+    # photo_sort_row = Gtk.Template.Child()
+    # photo_sort_by_row = Gtk.Template.Child()
+    # photo_sorting_combobox = Gtk.Template.Child()
 
     def __init__(self, app, *args, **kwargs):
         super().__init__(**kwargs)
@@ -43,28 +45,28 @@ class PreferencesWindow(Gtk.Dialog):
         self.settings = Gio.Settings.new(constants['main_settings_path'])
         self.sorted_by_category = self.settings.get_boolean('sort-by-category')
 
-        self.settings.connect("changed::user-folders", self.on_user_folders_change, self.user_folders_box)
+        # self.settings.connect("changed::user-folders", self.on_user_folders_change, self.user_folders_box)
 
-        self.user_folders = self.settings.get_boolean('user-folders')
-        self.user_folders_switcher.set_active(self.user_folders)
+        # self.user_folders = self.settings.get_boolean('user-folders')
+        # self.user_folders_switcher.set_active(self.user_folders)
 
-        self.photo_sort = self.settings.get_boolean('photo-sort')
-        self.photo_sort_switcher.set_active(self.photo_sort)
-        self.photo_sort_by = self.settings.get_int('photo-sort-by')
+        # self.photo_sort = self.settings.get_boolean('photo-sort')
+        # self.photo_sort_switcher.set_active(self.photo_sort)
+        # self.photo_sort_by = self.settings.get_int('photo-sort-by')
 
-        self.user_saved_folders = self.settings.get_value('saved-user-folders').unpack()
+        # self.user_saved_folders = self.settings.get_value('saved-user-folders').unpack()
 
         # for user created formats and folders
-        self.new_user_formats = {}
+        # self.new_user_formats = {}
 
-        self.sorting_combobox.props.active = 1 if self.sorted_by_category else 0
-        self.user_folders_box.props.visible = True if self.user_folders else False
-        self.user_folders_frame.props.visible = True if self.user_saved_folders else False
+        # self.sorting_combobox.props.active = 1 if self.sorted_by_category else 0
+        # self.user_folders_box.props.visible = True if self.user_folders else False
+        # self.user_folders_frame.props.visible = True if self.user_saved_folders else False
 
-        if self.user_saved_folders:
-            self.populate_user_folders()
+        # if self.user_saved_folders:
+        #     self.populate_user_folders()
 
-    @Gtk.Template.Callback()
+    """@Gtk.Template.Callback()
     def on_sorting_combobox_changed(self, box):
         if box.props.active == 0:  # by extension
             self.settings.set_boolean('sort-by-category', False)  # by type
@@ -152,5 +154,5 @@ class PreferencesWindow(Gtk.Dialog):
         self.settings.set_boolean('photo-sort', state)
         self.photo_sort_by_row.props.visible = state
         if not self.photo_sort_by_row.props.visible:
-            self.resize(700, 200)
+            self.resize(700, 200)"""
 
