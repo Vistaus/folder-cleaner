@@ -58,11 +58,11 @@ class FolderBox(Gtk.ListBox):
         if self.settings.get_int('photo-sort-by') == 0:
             sort_exif = 'Exif.Image.DateTime'
 
-        if self.sort.photos_by_exif(sort_exif):  # True if there are any errors, False otherwise
-            notification = Notify.Notification.new(_('Folder Cleaner'), _("Some files weren't successfully sorted"))
+        if self.sort.photos_by_exif(sort_exif):  # False if there are any errors, True otherwise
+            notification = Notify.Notification.new(_('Folder Cleaner'), _("All photos were successfully sorted"))
             notification.show()
         else:
-            notification = Notify.Notification.new(_('Folder Cleaner'), _("All photos were successfully sorted"))
+            notification = Notify.Notification.new(_('Folder Cleaner'), _("Some files weren't successfully sorted"))
             notification.show()
 
 
