@@ -36,5 +36,10 @@
       <summary>Saved user folders list</summary>
       <description>A list of the user folders which are saved.</description>
     </key>
+    <key name="photo-sort-by" type="i">
+      <default>0</default>
+      <summary>How to sort photos</summary>
+      <description>Determines how to sort photos, for example by date or by other EXIF information</description>
+    </key>
   </schema>
 </schemalist>

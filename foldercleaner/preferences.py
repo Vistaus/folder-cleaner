@@ -35,6 +35,7 @@ class PreferencesWindow(Gtk.Dialog):
     preferences_list_box = Gtk.Template.Child()
     photo_sort_row = Gtk.Template.Child()
     photo_sort_by_row = Gtk.Template.Child()
+    photo_sorting_combobox = Gtk.Template.Child()
 
     def __init__(self, app, *args, **kwargs):
         super().__init__(**kwargs)
@@ -49,6 +50,7 @@ class PreferencesWindow(Gtk.Dialog):
 
         self.photo_sort = self.settings.get_boolean('photo-sort')
         self.photo_sort_switcher.set_active(self.photo_sort)
+        self.photo_sort_by = self.settings.get_int('photo-sort-by')
 
         self.user_saved_folders = self.settings.get_value('saved-user-folders').unpack()
 
@@ -68,6 +70,11 @@ class PreferencesWindow(Gtk.Dialog):
             self.settings.set_boolean('sort-by-category', False)  # by type
         else:
             self.settings.set_boolean('sort-by-category', True)
+
+    @Gtk.Template.Callback()
+    def on_photo_sorting_combobox_changed(self, box):
+        if box.props.active == 0:  # by date
+            self.settings.set_int('photo-sort-by', 0)  # by date
 
     @Gtk.Template.Callback()
     def on_photo_sort_switcher_state_set(self, switch, state):

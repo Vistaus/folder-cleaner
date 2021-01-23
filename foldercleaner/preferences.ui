@@ -57,9 +57,6 @@
           </packing>
         </child>
         <child>
-          <placeholder/>
-        </child>
-        <child>
           <object class="GtkFrame" id="preferences_frame">
             <property name="width-request">600</property>
             <property name="visible">True</property>
@@ -313,6 +310,7 @@
                                         <items>
                                           <item id="0" translatable="yes">By Date</item>
                                         </items>
+                                        <signal name="changed" handler="on_photo_sorting_combobox_changed" swapped="no"/>
                                       </object>
                                       <packing>
                                         <property name="expand">False</property>
@@ -436,6 +434,9 @@
             <property name="fill">True</property>
             <property name="position">2</property>
           </packing>
+        </child>
+        <child>
+          <placeholder/>
         </child>
         <child>
           <object class="GtkRevealer" id="user_folders_revealer">
