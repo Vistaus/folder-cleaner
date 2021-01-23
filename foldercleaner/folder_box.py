@@ -28,7 +28,7 @@ class FolderBox(Gtk.ListBox):
     __gtype_name__ = "_list_box"
 
     _folder_box_label = Gtk.Template.Child()
-    _sort_button = Gtk.Template.Child()
+    _sort_photos_button = Gtk.Template.Child()
 
     i = 0
 
@@ -46,20 +46,23 @@ class FolderBox(Gtk.ListBox):
         FolderBox.i += 1
         self.settings.set_int('count', FolderBox.i)
         self.sort = Sorting(self.label)
-        self.settings.connect("changed::photo-sort", self.on_photos_sort_change, self._sort_button)
+        self.settings.connect("changed::photo-sort", self.on_photos_sort_change, self._sort_photos_button)
 
         if self.settings.get_boolean('photo-sort'):
-            self._sort_button.props.visible = True
+            self._sort_photos_button.props.visible = True
         else:
-            self._sort_button.props.visible = False
+            self._sort_photos_button.props.visible = False
 
     @Gtk.Template.Callback()
-    def on__sort_button_clicked(self, button):
-        if self.sort.photos_by_exif('Exif.Image.DateTime') == 0:
-            notification = Notify.Notification.new(_('Folder Cleaner'), _("All photos were successfully sorted"))
+    def on__sort_photos_button_clicked(self, button):
+        if self.settings.get_int('photo-sort-by') == 0:
+            sort_exif = 'Exif.Image.DateTime'
+
+        if self.sort.photos_by_exif(sort_exif):  # True if there are any errors, False otherwise
+            notification = Notify.Notification.new(_('Folder Cleaner'), _("Some files weren't successfully sorted"))
             notification.show()
         else:
-            notification = Notify.Notification.new(_('Folder Cleaner'), _("Some files weren't successfully sorted"))
+            notification = Notify.Notification.new(_('Folder Cleaner'), _("All photos were successfully sorted"))
             notification.show()
 
 

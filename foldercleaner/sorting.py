@@ -121,7 +121,7 @@ class Sorting():
                     # TODO
                     filedate = tag[:10].replace(':', '')
 
-                    folder_for_photo = self.folder + filedate
+                    folder_for_photo = self.base_folder + filedate
 
                     # Gio.Files
                     photo_file = Gio.File.new_for_path(f)

@@ -131,12 +131,12 @@
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
                     <child>
-                      <object class="GtkButton" id="_sort_button">
+                      <object class="GtkButton" id="_sort_photos_button">
                         <property name="label" translatable="yes">Sort Photos</property>
                         <property name="can-focus">True</property>
                         <property name="receives-default">True</property>
                         <property name="tooltip-text" translatable="yes">Sort photos in folder</property>
-                        <signal name="clicked" handler="on__sort_button_clicked" swapped="no"/>
+                        <signal name="clicked" handler="on__sort_photos_button_clicked" swapped="no"/>
                       </object>
                       <packing>
                         <property name="expand">True</property>
