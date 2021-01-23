@@ -71,7 +71,7 @@ class PreferencesWindow(Gtk.Dialog):
 
     @Gtk.Template.Callback()
     def on_photo_sort_switcher_state_set(self, switch, state):
-        self.settings.set_boolean('photo-sort', state)
+        self.set_photo_sort_preferences(state)
 
     @Gtk.Template.Callback()
     def on_user_folders_switcher_state_set(self, switch, state):
@@ -136,11 +136,14 @@ class PreferencesWindow(Gtk.Dialog):
     def on_preferences_list_box_row_activated(self, list_box, row):
         if row.get_name() == 'photo_sort':
             self.photo_sort_switcher.props.state = not self.photo_sort_switcher.props.state
-            self.settings.set_boolean('photo-sort', self.photo_sort_switcher.props.state)
-            self.photo_sort_by_row.props.visible = self.photo_sort_switcher.props.state
-            if not self.photo_sort_by_row.props.visible:
-                self.resize(700, 200)
+            self.set_photo_sort_preferences(self.photo_sort_switcher.props.state)
         elif row.get_name() == 'user_folders':
             self.user_folders_switcher.props.state = not self.user_folders_switcher.props.state
             self.settings.set_boolean('user-folders', self.user_folders_switcher.props.state)
+
+    def set_photo_sort_preferences(self, state):
+        self.settings.set_boolean('photo-sort', state)
+        self.photo_sort_by_row.props.visible = state
+        if not self.photo_sort_by_row.props.visible:
+            self.resize(700, 200)
 
