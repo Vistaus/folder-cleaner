@@ -52,8 +52,8 @@
               </object>
             </child>
             <child>
-              <object class="HdyActionRow">
-                <property name="visible">True</property>
+              <object class="HdyActionRow" id="add_user_folder_section">
+                <property name="visible">False</property>
                 <property name="title" translatable="yes">Add user folders</property>
                 <property name="use_underline">True</property>
                 <child>
