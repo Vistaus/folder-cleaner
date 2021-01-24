@@ -25,10 +25,10 @@ Handy.init()
 class PreferencesWindow(Handy.PreferencesWindow):
     __gtype_name__ = "hdy_preferences_dialog"
 
-    # sorting_combobox = Gtk.Template.Child()
+    sorting_combobox = Gtk.Template.Child()
     # photo_sort_switcher = Gtk.Template.Child()
     # user_folders_box = Gtk.Template.Child()
-    # user_folders_switcher = Gtk.Template.Child()
+    user_folders_switcher = Gtk.Template.Child()
     # user_folders_list_box = Gtk.Template.Child()
     # user_folders_frame = Gtk.Template.Child()
     # user_folders_scrolled_window = Gtk.Template.Child()
@@ -47,8 +47,8 @@ class PreferencesWindow(Handy.PreferencesWindow):
 
         # self.settings.connect("changed::user-folders", self.on_user_folders_change, self.user_folders_box)
 
-        # self.user_folders = self.settings.get_boolean('user-folders')
-        # self.user_folders_switcher.set_active(self.user_folders)
+        self.user_folders = self.settings.get_boolean('user-folders')
+        self.user_folders_switcher.set_active(self.user_folders)
 
         # self.photo_sort = self.settings.get_boolean('photo-sort')
         # self.photo_sort_switcher.set_active(self.photo_sort)
@@ -59,34 +59,34 @@ class PreferencesWindow(Handy.PreferencesWindow):
         # for user created formats and folders
         # self.new_user_formats = {}
 
-        # self.sorting_combobox.props.active = 1 if self.sorted_by_category else 0
+        self.sorting_combobox.props.active = 1 if self.sorted_by_category else 0
         # self.user_folders_box.props.visible = True if self.user_folders else False
         # self.user_folders_frame.props.visible = True if self.user_saved_folders else False
 
         # if self.user_saved_folders:
         #     self.populate_user_folders()
 
-    """@Gtk.Template.Callback()
+    @Gtk.Template.Callback()
     def on_sorting_combobox_changed(self, box):
         if box.props.active == 0:  # by extension
             self.settings.set_boolean('sort-by-category', False)  # by type
         else:
             self.settings.set_boolean('sort-by-category', True)
 
-    @Gtk.Template.Callback()
+    """@Gtk.Template.Callback()
     def on_photo_sorting_combobox_changed(self, box):
         if box.props.active == 0:  # by date
             self.settings.set_int('photo-sort-by', 0)  # by date
 
     @Gtk.Template.Callback()
     def on_photo_sort_switcher_state_set(self, switch, state):
-        self.set_photo_sort_preferences(state)
+        self.set_photo_sort_preferences(state)"""
 
     @Gtk.Template.Callback()
     def on_user_folders_switcher_state_set(self, switch, state):
         self.settings.set_boolean('user-folders', state)
 
-    @Gtk.Template.Callback()
+    """@Gtk.Template.Callback()
     def on_add_user_folder_button_clicked(self, btn):
         self.user_folders_frame.props.visible = True
         children = self.user_folders_list_box.get_children()

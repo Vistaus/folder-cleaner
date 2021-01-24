@@ -40,12 +40,13 @@
                 <property name="visible">True</property>
                 <property name="title" translatable="yes">User folders</property>
                 <property name="subtitle" translatable="yes">Add user defined folders.</property>
-                <property name="activatable_widget">user_folders_switch</property>
+                <property name="activatable_widget">user_folders_switcher</property>
                 <property name="use_underline">True</property>
                 <child>
-                  <object class="GtkSwitch" id="user_folders_switch">
+                  <object class="GtkSwitch" id="user_folders_switcher">
                     <property name="visible">True</property>
                     <property name="valign">center</property>
+                    <signal name="state_set" handler="on_user_folders_switcher_state_set" swapped="no"/>
                   </object>
                 </child>
               </object>
@@ -53,7 +54,7 @@
             <child>
               <object class="HdyActionRow">
                 <property name="visible">True</property>
-                <property name="title" translatable="yes">Add user folder</property>
+                <property name="title" translatable="yes">Add user folders</property>
                 <property name="use_underline">True</property>
                 <child>
                   <object class="GtkBox">
@@ -91,30 +92,7 @@
           <object class="HdyPreferencesGroup" id="section_user_folders">
             <property name="visible">True</property>
             <property name="title">User folders</property>
-            <child>
-              <object class="HdyActionRow">
-                <property name="visible">True</property>
-                <property name="use_underline">True</property>
-                <child>
-                  <object class="GtkBox" id="user_folder_box">
-                    <property name="visible">True</property>
-                    <property name="can-focus">False</property>
-                    <property name="valign">center</property>
-                    <property name="orientation">vertical</property>
-                    <child>
-                      <object class="GtkButton" id="user_folder_label_button">
-                        <property name="visible">True</property>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">0</property>
-                      </packing>
-                    </child>
-                  </object>
-                </child>
-              </object>
-            </child>
+            <placeholder />
           </object>
         </child>
       </object>

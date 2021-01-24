@@ -8,3 +8,5 @@ build-dir/
 builddir/
 .idea/
 *~
+foldercleaner/preferences.old.ui
+foldercleaner/user_folder.old.ui

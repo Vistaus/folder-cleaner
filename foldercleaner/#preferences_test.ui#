@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.38.2 -->
+<interface>
+  <requires lib="gtk+" version="3.24"/>
+  <requires lib="libhandy" version="0.0"/>
+  <template class="hdy_preferences_dialog" parent="HdyPreferencesWindow">
+    <property name="can-focus">False</property>
+    <property name="default-width">600</property>
+    <property name="default-height">300</property>
+    <property name="can-swipe-back">True</property>
+    <child>
+      <object class="HdyPreferencesPage">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="icon-name">document-open-symbolic</property>
+        <property name="title" translatable="yes">Files</property>
+        <child>
+          <object class="HdyPreferencesGroup" id="section_file_sort">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <child>
+              <object class="HdyActionRow">
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="title" translatable="yes">File sort</property>
+                <property name="subtitle" translatable="yes">How to sort files.</property>
+                <property name="use-underline">True</property>
+                <child>
+                  <object class="GtkComboBoxText" id="sorting_combobox">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="halign">end</property>
+                    <property name="valign">center</property>
+                    <property name="active">0</property>
+                    <property name="active-id">0</property>
+                    <items>
+                      <item id="0" translatable="yes">By Extension</item>
+                      <item id="1" translatable="yes">By Type</item>
+                    </items>
+                    <style>
+                      <class name="flat"/>
+                    </style>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="HdyActionRow">
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="title" translatable="yes">User folders</property>
+                <property name="activatable-widget">user_folders_switch</property>
+                <property name="subtitle" translatable="yes">Add user defined folders.</property>
+                <property name="use-underline">True</property>
+                <child>
+                  <object class="GtkSwitch" id="user_folders_switch">
+                    <property name="visible">True</property>
+                    <property name="can-focus">True</property>
+                    <property name="valign">center</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="HdyActionRow">
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="selectable">False</property>
+                <property name="title" translatable="yes">Add new user folder</property>
+                <property name="use-underline">True</property>
+                <child>
+                  <object class="GtkBox" id="user_folder_box1">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="valign">center</property>
+                    <property name="orientation">vertical</property>
+                    <child>
+                      <object class="GtkButton" id="user_folder_label_button1">
+                        <property name="label" translatable="yes">Add</property>
+                        <property name="visible">True</property>
+                        <property name="can-focus">True</property>
+                        <property name="receives-default">False</property>
+                        <property name="relief">none</property>
+                        <style>
+                          <class name="flat"/>
+                          <class name="suggested-action"/>
+                        </style>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="HdyPreferencesGroup" id="section_user_folders">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="title">User folders</property>
+            <child>
+              <object class="HdyActionRow">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="title" translatable="yes">MyPictures</property>
+                <property name="subtitle" translatable="yes">jpeg</property>
+                <property name="use-underline">True</property>
+                <child>
+                  <object class="GtkBox" id="user_folder_box">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="valign">center</property>
+                    <property name="orientation">vertical</property>
+                    <child>
+                      <object class="GtkBox">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <child>
+                          <object class="GtkButton" id="user_folder_label_button">
+                            <property name="label" translatable="yes">Change</property>
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="receives-default">False</property>
+                            <style>
+                              <class name="flat"/>
+                              <class name="suggested-action"/>
+                            </style>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkButton">
+                            <property name="label" translatable="yes">Remove</property>
+                            <property name="visible">True</property>
+                            <property name="can-focus">True</property>
+                            <property name="receives-default">True</property>
+                            <style>
+                              <class name="flat"/>
+                              <class name="destructive-action"/>
+                            </style>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">1</property>
+                          </packing>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="HdyPreferencesPage">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="icon-name">camera-photo-symbolic</property>
+        <property name="title" translatable="yes">Photos</property>
+        <child>
+          <object class="HdyPreferencesGroup" id="section_photo_sort">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <child>
+              <object class="HdyActionRow">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="title" translatable="yes">Photo sort</property>
+                <property name="activatable-widget">photo_sort_switcher</property>
+                <property name="subtitle" translatable="yes">Enable photo sort.</property>
+                <property name="use-underline">True</property>
+                <child>
+                  <object class="GtkSwitch" id="photo_sort_switcher">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="valign">center</property>
+                    <signal name="state-set" handler="on_photo_sort_switcher_state_set" swapped="no"/>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="HdyActionRow">
+                <property name="can-focus">False</property>
+                <property name="title" translatable="yes">Photo sort</property>
+                <property name="subtitle" translatable="yes">How to sort photos.</property>
+                <property name="use-underline">True</property>
+                <child>
+                  <object class="GtkComboBoxText" id="photo_sorting_combobox">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="halign">end</property>
+                    <property name="valign">center</property>
+                    <property name="active">0</property>
+                    <property name="active-id">0</property>
+                    <items>
+                      <item id="0" translatable="yes">By Date</item>
+                    </items>
+                    <signal name="changed" handler="on_photo_sorting_combobox_changed" swapped="no"/>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </template>
+</interface>
