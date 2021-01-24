@@ -39,6 +39,7 @@ class PreferencesWindow(Handy.PreferencesWindow):
     # photo_sort_by_row = Gtk.Template.Child()
     # photo_sorting_combobox = Gtk.Template.Child()
     add_user_folder_section = Gtk.Template.Child()
+    section_user_folders = Gtk.Template.Child()
 
     def __init__(self, app, *args, **kwargs):
         super().__init__(**kwargs)
@@ -61,6 +62,7 @@ class PreferencesWindow(Handy.PreferencesWindow):
         # self.new_user_formats = {}
 
         self.sorting_combobox.props.active = 1 if self.sorted_by_category else 0
+        self.section_user_folders.props.visible = True if self.user_folders else False
         self.add_user_folder_section.props.visible = True if self.user_folders else False
         # self.user_folders_frame.props.visible = True if self.user_saved_folders else False
 
@@ -87,6 +89,7 @@ class PreferencesWindow(Handy.PreferencesWindow):
     def on_user_folders_switcher_state_set(self, switch, state):
         self.settings.set_boolean('user-folders', state)
         self.add_user_folder_section.props.visible = state
+        self.section_user_folders.props.visible = state
 
     """@Gtk.Template.Callback()
     def on_add_user_folder_button_clicked(self, btn):

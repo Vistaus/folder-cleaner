@@ -90,7 +90,7 @@
         </child>
         <child>
           <object class="HdyPreferencesGroup" id="section_user_folders">
-            <property name="visible">True</property>
+            <property name="visible">False</property>
             <property name="title">User folders</property>
             <placeholder />
           </object>
