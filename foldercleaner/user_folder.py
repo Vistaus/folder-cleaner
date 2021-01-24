@@ -23,6 +23,7 @@ class UserFoldersBoxRow(Handy.ActionRow):
     # user_folder_button_label = Gtk.Template.Child()
     change_user_folder_button = Gtk.Template.Child()
     remove_user_folder_button = Gtk.Template.Child()
+    user_folder_change_popover = Gtk.Template.Child()
 
     def __init__(self, extension=None, folder=None, *args, **kwargs):
         super().__init__(**kwargs)
@@ -39,9 +40,9 @@ class UserFoldersBoxRow(Handy.ActionRow):
         # self.user_folder_button_label.props.label = self.folder
 
     
-    @Gtk.Template.Callback()
-    def on_change_user_folder_button_clicked(self, btn):
-        print('change_user_folder_button')
+    # @Gtk.Template.Callback()
+    # def on_change_user_folder_button_clicked(self, btn):
+    #     print('change_user_folder_button')
 
     @Gtk.Template.Callback()
     def on_remove_user_folder_button_clicked(self, btn):

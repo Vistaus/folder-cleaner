@@ -14,7 +14,7 @@
             <property name="visible">True</property>
             <property name="orientation">horizontal</property>
             <child>
-              <object class="GtkButton" id="change_user_folder_button">
+              <object class="GtkMenuButton" id="change_user_folder_button">
                 <style>
                   <class name="flat"/>
                   <class name="suggested-action"/>
@@ -22,7 +22,7 @@
                 <property name="visible">True</property>
                 <property name="label" translatable="yes">Change</property>
                 <property name="valign">center</property>
-                <signal name="clicked" handler="on_change_user_folder_button_clicked" swapped="no"/>
+                <property name="popover">user_folder_change_popover</property>
               </object>
             </child>
             <child>
@@ -42,4 +42,88 @@
       </object>
     </child>
   </template>
+  <object class="GtkPopover" id="user_folder_change_popover">
+    <property name="can-focus">False</property>
+    <property name="relative-to">change_user_folder_button</property>
+    <child>
+      <object class="GtkBox">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="margin-start">5</property>
+        <property name="margin-end">5</property>
+        <property name="margin-top">5</property>
+        <property name="margin-bottom">5</property>
+        <property name="orientation">vertical</property>
+        <property name="spacing">5</property>
+        <child>
+          <object class="GtkBox" id="user_folder_change_button_popover_box">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="margin-start">5</property>
+            <property name="margin-end">5</property>
+            <property name="margin-top">5</property>
+            <property name="margin-bottom">5</property>
+            <property name="orientation">horizontal</property>
+            <property name="spacing">5</property>
+            <child>
+              <object class="GtkLabel">
+                <property name="visible">True</property>
+                <property name="label" translatable="yes">Folder: </property>
+              </object>
+              <packing>
+                <property name="position">0</property>
+                <property name="pack-type">start</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkEntry" id="file_folder_button_popover_entry">
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+                <property name="pack-type">end</property>
+              </packing>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="GtkBox" id="user_folder_extension_change_button_popover_box">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="margin-start">5</property>
+            <property name="margin-end">5</property>
+            <property name="margin-top">5</property>
+            <property name="margin-bottom">5</property>
+            <property name="orientation">horizontal</property>
+            <property name="spacing">5</property>
+            <child>
+              <object class="GtkLabel">
+                <property name="visible">True</property>
+                <property name="label" translatable="yes">Extension: </property>
+              </object>
+              <packing>
+                <property name="position">0</property>
+                <property name="pack-type">start</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkEntry" id="file_extension_button_popover_entry">
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+                <property name="pack-type">end</property>
+              </packing>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
 </interface>
