@@ -69,6 +69,7 @@
                         <property name="visible">True</property>
                         <property name="label" translatable="yes">Add</property>
                         <property name="valign">center</property>
+                        <signal name="clicked" handler="on_add_user_folder_button_clicked" swapped="no"/>
                       </object>
                     </child>
                     <child>
@@ -80,6 +81,7 @@
                         <property name="visible">True</property>
                         <property name="label" translatable="yes">Clear all</property>
                         <property name="valign">center</property>
+                        <signal name="clicked" handler="on_clear_all_user_folder_button_clicked" swapped="no"/>
                       </object>
                     </child>
                   </object>

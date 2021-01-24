@@ -17,7 +17,7 @@ gi.require_version('Gtk', '3.0')
 gi.require_version('Handy', '1')
 from gi.repository import Gtk, Gio, GLib, Handy
 from .constants import folder_cleaner_constants as constants
-from .user_folder import UserFoldersBox
+from .user_folder import UserFoldersBoxRow
 
 Handy.init()
 
@@ -33,7 +33,7 @@ class PreferencesWindow(Handy.PreferencesWindow):
     # user_folders_frame = Gtk.Template.Child()
     # user_folders_scrolled_window = Gtk.Template.Child()
     # user_folders_second_box = Gtk.Template.Child()
-    # clear_all_button = Gtk.Template.Child()
+    clear_all_user_folder_button = Gtk.Template.Child()
     # preferences_list_box = Gtk.Template.Child()
     # photo_sort_row = Gtk.Template.Child()
     # photo_sort_by_row = Gtk.Template.Child()
@@ -41,6 +41,7 @@ class PreferencesWindow(Handy.PreferencesWindow):
     add_user_folder_section = Gtk.Template.Child()
     photo_sorting_section = Gtk.Template.Child()
     section_user_folders = Gtk.Template.Child()
+    add_user_folder_button = Gtk.Template.Child()
 
     def __init__(self, app, *args, **kwargs):
         super().__init__(**kwargs)
@@ -93,35 +94,37 @@ class PreferencesWindow(Handy.PreferencesWindow):
         self.add_user_folder_section.props.visible = state
         self.section_user_folders.props.visible = state
 
-    """@Gtk.Template.Callback()
+    @Gtk.Template.Callback()
     def on_add_user_folder_button_clicked(self, btn):
-        self.user_folders_frame.props.visible = True
-        children = self.user_folders_list_box.get_children()
+        # self.section_user_folders.add(lbl)
+        # self.user_folders_frame.props.visible = True
+        children = self.section_user_folders.get_children()
         extensions = []
-        ufolder = UserFoldersBox()
+        ufolder = UserFoldersBoxRow()
+        extensions.append(ufolder.get_title())
 
         if children:
-            for child in children:  # each child contains another child of UserFolder instance
-                user_folder = child.get_child()
-                extension = user_folder.extension
+            for child in children:  # child = UserFoldersBoxRow instance
+                extension = child.get_title()
                 extensions.append(extension)
 
-        #check if extension already present
-        while ufolder.extension in extensions:
-            ufolder.extension += '_copy'
+        # check if extension already present
+        while ufolder.get_title() in extensions:
+            ufolder.set_title(ufolder.get_title() + ' copy')
 
-        ufolder.file_extension_button_label.props.label = ufolder.extension  # from button label
-        ufolder.user_folder_button_label.props.label = ufolder.folder  # from button label
-        self.user_folders_list_box.insert(ufolder, -1)
+        # ufolder.file_extension_button_label.props.label = ufolder.extension  # from button label
+        # ufolder.user_folder_button_label.props.label = ufolder.folder  # from button label
+        # self.user_folders_list_box.insert(ufolder, -1)
+        self.section_user_folders.add(ufolder)
 
-    def on_user_folders_change(self, s, k, w):
+    """def on_user_folders_change(self, s, k, w):
         if s.get_boolean(k):
             w.props.visible = True
         else:
             w.props.visible = False
-            self.resize(700, 200)
+            self.resize(700, 200)"""
 
-    def populate_user_folders(self):
+    """def populate_user_folders(self):
         for k, v in self.user_saved_folders.items():
             ufolder = UserFoldersBox(k, v)
             self.user_folders_list_box.insert(ufolder, -1)
@@ -140,15 +143,16 @@ class PreferencesWindow(Handy.PreferencesWindow):
             self.user_saved_folders[extension] = folder
 
         # save new user-made formats
-        self.settings.set_value('saved-user-folders', GLib.Variant('a{ss}', self.user_saved_folders))
+        self.settings.set_value('saved-user-folders', GLib.Variant('a{ss}', self.user_saved_folders))"""
 
     @Gtk.Template.Callback()
-    def on_clear_all_button_clicked(self, btn):
-        children = self.user_folders_list_box.get_children()  # children = list of Gtk.ListBox
-        for child in children:  # each child contains another child of UserFolder instance
-            child.destroy()
+    def on_clear_all_user_folder_button_clicked(self, btn):
+        # children = self.user_folders_list_box.get_children()  # children = list of Gtk.ListBox
+        # for child in children:  # each child contains another child of UserFolder instance
+        #     child.destroy()
+        print('clear')
 
-    @Gtk.Template.Callback()
+    """@Gtk.Template.Callback()
     def on_preferences_list_box_row_activated(self, list_box, row):
         if row.get_name() == 'photo_sort':
             self.photo_sort_switcher.props.state = not self.photo_sort_switcher.props.state

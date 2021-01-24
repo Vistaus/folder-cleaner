@@ -13,7 +13,7 @@ from .constants import folder_cleaner_constants as constants
 Handy.init()
 
 @Gtk.Template(resource_path=constants['UI_PATH'] + 'user_folder.ui')
-class UserFoldersBox(Gtk.ListBox):
+class UserFoldersBoxRow(Handy.ActionRow):
     __gtype_name__ = "user_folders_list_box_row"
 
     # file_extension_button = Gtk.Template.Child()
@@ -21,6 +21,8 @@ class UserFoldersBox(Gtk.ListBox):
     # close_user_folders_button = Gtk.Template.Child()
     # file_extension_button_label = Gtk.Template.Child()
     # user_folder_button_label = Gtk.Template.Child()
+    change_user_folder_button = Gtk.Template.Child()
+    remove_user_folder_button = Gtk.Template.Child()
 
     def __init__(self, extension=None, folder=None, *args, **kwargs):
         super().__init__(**kwargs)
@@ -28,11 +30,22 @@ class UserFoldersBox(Gtk.ListBox):
         self.settings = Gio.Settings.new(constants['main_settings_path'])
         self.user_saved_folders = self.settings.get_value('saved-user-folders').unpack()
 
-        self.extension = extension if extension else constants['default_extension_name']
-        self.folder = folder if folder else constants['default_folder_name']
+        self.subtitle = extension if extension else constants['default_extension_name']
+        self.title = folder if folder else constants['default_folder_name']
+        self.set_title(self.title)
+        self.set_subtitle(self.subtitle)
 
         # self.file_extension_button_label.props.label = self.extension
         # self.user_folder_button_label.props.label = self.folder
+
+    
+    @Gtk.Template.Callback()
+    def on_change_user_folder_button_clicked(self, btn):
+        print('change_user_folder_button')
+
+    @Gtk.Template.Callback()
+    def on_remove_user_folder_button_clicked(self, btn):
+        self.destroy()
 
     # @Gtk.Template.Callback()
     # def on_close_user_folders_button_clicked(self, btn):

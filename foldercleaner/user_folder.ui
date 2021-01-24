@@ -1,83 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <object class="GtkMenu" id="menu1">
+  <template class="user_folders_list_box_row" parent="HdyActionRow">
     <property name="visible">True</property>
-    <property name="can-focus">False</property>
-  </object>
-  <object class="GtkPopover" id="file_extension_button_popover">
-    <property name="can-focus">False</property>
-    <property name="relative-to">file_extension_button</property>
+    <property name="use_underline">True</property>
     <child>
-      <object class="GtkBox" id="file_extension_button_popover_box">
+      <object class="GtkBox" id="user_folder_box">
         <property name="visible">True</property>
         <property name="can-focus">False</property>
-        <property name="margin-start">5</property>
-        <property name="margin-end">5</property>
-        <property name="margin-top">5</property>
-        <property name="margin-bottom">5</property>
+        <property name="valign">center</property>
         <property name="orientation">vertical</property>
         <child>
-          <object class="GtkEntry" id="file_extension_button_popover_entry">
+          <object class="GtkBox">
             <property name="visible">True</property>
-            <property name="can-focus">True</property>
-            <signal name="changed" handler="on_file_extension_button_popover_entry_changed" swapped="no"/>
+            <property name="orientation">horizontal</property>
+            <child>
+              <object class="GtkButton" id="change_user_folder_button">
+                <style>
+                  <class name="flat"/>
+                  <class name="suggested-action"/>
+                </style>
+                <property name="visible">True</property>
+                <property name="label" translatable="yes">Change</property>
+                <property name="valign">center</property>
+                <signal name="clicked" handler="on_change_user_folder_button_clicked" swapped="no"/>
+              </object>
+            </child>
+            <child>
+              <object class="GtkButton" id="remove_user_folder_button">
+                <style>
+                  <class name="flat"/>
+                  <class name="destructive-action"/>
+                </style>
+                <property name="visible">True</property>
+                <property name="label" translatable="yes">Remove</property>
+                <property name="valign">center</property>
+                <signal name="clicked" handler="on_remove_user_folder_button_clicked" swapped="no"/>
+              </object>
+            </child>
           </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">0</property>
-          </packing>
         </child>
       </object>
     </child>
-  </object>
-  <object class="GtkPopover" id="user_folder_button_popover">
-    <property name="can-focus">False</property>
-    <property name="relative-to">user_folder_button</property>
-    <child>
-      <object class="GtkBox" id="user_folder_button_popover_box">
-        <property name="visible">True</property>
-        <property name="can-focus">False</property>
-        <property name="margin-start">5</property>
-        <property name="margin-end">5</property>
-        <property name="margin-top">5</property>
-        <property name="margin-bottom">5</property>
-        <property name="orientation">vertical</property>
-        <child>
-          <object class="GtkEntry" id="user_folder_button_popover_entry">
-            <property name="visible">True</property>
-            <property name="can-focus">True</property>
-            <signal name="changed" handler="on_user_folder_button_popover_entry_changed" swapped="no"/>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">0</property>
-          </packing>
-        </child>
-      </object>
-    </child>
-  </object>
-    <template class="user_folders_list_box_row" parent="HdyActionRow">
-      <property name="visible">True</property>
-      <property name="use_underline">True</property>
-      <child>
-        <object class="GtkBox" id="user_folder_box">
-          <property name="visible">True</property>
-          <property name="can-focus">False</property>
-          <property name="valign">center</property>
-          <property name="orientation">vertical</property>
-          <child>
-            <object class="GtkButton" id="user_folder_label_button">
-              <property name="visible">True</property>
-            </object>
-            <packing>
-              <property name="expand">False</property>
-              <property name="fill">True</property>
-              <property name="position">0</property>
-            </packing>
-          </child>
-        </object>
-      </child>
-    </template>
+  </template>
 </interface>
