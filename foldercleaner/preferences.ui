@@ -4,7 +4,7 @@
     <property name="can_swipe_back">True</property>
     <child>
       <object class="HdyPreferencesPage">
-        <property name="icon_name">applications-system-symbolic</property>
+        <property name="icon_name">document-open-symbolic</property>
         <property name="visible">True</property>
         <property name="title" translatable="yes">Files</property>
         <child>
@@ -47,7 +47,7 @@
     </child>
     <child>
       <object class="HdyPreferencesPage">
-        <property name="icon_name">applications-system-symbolic</property>
+        <property name="icon_name">camera-photo-symbolic</property>
         <property name="visible">True</property>
         <property name="title" translatable="yes">Photos</property>
         <child>
