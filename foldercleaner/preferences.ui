@@ -2,6 +2,8 @@
 <interface>
   <template class="hdy_preferences_dialog" parent="HdyPreferencesWindow">
     <property name="can_swipe_back">True</property>
+    <property name="default-width">600</property>
+    <property name="default-height">500</property>
     <child>
       <object class="HdyPreferencesPage">
         <property name="icon_name">document-open-symbolic</property>
@@ -10,18 +12,25 @@
         <child>
           <object class="HdyPreferencesGroup" id="section_file_sort">
             <property name="visible">True</property>
-            <property name="title" translatable="yes">Files</property>
             <child>
               <object class="HdyActionRow">
                 <property name="visible">True</property>
                 <property name="title" translatable="yes">File sort</property>
                 <property name="subtitle" translatable="yes">How to sort files.</property>
-                <property name="activatable_widget">files_theme_switch</property>
                 <property name="use_underline">True</property>
                 <child>
-                  <object class="GtkSwitch" id="files_theme_switch">
+                  <object class="GtkComboBoxText" id="sorting_combobox">
                     <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="halign">end</property>
                     <property name="valign">center</property>
+                    <property name="active">0</property>
+                    <property name="active-id">0</property>
+                    <items>
+                      <item id="0" translatable="yes">By Extension</item>
+                      <item id="1" translatable="yes">By Type</item>
+                    </items>
+                    <signal name="changed" handler="on_sorting_combobox_changed" swapped="no"/>
                   </object>
                 </child>
               </object>
@@ -41,6 +50,71 @@
                 </child>
               </object>
             </child>
+            <child>
+              <object class="HdyActionRow">
+                <property name="visible">True</property>
+                <property name="title" translatable="yes">Add user folder</property>
+                <property name="use_underline">True</property>
+                <child>
+                  <object class="GtkBox">
+                    <property name="visible">True</property>
+                    <property name="orientation">horizontal</property>
+                    <child>
+                      <object class="GtkButton" id="add_user_folder_button">
+                        <style>
+                          <class name="flat"/>
+                          <class name="suggested-action"/>
+                        </style>
+                        <property name="visible">True</property>
+                        <property name="label" translatable="yes">Add</property>
+                        <property name="valign">center</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkButton" id="clear_all_user_folder_button">
+                        <style>
+                          <class name="flat"/>
+                          <class name="destructive-action"/>
+                        </style>
+                        <property name="visible">True</property>
+                        <property name="label" translatable="yes">Clear all</property>
+                        <property name="valign">center</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="HdyPreferencesGroup" id="section_user_folders">
+            <property name="visible">True</property>
+            <property name="title">User folders</property>
+            <child>
+              <object class="HdyActionRow">
+                <property name="visible">True</property>
+                <property name="use_underline">True</property>
+                <child>
+                  <object class="GtkBox" id="user_folder_box">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="valign">center</property>
+                    <property name="orientation">vertical</property>
+                    <child>
+                      <object class="GtkButton" id="user_folder_label_button">
+                        <property name="visible">True</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
           </object>
         </child>
       </object>
@@ -53,18 +127,40 @@
         <child>
           <object class="HdyPreferencesGroup" id="section_photo_sort">
             <property name="visible">True</property>
-            <property name="title" translatable="yes">Photos</property>
             <child>
               <object class="HdyActionRow">
                 <property name="visible">True</property>
                 <property name="title" translatable="yes">Photo sort</property>
-                <property name="subtitle" translatable="yes">How to sort files.</property>
-                <property name="activatable_widget">photo_theme_switch</property>
+                <property name="subtitle" translatable="yes">Enable photo sort.</property>
+                <property name="activatable_widget">photo_sort_switcher</property>
                 <property name="use_underline">True</property>
                 <child>
-                  <object class="GtkSwitch" id="photo_theme_switch">
+                  <object class="GtkSwitch" id="photo_sort_switcher">
                     <property name="visible">True</property>
                     <property name="valign">center</property>
+                    <signal name="state-set" handler="on_photo_sort_switcher_state_set" swapped="no"/>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="HdyActionRow">
+                <property name="visible">False</property>
+                <property name="title" translatable="yes">Photo sort</property>
+                <property name="subtitle" translatable="yes">How to sort photos.</property>
+                <property name="use_underline">True</property>
+                <child>
+                  <object class="GtkComboBoxText" id="photo_sorting_combobox">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="halign">end</property>
+                    <property name="valign">center</property>
+                    <property name="active">0</property>
+                    <property name="active-id">0</property>
+                    <items>
+                      <item id="0" translatable="yes">By Date</item>
+                    </items>
+                    <signal name="changed" handler="on_photo_sorting_combobox_changed" swapped="no"/>
                   </object>
                 </child>
               </object>
