@@ -122,9 +122,9 @@
               </object>
             </child>
             <child>
-              <object class="HdyActionRow">
+              <object class="HdyActionRow" id="photo_sorting_section">
                 <property name="visible">False</property>
-                <property name="title" translatable="yes">Photo sort</property>
+                <property name="title" translatable="yes">Photo sort method</property>
                 <property name="subtitle" translatable="yes">How to sort photos.</property>
                 <property name="use_underline">True</property>
                 <child>
