@@ -50,6 +50,15 @@ class FolderCleaner(Gtk.ApplicationWindow):
         self.label_box.drag_dest_set_target_list(None)
         self.label_box.drag_dest_add_text_targets()
 
+        css_file = Gio.File.new_for_path('data/style.css')
+        css_provider = Gtk.CssProvider()
+        css_provider.load_from_file(css_file)
+        screen = Gdk.Screen.get_default()
+
+        context = Gtk.StyleContext()
+        context.add_provider_for_screen(screen, css_provider,
+        Gtk.STYLE_PROVIDER_PRIORITY_USER)
+
         if self.saved_folders:
             self.main_label_box.props.visible = False
             for path in self.saved_folders:

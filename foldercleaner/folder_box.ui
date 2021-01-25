@@ -13,11 +13,14 @@
     <property name="can-focus">False</property>
     <property name="selection-mode">none</property>
     <child>
-      <object class="GtkListBoxRow">
+      <object class="GtkListBoxRow" id="folder_box">
+        <property name="name">folder_box</property>
         <property name="width-request">100</property>
         <property name="height-request">80</property>
         <property name="visible">True</property>
         <property name="can-focus">True</property>
+        <property name="activatable">False</property>
+        <property name="selectable">False</property>
         <child>
           <object class="GtkBox">
             <property name="visible">True</property>
