@@ -79,6 +79,7 @@
               <object class="GtkEntry" id="file_folder_button_popover_entry">
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
+                <signal name="changed" handler="on_file_folder_button_popover_entry_changed" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -113,6 +114,7 @@
               <object class="GtkEntry" id="file_extension_button_popover_entry">
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
+                <signal name="changed" handler="on_file_extension_button_popover_entry_changed" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">False</property>
