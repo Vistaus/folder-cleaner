@@ -55,16 +55,7 @@ class UserFoldersBoxRow(Handy.ActionRow):
     @Gtk.Template.Callback()
     def on_file_extension_button_popover_entry_changed(self, entry):
         if self.check_entry(entry, self.non_letters_check):
-            self.set_subtitle(entry.get_text().strip())  # extension
-
-    # @Gtk.Template.Callback()
-    # def on_close_user_folders_button_clicked(self, btn):
-    #     try:
-    #         self.user_saved_folders.pop(self.extension, None)
-    #         self.settings.set_value('saved-user-folders', GLib.Variant('a{ss}', self.user_saved_folders))
-    #     except:
-    #         print("Error")
-    #     self.get_parent().destroy()        
+            self.set_subtitle(entry.get_text().strip())  # extension      
 
     def non_letters_check(self, text):
         if text:
