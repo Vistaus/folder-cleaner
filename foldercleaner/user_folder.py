@@ -16,11 +16,6 @@ Handy.init()
 class UserFoldersBoxRow(Handy.ActionRow):
     __gtype_name__ = "user_folders_list_box_row"
 
-    # file_extension_button = Gtk.Template.Child()
-    # user_folder_button = Gtk.Template.Child()
-    # close_user_folders_button = Gtk.Template.Child()
-    # file_extension_button_label = Gtk.Template.Child()
-    # user_folder_button_label = Gtk.Template.Child()
     change_user_folder_button = Gtk.Template.Child()
     remove_user_folder_button = Gtk.Template.Child()
     user_folder_change_popover = Gtk.Template.Child()
@@ -38,14 +33,6 @@ class UserFoldersBoxRow(Handy.ActionRow):
         self.set_title(self.title)  # folder
         self.set_subtitle(self.subtitle)  # extension
 
-        # self.file_extension_button_label.props.label = self.extension
-        # self.user_folder_button_label.props.label = self.folder
-
-    
-    # @Gtk.Template.Callback()
-    # def on_change_user_folder_button_clicked(self, btn):
-    #     print('change_user_folder_button')
-
     @Gtk.Template.Callback()
     def on_remove_user_folder_button_clicked(self, btn):
         self.destroy()
@@ -57,12 +44,12 @@ class UserFoldersBoxRow(Handy.ActionRow):
     @Gtk.Template.Callback()
     def on_file_folder_button_popover_entry_changed(self, entry):
         if self.check_entry(entry, self.non_letters_check):
-            self.set_title(entry.get_text())  # folder
+            self.set_title(entry.get_text().strip())  # folder
 
     @Gtk.Template.Callback()
     def on_file_extension_button_popover_entry_changed(self, entry):
         if self.check_entry(entry, self.non_letters_check):
-            self.set_subtitle(entry.get_text())  # extension
+            self.set_subtitle(entry.get_text().strip())  # extension
 
     # @Gtk.Template.Callback()
     # def on_close_user_folders_button_clicked(self, btn):
@@ -71,18 +58,7 @@ class UserFoldersBoxRow(Handy.ActionRow):
     #         self.settings.set_value('saved-user-folders', GLib.Variant('a{ss}', self.user_saved_folders))
     #     except:
     #         print("Error")
-    #     self.get_parent().destroy()
-
-    # @Gtk.Template.Callback()
-    # def on_file_extension_button_popover_entry_changed(self, entry):
-    #     if self.check_entry(entry, self.non_letters_check):
-    #         self.extension = self.file_extension_button_label.props.label = entry.get_text().strip()
-
-    # @Gtk.Template.Callback()
-    # def on_user_folder_button_popover_entry_changed(self, entry):
-    #     if self.check_entry(entry, self.non_letters_check):
-    #         self.folder = self.user_folder_button_label.props.label = entry.get_text().strip()
-        
+    #     self.get_parent().destroy()        
 
     def non_letters_check(self, text):
         if text:

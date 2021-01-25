@@ -41,8 +41,6 @@ class PreferencesWindow(Handy.PreferencesWindow):
         self.settings = Gio.Settings.new(constants['main_settings_path'])
         self.sorted_by_category = self.settings.get_boolean('sort-by-category')
 
-        # self.settings.connect("changed::user-folders", self.on_user_folders_change, self.user_folders_box)
-
         self.user_folders = self.settings.get_boolean('user-folders')
         self.user_folders_switcher.set_active(self.user_folders)
 
