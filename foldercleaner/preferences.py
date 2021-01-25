@@ -27,16 +27,8 @@ class PreferencesWindow(Handy.PreferencesWindow):
 
     sorting_combobox = Gtk.Template.Child()
     photo_sort_switcher = Gtk.Template.Child()
-    # user_folders_box = Gtk.Template.Child()
     user_folders_switcher = Gtk.Template.Child()
-    # user_folders_list_box = Gtk.Template.Child()
-    # user_folders_frame = Gtk.Template.Child()
-    # user_folders_scrolled_window = Gtk.Template.Child()
-    # user_folders_second_box = Gtk.Template.Child()
     clear_all_user_folder_button = Gtk.Template.Child()
-    # preferences_list_box = Gtk.Template.Child()
-    # photo_sort_row = Gtk.Template.Child()
-    # photo_sort_by_row = Gtk.Template.Child()
     photo_sorting_combobox = Gtk.Template.Child()
     add_user_folder_section = Gtk.Template.Child()
     photo_sorting_section = Gtk.Template.Child()
@@ -66,7 +58,6 @@ class PreferencesWindow(Handy.PreferencesWindow):
         self.photo_sorting_combobox.active = self.settings.get_int('photo-sort-by')
         self.section_user_folders.props.visible = True if self.user_folders else False
         self.add_user_folder_section.props.visible = True if self.user_folders else False
-        # self.user_folders_frame.props.visible = True if self.user_saved_folders else False
 
         if self.user_saved_folders:
             self.populate_user_folders()
@@ -96,8 +87,6 @@ class PreferencesWindow(Handy.PreferencesWindow):
 
     @Gtk.Template.Callback()
     def on_add_user_folder_button_clicked(self, btn):
-        # self.section_user_folders.add(lbl)
-        # self.user_folders_frame.props.visible = True
         children = self.section_user_folders.get_children()
         extensions = []
         ufolder = UserFoldersBoxRow()
@@ -108,7 +97,7 @@ class PreferencesWindow(Handy.PreferencesWindow):
                 extension = child.get_title()
                 extensions.append(extension)
 
-        # check if extension already present
+        # check if extension is already present
         while ufolder.get_title() in extensions:
             ufolder.set_title(ufolder.get_title() + ' copy')
 
@@ -116,19 +105,6 @@ class PreferencesWindow(Handy.PreferencesWindow):
         # ufolder.user_folder_button_label.props.label = ufolder.folder  # from button label
         # self.user_folders_list_box.insert(ufolder, -1)
         self.section_user_folders.add(ufolder)
-
-    """def on_user_folders_change(self, s, k, w):
-        if s.get_boolean(k):
-            w.props.visible = True
-        else:
-            w.props.visible = False
-            self.resize(700, 200)"""
-
-    def populate_user_folders(self):
-        for k, v in self.user_saved_folders.items():
-            ufolder = UserFoldersBoxRow(k, v)
-            self.section_user_folders.add(ufolder)
-            # self.user_folders_list_box.insert(ufolder, -1)
 
     @Gtk.Template.Callback()
     def on_delete_event(self, w, e):  # when preference window closed
@@ -151,18 +127,9 @@ class PreferencesWindow(Handy.PreferencesWindow):
         for child in children:  # child = UserFoldersBoxRow instance
             child.destroy()
 
-    """@Gtk.Template.Callback()
-    def on_preferences_list_box_row_activated(self, list_box, row):
-        if row.get_name() == 'photo_sort':
-            self.photo_sort_switcher.props.state = not self.photo_sort_switcher.props.state
-            self.set_photo_sort_preferences(self.photo_sort_switcher.props.state)
-        elif row.get_name() == 'user_folders':
-            self.user_folders_switcher.props.state = not self.user_folders_switcher.props.state
-            self.settings.set_boolean('user-folders', self.user_folders_switcher.props.state)"""
+    ###############################
 
-    # def set_photo_sort_preferences(self, state):
-    #     self.settings.set_boolean('photo-sort', state)
-    #     self.photo_sort_by_row.props.visible = state
-    #     if not self.photo_sort_by_row.props.visible:
-    #         self.resize(600, 200)
-
+    def populate_user_folders(self):
+        for k, v in self.user_saved_folders.items():
+            ufolder = UserFoldersBoxRow(k, v)
+            self.section_user_folders.add(ufolder)
