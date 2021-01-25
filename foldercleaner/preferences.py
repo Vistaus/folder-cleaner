@@ -88,16 +88,16 @@ class PreferencesWindow(Handy.PreferencesWindow):
         children = self.section_user_folders.get_children()
         extensions = []
         ufolder = UserFoldersBoxRow()
-        extensions.append(ufolder.get_title())
+        extensions.append(ufolder.get_subtitle())
 
         if children:
             for child in children:  # child = UserFoldersBoxRow instance
-                extension = child.get_title()
+                extension = child.get_subtitle()
                 extensions.append(extension)
 
         # check if extension is already present
-        while ufolder.get_title() in extensions:
-            ufolder.set_title(ufolder.get_title() + ' copy')
+        while ufolder.get_subtitle() in extensions:
+            ufolder.set_subtitle(ufolder.get_subtitle() + ' copy')
 
         # ufolder.file_extension_button_label.props.label = ufolder.extension  # from button label
         # ufolder.user_folder_button_label.props.label = ufolder.folder  # from button label

@@ -35,7 +35,13 @@ class UserFoldersBoxRow(Handy.ActionRow):
 
     @Gtk.Template.Callback()
     def on_remove_user_folder_button_clicked(self, btn):
-        self.destroy()
+        try:
+            self.user_saved_folders.pop(self.get_title(), None)
+            self.settings.set_value('saved-user-folders', GLib.Variant('a{ss}', self.user_saved_folders))
+        except:
+            print("Error")
+        finally:
+            self.destroy()
 
 
     # TODO
