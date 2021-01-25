@@ -11,6 +11,7 @@
   <template class="_list_box" parent="GtkListBox">
     <property name="visible">True</property>
     <property name="can-focus">False</property>
+    <property name="halign">center</property>
     <property name="selection-mode">none</property>
     <child>
       <object class="GtkListBoxRow" id="folder_box">
@@ -19,7 +20,6 @@
         <property name="height-request">80</property>
         <property name="visible">True</property>
         <property name="can-focus">True</property>
-        <property name="activatable">False</property>
         <property name="selectable">False</property>
         <child>
           <object class="GtkBox">

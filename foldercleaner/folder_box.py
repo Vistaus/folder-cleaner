@@ -35,6 +35,10 @@ class FolderBox(Gtk.ListBox):
     def __init__(self, label, *args, **kwargs):
         super().__init__(**kwargs)
 
+
+        # self.style_ctx = self.get_style_context()
+        # self.style_ctx.add_class('folder_box')
+
         self.label = label + '/'
 
         #TODO

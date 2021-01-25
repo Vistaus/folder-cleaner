@@ -78,6 +78,8 @@
                           <object class="GtkListBox" id="_main_list_box">
                             <property name="can-focus">False</property>
                             <property name="selection-mode">none</property>
+                            <property name="halign">center</property>
+                            <property name="margin-top">10</property>
                           </object>
                           <packing>
                             <property name="expand">False</property>
