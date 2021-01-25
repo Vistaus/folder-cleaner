@@ -57,10 +57,10 @@ class PreferencesWindow(Handy.PreferencesWindow):
         self.photo_sort = self.settings.get_boolean('photo-sort')
         self.photo_sort_switcher.set_active(self.photo_sort)
 
-        # self.user_saved_folders = self.settings.get_value('saved-user-folders').unpack()
+        self.user_saved_folders = self.settings.get_value('saved-user-folders').unpack()
 
         # for user created formats and folders
-        # self.new_user_formats = {}
+        self.new_user_formats = {}
 
         self.sorting_combobox.props.active = 1 if self.sorted_by_category else 0
         self.photo_sorting_combobox.active = self.settings.get_int('photo-sort-by')
@@ -68,8 +68,8 @@ class PreferencesWindow(Handy.PreferencesWindow):
         self.add_user_folder_section.props.visible = True if self.user_folders else False
         # self.user_folders_frame.props.visible = True if self.user_saved_folders else False
 
-        # if self.user_saved_folders:
-        #     self.populate_user_folders()
+        if self.user_saved_folders:
+            self.populate_user_folders()
 
     @Gtk.Template.Callback()
     def on_sorting_combobox_changed(self, box):
@@ -124,10 +124,11 @@ class PreferencesWindow(Handy.PreferencesWindow):
             w.props.visible = False
             self.resize(700, 200)"""
 
-    """def populate_user_folders(self):
+    def populate_user_folders(self):
         for k, v in self.user_saved_folders.items():
-            ufolder = UserFoldersBox(k, v)
-            self.user_folders_list_box.insert(ufolder, -1)
+            ufolder = UserFoldersBoxRow(k, v)
+            self.section_user_folders.add(ufolder)
+            # self.user_folders_list_box.insert(ufolder, -1)
 
     @Gtk.Template.Callback()
     def on_delete_event(self, w, e):  # when preference window closed
@@ -135,22 +136,20 @@ class PreferencesWindow(Handy.PreferencesWindow):
         # null before new formats from listbox added
         self.user_saved_folders = {}
 
-        children = self.user_folders_list_box.get_children()  # children = list of Gtk.ListBox
-        for child in children:  # each child contains another child of UserFolder instance
-            user_folder = child.get_child()
-            extension = user_folder.extension
-            folder = user_folder.folder
+        children = self.section_user_folders.get_children()
+        for child in children:  # child = UserFoldersBoxRow instance
+            extension = child.get_subtitle()
+            folder = child.get_title()
             self.user_saved_folders[extension] = folder
 
         # save new user-made formats
-        self.settings.set_value('saved-user-folders', GLib.Variant('a{ss}', self.user_saved_folders))"""
+        self.settings.set_value('saved-user-folders', GLib.Variant('a{ss}', self.user_saved_folders))
 
     @Gtk.Template.Callback()
     def on_clear_all_user_folder_button_clicked(self, btn):
-        # children = self.user_folders_list_box.get_children()  # children = list of Gtk.ListBox
-        # for child in children:  # each child contains another child of UserFolder instance
-        #     child.destroy()
-        print('clear')
+        children = self.section_user_folders.get_children()
+        for child in children:  # child = UserFoldersBoxRow instance
+            child.destroy()
 
     """@Gtk.Template.Callback()
     def on_preferences_list_box_row_activated(self, list_box, row):
