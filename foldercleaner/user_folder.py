@@ -50,15 +50,19 @@ class UserFoldersBoxRow(Handy.ActionRow):
     def on_remove_user_folder_button_clicked(self, btn):
         self.destroy()
 
+
+    # TODO
+    # check if two folders are the same
+
     @Gtk.Template.Callback()
     def on_file_folder_button_popover_entry_changed(self, entry):
         if self.check_entry(entry, self.non_letters_check):
-            self.set_title(entry.get_text())
+            self.set_title(entry.get_text())  # folder
 
     @Gtk.Template.Callback()
     def on_file_extension_button_popover_entry_changed(self, entry):
         if self.check_entry(entry, self.non_letters_check):
-            self.set_subtitle(entry.get_text())
+            self.set_subtitle(entry.get_text())  # extension
 
     # @Gtk.Template.Callback()
     # def on_close_user_folders_button_clicked(self, btn):
