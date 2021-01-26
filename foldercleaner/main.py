@@ -17,7 +17,8 @@ import locale
 import sys
 import gi
 gi.require_version('Gtk', '3.0')
-from gi.repository import Gtk, GLib, Gio
+gi.require_version('Handy', '1')
+from gi.repository import Gtk, GLib, Gio, Handy
 from locale import gettext as _
 from .window import FolderCleaner
 
@@ -25,8 +26,8 @@ from .window import FolderCleaner
 locale.textdomain('com.github.Latesil.folder-cleaner')
 
 def main():
-	app = Application()
-	return app.run(sys.argv)
+    app = Application()
+    return app.run(sys.argv)
 
 class Application(Gtk.Application):
 
@@ -41,6 +42,8 @@ class Application(Gtk.Application):
 
     def do_startup(self):
         Gtk.Application.do_startup(self)
+
+        Handy.init()
 
     def do_activate(self):
         if not self.window:

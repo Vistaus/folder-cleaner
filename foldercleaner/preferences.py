@@ -19,8 +19,6 @@ from gi.repository import Gtk, Gio, GLib, Handy
 from .constants import folder_cleaner_constants as constants
 from .user_folder import UserFoldersBoxRow
 
-Handy.init()
-
 @Gtk.Template(resource_path=constants['UI_PATH'] + 'preferences.ui')
 class PreferencesWindow(Handy.PreferencesWindow):
     __gtype_name__ = "hdy_preferences_dialog"
