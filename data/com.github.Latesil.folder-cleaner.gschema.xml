@@ -36,6 +36,11 @@
       <summary>Saved user folders list</summary>
       <description>A list of the user folders which are saved.</description>
     </key>
+    <key name="folders-made" type="as">
+      <default>[]</default>
+      <summary>Folders made</summary>
+      <description>A list of the folders that was made by one operation. For internal usage.</description>
+    </key>
     <key name="photo-sort-by" type="i">
       <default>0</default>
       <summary>How to sort photos</summary>

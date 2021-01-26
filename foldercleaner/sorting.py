@@ -11,7 +11,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from .helpers import get_files_and_folders, operations, folders_made, labels
+from .helpers import get_files_and_folders, operations
 from .constants import folder_cleaner_constants as constants
 from .basic_formats import base
 from locale import gettext as _
@@ -26,6 +26,7 @@ class Sorting():
 
     def __init__(self, base_folder):
         self.settings = Gio.Settings.new(constants['main_settings_path'])
+        self.folders_made_ = self.settings.get_value('folders-made').unpack()
         self.base_folder = base_folder
 
     def files_by_content(self):
@@ -66,7 +67,7 @@ class Sorting():
 
                 if destination_folder.get_path() not in folders:
                     Gio.File.make_directory(destination_folder)
-                    folders_made.append(destination_folder.get_path())
+                    self.folders_made_.append(destination_folder.get_path())
                     simple_file.move(destination_for_files, Gio.FileCopyFlags.NONE)
                     folders.append(destination_folder.get_path())
                     operations[f] = full_path_to_file
@@ -78,6 +79,7 @@ class Sorting():
                 print('%s: %s. File: %s, (code: %s)' % (err.domain, err.message, f, err.code))
                 return False
 
+        self.settings.set_value('folders-made', GLib.Variant('as', self.folders_made_))
         return True
 
     def files_by_extension(self):
@@ -92,7 +94,7 @@ class Sorting():
 
                 if ext not in folders:
                     Gio.File.make_directory(destination_folder)
-                    folders_made.append(destination_folder.get_path())
+                    self.folders_made_.append(destination_folder.get_path())
                     simple_file.move(destination_for_files, Gio.FileCopyFlags.NONE)
                     folders.append(ext)
                     operations[f] = destination_path
@@ -104,6 +106,7 @@ class Sorting():
                 print('%s: %s in file: %s, (code: %s)' % (err.domain, err.message, f, err.code))
                 return False
 
+        self.settings.set_value('folders-made', GLib.Variant('as', self.folders_made_))
         return True
 
     def photos_by_exif(self, exif):

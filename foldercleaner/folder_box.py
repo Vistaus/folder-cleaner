@@ -26,17 +26,18 @@ class FolderBox(Gtk.ListBoxRow):
 
     __gtype_name__ = "folder_box_row"
 
-    _folder_box_label = Gtk.Template.Child()
     _sort_photos_button = Gtk.Template.Child()
+    _folder_box_label = Gtk.Template.Child()
 
     i = 0
 
     def __init__(self, label, *args, **kwargs):
         super().__init__(**kwargs)
         Notify.init(constants['APP_ID'])
+        FolderBox.i += 1
+        
         self.label = label
         self.settings = Gio.Settings.new(constants['main_settings_path'])
-        FolderBox.i += 1
         self.settings.set_int('count', FolderBox.i)
         self.sort = Sorting(self.label)
         self.settings.connect("changed::photo-sort", self.on_photos_sort_change, self._sort_photos_button)

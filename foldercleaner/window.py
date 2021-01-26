@@ -22,7 +22,7 @@ from .folder_box import FolderBox
 from .preferences import PreferencesWindow
 from .aboutdialog import AboutWindow
 from .constants import folder_cleaner_constants as constants
-from .helpers import operations, folders_made
+from .helpers import operations
 
 @Gtk.Template(resource_path=constants['UI_PATH'] + 'folder_cleaner.ui')
 class FolderCleaner(Handy.ApplicationWindow):
@@ -44,6 +44,7 @@ class FolderCleaner(Handy.ApplicationWindow):
         self.settings.connect("changed::is-sorted", self.on_is_sorted_change, None)
         self.saved_folders = self.settings.get_value('saved-folders')
         self.user_saved_folders = self.settings.get_value('saved-user-folders').unpack()
+        self.folders_made_ = self.settings.get_value('folders-made').unpack()
 
         self._main_box.drag_dest_set(Gtk.DestDefaults.ALL, [], Gdk.DragAction.COPY)
         self._main_box.connect("drag-data-received", self.on_drag_data_received)
@@ -112,10 +113,10 @@ class FolderCleaner(Handy.ApplicationWindow):
 
         operations.clear() #TODO
 
-        for folder in folders_made:
+        for folder in self.folders_made_:
             GLib.spawn_async(['/usr/bin/rm', '-r', folder])
 
-        folders_made.clear() #TODO
+        self.settings.reset('folders-made')
 
     @Gtk.Template.Callback()
     def on__revealer_close_button_clicked(self, button):
