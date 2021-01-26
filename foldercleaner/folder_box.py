@@ -90,7 +90,7 @@ class FolderBox(Gtk.ListBoxRow):
         labels.remove(self.label[:-1])
         
         self.settings.set_int('count', FolderBox.i)
-        self.get_parent().destroy()
+        self.destroy()
         
     def on_photos_sort_change(self, settings, key, button):
         if settings.get_boolean(key):
