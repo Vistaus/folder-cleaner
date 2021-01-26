@@ -24,9 +24,9 @@ from .constants import folder_cleaner_constants as constants
 from .sorting import Sorting
 
 @Gtk.Template(resource_path = constants['UI_PATH'] + 'folder_box.ui')
-class FolderBox(Gtk.ListBox):
+class FolderBox(Gtk.ListBoxRow):
 
-    __gtype_name__ = "_list_box"
+    __gtype_name__ = "folder_box_row"
 
     _folder_box_label = Gtk.Template.Child()
     _sort_photos_button = Gtk.Template.Child()
