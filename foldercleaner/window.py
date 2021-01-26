@@ -55,9 +55,6 @@ class FolderCleaner(Gtk.ApplicationWindow):
         css_provider.load_from_file(css_file)
         screen = Gdk.Screen.get_default()
 
-        self.style_ctx = self._main_list_box.get_style_context()
-        self.style_ctx.add_class('folder_box')
-
         context = Gtk.StyleContext()
         context.add_provider_for_screen(screen, css_provider,
         Gtk.STYLE_PROVIDER_PRIORITY_USER)
@@ -94,7 +91,6 @@ class FolderCleaner(Gtk.ApplicationWindow):
     def on__preferences_button_clicked(self, button):
         preferences = PreferencesWindow(self)
         preferences.show()
-        #preferences.destroy()
 
     @Gtk.Template.Callback()
     def on__about_button_clicked(self, button):
