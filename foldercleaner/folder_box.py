@@ -18,7 +18,6 @@ gi.require_version('GExiv2', '0.10')
 gi.require_version('Notify', '0.7')
 from gi.repository import Gtk, Gio, GLib, Notify, GExiv2
 
-from .helpers import get_files_and_folders, operations, folders_made, labels
 from .constants import folder_cleaner_constants as constants
 from .sorting import Sorting
 
@@ -34,14 +33,8 @@ class FolderBox(Gtk.ListBoxRow):
 
     def __init__(self, label, *args, **kwargs):
         super().__init__(**kwargs)
-
-        self.label = label
-
-        #TODO
-        labels.append(self.label[:-1])
-
         Notify.init(constants['APP_ID'])
-        
+        self.label = label
         self.settings = Gio.Settings.new(constants['main_settings_path'])
         FolderBox.i += 1
         self.settings.set_int('count', FolderBox.i)
@@ -84,10 +77,6 @@ class FolderBox(Gtk.ListBoxRow):
     @Gtk.Template.Callback()
     def on__close_folder_clicked(self, button):
         FolderBox.i -= 1
-
-        #TODO
-        labels.remove(self.label[:-1])
-        
         self.settings.set_int('count', FolderBox.i)
         self.destroy()
         

@@ -22,7 +22,7 @@ from .folder_box import FolderBox
 from .preferences import PreferencesWindow
 from .aboutdialog import AboutWindow
 from .constants import folder_cleaner_constants as constants
-from .helpers import operations, folders_made, labels
+from .helpers import operations, folders_made
 
 @Gtk.Template(resource_path=constants['UI_PATH'] + 'folder_cleaner.ui')
 class FolderCleaner(Handy.ApplicationWindow):
@@ -124,7 +124,11 @@ class FolderCleaner(Handy.ApplicationWindow):
 
     @Gtk.Template.Callback()
     def on__main_window_destroy(self, w):
-        self.settings.set_value('saved-folders', GLib.Variant('as', labels))
+        saved_folders = []
+        children = self._main_list_box.get_children()
+        for child in children:
+            saved_folders.append(child.label)
+        self.settings.set_value('saved-folders', GLib.Variant('as', saved_folders))
 
     def on_count_change(self, settings, key, button):
         if self.settings.get_int('count') > 0:
