@@ -16,8 +16,7 @@ import gi
 gi.require_version('Gtk', '3.0')
 gi.require_version('GExiv2', '0.10')
 gi.require_version('Notify', '0.7')
-gi.require_version('Handy', '1')
-from gi.repository import Gtk, Gio, GLib, Notify, GExiv2, Handy
+from gi.repository import Gtk, Gio, GLib, Notify, GExiv2
 
 from .helpers import get_files_and_folders, operations, folders_made, labels
 from .constants import folder_cleaner_constants as constants
@@ -36,7 +35,7 @@ class FolderBox(Gtk.ListBoxRow):
     def __init__(self, label, *args, **kwargs):
         super().__init__(**kwargs)
 
-        self.label = label + '/'
+        self.label = label
 
         #TODO
         labels.append(self.label[:-1])
