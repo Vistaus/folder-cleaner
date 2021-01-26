@@ -36,6 +36,11 @@
       <summary>Saved user folders list</summary>
       <description>A list of the user folders which are saved.</description>
     </key>
+    <key name="operations" type="a{ss}">
+      <default>{}</default>
+      <summary>Operations was done</summary>
+      <description>A list of operations was done in one sorting transaction.</description>
+    </key>
     <key name="folders-made" type="as">
       <default>[]</default>
       <summary>Folders made</summary>

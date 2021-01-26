@@ -22,7 +22,6 @@ from .folder_box import FolderBox
 from .preferences import PreferencesWindow
 from .aboutdialog import AboutWindow
 from .constants import folder_cleaner_constants as constants
-from .helpers import operations
 
 @Gtk.Template(resource_path=constants['UI_PATH'] + 'folder_cleaner.ui')
 class FolderCleaner(Handy.ApplicationWindow):
@@ -44,7 +43,6 @@ class FolderCleaner(Handy.ApplicationWindow):
         self.settings.connect("changed::is-sorted", self.on_is_sorted_change, None)
         self.saved_folders = self.settings.get_value('saved-folders')
         self.user_saved_folders = self.settings.get_value('saved-user-folders').unpack()
-        self.folders_made_ = self.settings.get_value('folders-made').unpack()
 
         self._main_box.drag_dest_set(Gtk.DestDefaults.ALL, [], Gdk.DragAction.COPY)
         self._main_box.connect("drag-data-received", self.on_drag_data_received)
@@ -102,7 +100,9 @@ class FolderCleaner(Handy.ApplicationWindow):
 
     @Gtk.Template.Callback()
     def on__main_revealer_button_clicked(self, button):
-        for key, value in operations.items():
+        self.operations = self.settings.get_value('operations').unpack()
+        self.folders_made = self.settings.get_value('folders-made').unpack()
+        for key, value in self.operations.items():
             from_file = Gio.File.new_for_path(value)
             to_file = Gio.File.new_for_path(key)
             try:
@@ -111,9 +111,9 @@ class FolderCleaner(Handy.ApplicationWindow):
                 print(e)
                 pass
 
-        operations.clear() #TODO
+        self.settings.reset('operations')
 
-        for folder in self.folders_made_:
+        for folder in self.folders_made:
             GLib.spawn_async(['/usr/bin/rm', '-r', folder])
 
         self.settings.reset('folders-made')
@@ -121,7 +121,7 @@ class FolderCleaner(Handy.ApplicationWindow):
     @Gtk.Template.Callback()
     def on__revealer_close_button_clicked(self, button):
         self.settings.set_boolean('is-sorted', False)
-        operations = {}
+        self.settings.reset('operations')
 
     @Gtk.Template.Callback()
     def on__main_window_destroy(self, w):
