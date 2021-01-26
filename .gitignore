@@ -6,3 +6,4 @@ build-dir/
 builddir/
 .idea/
 *~
+*_old*
