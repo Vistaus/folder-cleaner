@@ -35,7 +35,7 @@ class FolderCleaner(Handy.ApplicationWindow):
     def __init__(self, app, *args, **kwargs):
         super().__init__(*args, title=_("Folder Cleaner"), application=app)
 
-        self.set_size_request(500, 300)
+        self.set_size_request(400, 300)
 
         self.set_wmclass("Folder Cleaner", _("Folder Cleaner"))
         self.settings = Gio.Settings.new(constants['main_settings_path'])
@@ -49,9 +49,8 @@ class FolderCleaner(Handy.ApplicationWindow):
         self._main_box.drag_dest_set_target_list(None)
         self._main_box.drag_dest_add_text_targets()
 
-        css_file = Gio.File.new_for_path('foldercleaner/style.css')
         css_provider = Gtk.CssProvider()
-        css_provider.load_from_file(css_file)
+        css_provider.load_from_resource(constants['UI_PATH'] + 'foldercleaner.css')
         screen = Gdk.Screen.get_default()
 
         context = Gtk.StyleContext()
@@ -100,9 +99,9 @@ class FolderCleaner(Handy.ApplicationWindow):
 
     @Gtk.Template.Callback()
     def on__main_revealer_button_clicked(self, button):
-        self.operations = self.settings.get_value('operations').unpack()
-        self.folders_made = self.settings.get_value('folders-made').unpack()
-        for key, value in self.operations.items():
+        operations = self.settings.get_value('operations').unpack()
+        folders_made = self.settings.get_value('folders-made').unpack()
+        for key, value in operations.items():
             from_file = Gio.File.new_for_path(value)
             to_file = Gio.File.new_for_path(key)
             try:
@@ -113,7 +112,7 @@ class FolderCleaner(Handy.ApplicationWindow):
 
         self.settings.reset('operations')
 
-        for folder in self.folders_made:
+        for folder in folders_made:
             GLib.spawn_async(['/usr/bin/rm', '-r', folder])
 
         self.settings.reset('folders-made')

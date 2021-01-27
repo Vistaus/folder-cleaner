@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.38.2 -->
 <interface>
+  <requires lib="gtk+" version="3.14"/>
   <object class="GtkImage" id="image2">
     <property name="visible">True</property>
     <property name="can-focus">False</property>
@@ -19,6 +21,7 @@
         <property name="can-focus">False</property>
         <property name="margin-top">5</property>
         <property name="margin-bottom">5</property>
+        <property name="spacing">30</property>
         <property name="homogeneous">True</property>
         <child>
           <object class="GtkBox">
@@ -63,23 +66,26 @@
           <object class="GtkBox">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
+            <property name="margin-end">5</property>
             <child>
               <object class="GtkButtonBox">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
-                <property name="layout-style">start</property>
+                <property name="halign">center</property>
+                <property name="valign">center</property>
+                <property name="margin-start">5</property>
+                <property name="margin-end">5</property>
+                <property name="layout-style">expand</property>
                 <child>
                   <object class="GtkButton" id="_open_folder">
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
                     <property name="receives-default">True</property>
                     <property name="tooltip-text" translatable="yes">Open folder</property>
+                    <property name="halign">center</property>
+                    <property name="valign">center</property>
                     <property name="image">image2</property>
-                    <property name="relief">none</property>
                     <signal name="clicked" handler="on__open_folder_clicked" swapped="no"/>
-                    <style>
-                      <class name="flat"/>
-                    </style>
                   </object>
                   <packing>
                     <property name="expand">True</property>
@@ -93,8 +99,8 @@
                     <property name="can-focus">True</property>
                     <property name="receives-default">False</property>
                     <property name="tooltip-text" translatable="yes">Delete</property>
+                    <property name="halign">center</property>
                     <property name="valign">center</property>
-                    <property name="relief">none</property>
                     <signal name="clicked" handler="on__close_folder_clicked" swapped="no"/>
                     <child>
                       <object class="GtkImage" id="_close_butto">
@@ -125,6 +131,8 @@
               <object class="GtkButtonBox">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
+                <property name="valign">center</property>
+                <property name="layout-style">expand</property>
                 <child>
                   <object class="GtkButton" id="_sort_photos_button">
                     <property name="label" translatable="yes">Sort Photos</property>

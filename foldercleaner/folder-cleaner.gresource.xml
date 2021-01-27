@@ -6,5 +6,6 @@
     <file>folder_cleaner.ui</file>
     <file>aboutdialog.ui</file>
     <file>user_folder.ui</file>
+    <file compressed="true">foldercleaner.css</file>
   </gresource>
 </gresources>

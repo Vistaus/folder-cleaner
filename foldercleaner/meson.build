@@ -9,10 +9,16 @@ gnome.compile_resources(meson.project_name(),
 	install_dir: pkgdatadir,
 )
 
-python3 = import('python3')
+python = import('python')
+python_bin = python.find_installation('python3')
+if not python_bin.found()
+  error('No valid python3 binary found')
+else
+  message('Found python3 binary')
+endif
 
 conf = configuration_data()
-conf.set('PYTHON', python3.find_python().path())
+conf.set('PYTHON', python_bin.path())
 conf.set('VERSION', meson.project_version())
 conf.set('localedir', join_paths(get_option('prefix'), get_option('localedir')))
 conf.set('pkgdatadir', pkgdatadir)
