@@ -79,7 +79,6 @@ class Sorting():
 
             except GLib.Error as err:
                 print('%s: %s. File: %s, (code: %s)' % (err.domain, err.message, f, err.code))
-                no_error = False
 
         self.settings.set_value('folders-made', GLib.Variant('as', self.folders_made))
         self.settings.set_value('operations', GLib.Variant('a{ss}', self.operations))
@@ -108,7 +107,6 @@ class Sorting():
 
             except GLib.Error as err:
                 print('%s: %s in file: %s, (code: %s)' % (err.domain, err.message, f, err.code))
-                no_error = False
 
         self.settings.set_value('folders-made', GLib.Variant('as', self.folders_made))
         self.settings.set_value('operations', GLib.Variant('a{ss}', self.operations))

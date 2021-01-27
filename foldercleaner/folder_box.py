@@ -32,7 +32,6 @@ class FolderBox(Gtk.ListBoxRow):
 
     def __init__(self, label, *args, **kwargs):
         super().__init__(**kwargs)
-        Notify.init(constants['APP_ID'])
         FolderBox.i += 1
         
         self.label = label

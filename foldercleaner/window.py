@@ -106,9 +106,8 @@ class FolderCleaner(Handy.ApplicationWindow):
             to_file = Gio.File.new_for_path(key)
             try:
                 from_file.move(to_file, Gio.FileCopyFlags.NONE)
-            except gi.repository.GLib.Error as e:
-                print(e)
-                pass
+            except GLib.Error as err:
+                print('%s: %s. File: %s, (code: %s)' % (err.domain, err.message, err.code))
 
         self.settings.reset('operations')
 
@@ -148,12 +147,15 @@ class FolderCleaner(Handy.ApplicationWindow):
         drop_source = GLib.filename_from_uri(data.get_text())
         folder_path = drop_source[0].rstrip()
 
-        if GLib.file_test(folder_path, GLib.FileTest.IS_DIR):
-            self._main_label_box.props.visible = False
-            label = folder_path
-            folder = FolderBox(label)
-            self._main_list_box.props.visible = True
-            folder._folder_box_label.set_label(label)
-            self._main_list_box.insert(folder, -1)
-        else:
-            print(f"Error: {folder_path} is not a folder.")
+        try:
+            if GLib.file_test(folder_path, GLib.FileTest.IS_DIR):
+                self._main_label_box.props.visible = False
+                label = folder_path
+                folder = FolderBox(label)
+                self._main_list_box.props.visible = True
+                folder._folder_box_label.set_label(label)
+                self._main_list_box.insert(folder, -1)
+            else:
+                raise GLib.Error(message=f'Error: {folder_path} is not a folder.')
+        except GLib.Error as err:
+            print('%s' % (err.message))
