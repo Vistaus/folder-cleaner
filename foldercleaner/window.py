@@ -135,6 +135,7 @@ class FolderCleaner(Handy.ApplicationWindow):
             self._main_label_box.props.visible = False
         else:
             self._main_label_box.props.visible = True
+            self._main_list_box.props.visible = False
             self.settings.reset('saved-folders')
 
     def on_is_sorted_change(self, settings, key, button):
