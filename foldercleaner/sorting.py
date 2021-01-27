@@ -34,6 +34,7 @@ class Sorting():
         folders, files = get_files_and_folders(self.base_folder)
         extensions = base
         user_extensions = self.settings.get_value('saved-user-folders').unpack()
+        no_error = True
         for f in files:
             try:
                 # content_type, uncertain = Gio.content_type_guess(f)
@@ -78,14 +79,15 @@ class Sorting():
 
             except GLib.Error as err:
                 print('%s: %s. File: %s, (code: %s)' % (err.domain, err.message, f, err.code))
-                return False
+                no_error = False
 
         self.settings.set_value('folders-made', GLib.Variant('as', self.folders_made))
         self.settings.set_value('operations', GLib.Variant('a{ss}', self.operations))
-        return True
+        return no_error
 
     def files_by_extension(self):
         folders, files = get_files_and_folders(self.base_folder)
+        no_error = True
         for f in files:
             try:
                 simple_file = Gio.File.new_for_path(f)
@@ -106,11 +108,11 @@ class Sorting():
 
             except GLib.Error as err:
                 print('%s: %s in file: %s, (code: %s)' % (err.domain, err.message, f, err.code))
-                return False
+                no_error = False
 
         self.settings.set_value('folders-made', GLib.Variant('as', self.folders_made))
         self.settings.set_value('operations', GLib.Variant('a{ss}', self.operations))
-        return True
+        return no_error
 
     def photos_by_exif(self, exif):
         folders, files = get_files_and_folders(self.base_folder)
@@ -133,17 +135,23 @@ class Sorting():
                     # Gio.Files
                     photo_file = Gio.File.new_for_path(f)
                     destination_folder = Gio.File.new_for_path(folder_for_photo)
-                    destination_for_photo = Gio.File.new_for_path(os.path.join(folder_for_photo, photo_file.get_basename()))
+                    destination_path = os.path.join(folder_for_photo, photo_file.get_basename())
+                    destination_for_photo = Gio.File.new_for_path(destination_path)
 
-                    if GLib.file_test(folder_for_photo, GLib.FileTest.IS_DIR):
-                        photo_file.move(destination_for_photo, Gio.FileCopyFlags.NONE)
-                    else:
+                    if filedate not in folders:
                         Gio.File.make_directory(destination_folder)
+                        self.folders_made.append(destination_folder.get_path())
                         photo_file.move(destination_for_photo, Gio.FileCopyFlags.NONE)
+                        folders.append(filedate)
+                        self.operations[f] = destination_path
+                    else:
+                        photo_file.move(destination_for_photo, Gio.FileCopyFlags.NONE)
+                        self.operations[f] = destination_path
                 else:
                     print('cannot read data in:', f)
             except GLib.Error as err:
-                no_error = False
                 print('%s: %s in file: %s, (code: %s)' % (err.domain, err.message, f, err.code))
 
+        self.settings.set_value('folders-made', GLib.Variant('as', self.folders_made))
+        self.settings.set_value('operations', GLib.Variant('a{ss}', self.operations))
         return no_error

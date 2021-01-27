@@ -15,8 +15,7 @@ from locale import gettext as _
 import gi
 gi.require_version('Gtk', '3.0')
 gi.require_version('GExiv2', '0.10')
-gi.require_version('Notify', '0.7')
-from gi.repository import Gtk, Gio, GLib, Notify, GExiv2
+from gi.repository import Gtk, Gio, GLib, GExiv2
 
 from .constants import folder_cleaner_constants as constants
 from .sorting import Sorting
@@ -52,12 +51,8 @@ class FolderBox(Gtk.ListBoxRow):
         if self.settings.get_int('photo-sort-by') == 0:
             sort_exif = 'Exif.Image.DateTime'
 
-        if self.sort.photos_by_exif(sort_exif):  # False if there are any errors, True otherwise
-            notification = Notify.Notification.new(_('Folder Cleaner'), _("All photos were successfully sorted"))
-            notification.show()
-        else:
-            notification = Notify.Notification.new(_('Folder Cleaner'), _("Some files weren't successfully sorted"))
-            notification.show()
+        if self.sort.photos_by_exif(sort_exif):
+            self.settings.set_boolean('is-sorted', True)
 
 
     @Gtk.Template.Callback()
