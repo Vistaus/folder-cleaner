@@ -108,7 +108,7 @@ class FolderCleaner(Handy.ApplicationWindow):
             try:
                 from_file.move(to_file, Gio.FileCopyFlags.NONE)
             except GLib.Error as err:
-                print('%s: %s. File: %s, (code: %s)' % (err.domain, err.message, err.code))
+                print('%s: %s. (code: %s)' % (err.domain, err.message, err.code))
 
         self.settings.reset('operations')
 

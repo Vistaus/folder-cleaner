@@ -48,7 +48,7 @@ class UserFoldersBoxRow(Handy.ActionRow):
             self.user_saved_folders.pop(self.set_subtitle(), None)
             self.settings.set_value('saved-user-folders', GLib.Variant('a{ss}', self.user_saved_folders))
         except GLib.Error as err:
-            print('%s: %s. File: %s, (code: %s)' % (err.domain, err.message, err.code))
+            print('%s: %s. (code: %s)' % (err.domain, err.message, err.code))
         finally:
             self.destroy()
 
