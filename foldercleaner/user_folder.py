@@ -20,6 +20,7 @@ gi.require_version('Handy', '1')
 from gi.repository import Gtk, Gio, GLib, Handy
 from .constants import folder_cleaner_constants as constants
 
+
 @Gtk.Template(resource_path=constants['UI_PATH'] + 'user_folder.ui')
 class UserFoldersBoxRow(Handy.ActionRow):
     __gtype_name__ = "user_folders_list_box_row"
@@ -47,10 +48,9 @@ class UserFoldersBoxRow(Handy.ActionRow):
             self.user_saved_folders.pop(self.set_subtitle(), None)
             self.settings.set_value('saved-user-folders', GLib.Variant('a{ss}', self.user_saved_folders))
         except GLib.Error as err:
-                print('%s: %s. File: %s, (code: %s)' % (err.domain, err.message, err.code))
+            print('%s: %s. File: %s, (code: %s)' % (err.domain, err.message, err.code))
         finally:
             self.destroy()
-
 
     # TODO
     # check if two folders are the same

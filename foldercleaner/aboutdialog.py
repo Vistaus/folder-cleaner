@@ -12,13 +12,14 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import gi
+
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, Gio
 from .constants import folder_cleaner_constants as constants
 
-@Gtk.Template(resource_path = constants['UI_PATH'] + 'aboutdialog.ui')
-class AboutWindow(Gtk.AboutDialog):
 
+@Gtk.Template(resource_path=constants['UI_PATH'] + 'aboutdialog.ui')
+class AboutWindow(Gtk.AboutDialog):
     __gtype_name__ = "_about_dialog"
 
     def __init__(self, app, *args, **kwargs):

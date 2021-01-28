@@ -53,9 +53,9 @@ class Sorting():
                         else:
                             # TODO
                             # REWRITE
-                            for k, v in extensions.items():
-                                if ext == k:
-                                    content_type = v.capitalize()
+                            for key, value in extensions.items():
+                                if ext == key:
+                                    content_type = value.capitalize()
                 else:
                     # TODO
                     # REWRITE

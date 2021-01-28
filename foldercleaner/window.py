@@ -23,6 +23,7 @@ from .preferences import PreferencesWindow
 from .aboutdialog import AboutWindow
 from .constants import folder_cleaner_constants as constants
 
+
 @Gtk.Template(resource_path=constants['UI_PATH'] + 'folder_cleaner.ui')
 class FolderCleaner(Handy.ApplicationWindow):
     __gtype_name__ = "_main_window"
@@ -158,4 +159,4 @@ class FolderCleaner(Handy.ApplicationWindow):
             else:
                 raise GLib.Error(message=f'Error: {folder_path} is not a folder.')
         except GLib.Error as err:
-            print('%s' % (err.message))
+            print('%s' % err.message)
