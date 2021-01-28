@@ -131,15 +131,15 @@ class FolderCleaner(Handy.ApplicationWindow):
         self.settings.set_value('saved-folders', GLib.Variant('as', saved_folders))
 
     def on_count_change(self, settings, key, button):
-        if self.settings.get_int('count') > 0:
+        if settings.get_int(key) > 0:
             self._main_label_box.props.visible = False
         else:
             self._main_label_box.props.visible = True
             self._main_list_box.props.visible = False
-            self.settings.reset('saved-folders')
+            settings.reset('saved-folders')
 
     def on_is_sorted_change(self, settings, key, button):
-        if self.settings.get_boolean('is-sorted'):
+        if settings.get_boolean(key):
             self._main_revealer.set_reveal_child(True)
         else:
             self._main_revealer.set_reveal_child(False)

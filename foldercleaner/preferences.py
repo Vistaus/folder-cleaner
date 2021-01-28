@@ -46,6 +46,8 @@ class PreferencesWindow(Handy.PreferencesWindow):
         self.photo_sort = self.settings.get_boolean('photo-sort')
         self.photo_sort_switcher.set_active(self.photo_sort)
 
+        self.settings.connect("changed::user-folder-count", self.on_user_folder_count_change, None)
+
         self.user_saved_folders = self.settings.get_value('saved-user-folders').unpack()
 
         # for user created formats and folders
@@ -80,10 +82,11 @@ class PreferencesWindow(Handy.PreferencesWindow):
     def on_user_folders_switcher_state_set(self, switch, state):
         self.settings.set_boolean('user-folders', state)
         self.add_user_folder_section.props.visible = state
-        self.section_user_folders.props.visible = state
 
     @Gtk.Template.Callback()
     def on_add_user_folder_button_clicked(self, btn):
+        if not self.section_user_folders.props.visible:
+            self.section_user_folders.props.visible = True
         children = self.section_user_folders.get_children()
         extensions = []
         ufolder = UserFoldersBoxRow()
@@ -123,6 +126,15 @@ class PreferencesWindow(Handy.PreferencesWindow):
         children = self.section_user_folders.get_children()
         for child in children:  # child = UserFoldersBoxRow instance
             child.destroy()
+        self.settings.reset('saved-user-folders')
+        self.section_user_folders.props.visible = False
+
+    def on_user_folder_count_change(self, settings, key, button):
+        if settings.get_int(key) > 0:
+            self.section_user_folders.props.visible = True
+        else:
+            self.section_user_folders.props.visible = False
+            settings.reset('saved-user-folders')
 
     ###############################
 

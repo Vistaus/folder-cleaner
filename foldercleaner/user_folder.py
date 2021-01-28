@@ -25,6 +25,8 @@ from .constants import folder_cleaner_constants as constants
 class UserFoldersBoxRow(Handy.ActionRow):
     __gtype_name__ = "user_folders_list_box_row"
 
+    i = 0
+
     change_user_folder_button = Gtk.Template.Child()
     remove_user_folder_button = Gtk.Template.Child()
     user_folder_change_popover = Gtk.Template.Child()
@@ -34,8 +36,12 @@ class UserFoldersBoxRow(Handy.ActionRow):
     def __init__(self, extension=None, folder=None, *args, **kwargs):
         super().__init__(**kwargs)
 
+        UserFoldersBoxRow.i += 1
+
         self.settings = Gio.Settings.new(constants['main_settings_path'])
         self.user_saved_folders = self.settings.get_value('saved-user-folders').unpack()
+
+        self.settings.set_int('user-folder-count', UserFoldersBoxRow.i)
 
         self.subtitle = extension if extension else constants['default_extension_name']
         self.title = folder if folder else constants['default_folder_name']
@@ -47,9 +53,14 @@ class UserFoldersBoxRow(Handy.ActionRow):
         try:
             self.user_saved_folders.pop(self.set_subtitle(), None)
             self.settings.set_value('saved-user-folders', GLib.Variant('a{ss}', self.user_saved_folders))
+            parent_widget = self.get_parent()
+            if len(parent_widget.get_children()) == 1:
+                self.settings.set_int('user-folder-count', True)
         except GLib.Error as err:
             print('%s: %s. (code: %s)' % (err.domain, err.message, err.code))
         finally:
+            UserFoldersBoxRow.i -= 1
+            self.settings.set_int('user-folder-count', UserFoldersBoxRow.i)
             self.destroy()
 
     # TODO
@@ -79,3 +90,4 @@ class UserFoldersBoxRow(Handy.ActionRow):
             else:
                 e.props.secondary_icon_name = ''
                 return True
+
