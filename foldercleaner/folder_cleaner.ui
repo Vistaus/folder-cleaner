@@ -232,6 +232,7 @@ or drag folder here.</property>
             <property name="fill">True</property>
             <property name="position">1</property>
           </packing>
+        <!--test-->
         </child>
         <child>
           <object class="GtkModelButton" id="_about_button">
