@@ -46,9 +46,9 @@ class PreferencesWindow(Handy.PreferencesWindow):
         self.photo_sort = self.settings.get_boolean('photo-sort')
         self.photo_sort_switcher.set_active(self.photo_sort)
 
-        self.settings.connect("changed::user-folder-count", self.on_user_folder_count_change, None)
+        self.settings.connect("changed::saved-user-folders", self.on_saved_user_folders_change, None)
 
-        self.user_saved_folders = self.settings.get_value('saved-user-folders').unpack()
+        user_saved_folders = self.settings.get_value('saved-user-folders').unpack()
 
         # for user created formats and folders
         self.new_user_formats = {}
@@ -56,8 +56,12 @@ class PreferencesWindow(Handy.PreferencesWindow):
         self.sorting_combobox.props.active = 1 if self.sorted_by_category else 0
         self.photo_sorting_combobox.active = self.settings.get_int('photo-sort-by')
         self.add_user_folder_section.props.visible = True if self.user_folders else False
+        if self.user_folders and user_saved_folders:
+            self.section_user_folders.props.visible = True
+        else:
+            self.section_user_folders.props.visible = False
 
-        if self.user_saved_folders:
+        if user_saved_folders:
             self.populate_user_folders()
 
     @Gtk.Template.Callback()
@@ -79,47 +83,54 @@ class PreferencesWindow(Handy.PreferencesWindow):
 
     @Gtk.Template.Callback()
     def on_user_folders_switcher_state_set(self, switch, state):
+        user_saved_folders = self.settings.get_value('saved-user-folders').unpack()
         self.settings.set_boolean('user-folders', state)
         self.add_user_folder_section.props.visible = state
-        self.section_user_folders.props.visible = state
+        if state and user_saved_folders:
+            self.section_user_folders.props.visible = True
+        else:
+            self.section_user_folders.props.visible = False
 
     @Gtk.Template.Callback()
     def on_add_user_folder_button_clicked(self, btn):
+        extensions = []
+        new_folders = {}
+
         if not self.section_user_folders.props.visible:
             self.section_user_folders.props.visible = True
-        children = self.section_user_folders.get_children()
-        extensions = []
+
         ufolder = UserFoldersBoxRow()
-        extensions.append(ufolder.get_subtitle())
+        self.section_user_folders.add(ufolder)
+        children = self.section_user_folders.get_children()
 
         if children:
             for child in children:  # child = UserFoldersBoxRow instance
                 extension = child.get_subtitle()
+                while extension in extensions:
+                    ufolder.set_subtitle(extension + ' copy')
+                    extension = extension + ' copy'
                 extensions.append(extension)
 
-        # check if extension is already present
-        while ufolder.get_subtitle() in extensions:
-            ufolder.set_subtitle(ufolder.get_subtitle() + ' copy')
+        if children:
+            for child in children:
+                new_folders[child.get_subtitle()] = child.get_title()
 
-        # ufolder.file_extension_button_label.props.label = ufolder.extension  # from button label
-        # ufolder.user_folder_button_label.props.label = ufolder.folder  # from button label
-        # self.user_folders_list_box.insert(ufolder, -1)
-        self.section_user_folders.add(ufolder)
+        self.settings.set_value('saved-user-folders', GLib.Variant('a{ss}', new_folders))
 
     @Gtk.Template.Callback()
     def on_delete_event(self, w, e):  # when preference window closed
         # save new user formats to GSettings
         # null before new formats from listbox added
-        self.user_saved_folders = {}
+        new_folders = {}
 
         children = self.section_user_folders.get_children()
         for child in children:  # child = UserFoldersBoxRow instance
             extension = child.get_subtitle()
             folder = child.get_title()
-            self.user_saved_folders[extension] = folder
+            new_folders[extension] = folder
 
         # save new user-made formats
-        self.settings.set_value('saved-user-folders', GLib.Variant('a{ss}', self.user_saved_folders))
+        self.settings.set_value('saved-user-folders', GLib.Variant('a{ss}', new_folders))
 
     @Gtk.Template.Callback()
     def on_clear_all_user_folder_button_clicked(self, btn):
@@ -129,16 +140,18 @@ class PreferencesWindow(Handy.PreferencesWindow):
         self.settings.reset('saved-user-folders')
         self.section_user_folders.props.visible = False
 
-    def on_user_folder_count_change(self, settings, key, button):
-        if settings.get_int(key) > 0:
-            self.section_user_folders.props.visible = True
-        else:
-            self.section_user_folders.props.visible = False
-            settings.reset('saved-user-folders')
+    def on_saved_user_folders_change(self, settings, key, button):
+        user_folder_active = self.settings.get_boolean('user-folders')
+        if user_folder_active:
+            if len(self.section_user_folders.get_children()) > 0:
+                self.section_user_folders.props.visible = True
+            else:
+                self.section_user_folders.props.visible = False
 
     ###############################
 
     def populate_user_folders(self):
-        for k, v in self.user_saved_folders.items():
+        user_saved_folders = self.settings.get_value('saved-user-folders').unpack()
+        for k, v in user_saved_folders.items():
             ufolder = UserFoldersBoxRow(k, v)
             self.section_user_folders.add(ufolder)
