@@ -81,6 +81,7 @@ class PreferencesWindow(Handy.PreferencesWindow):
     def on_user_folders_switcher_state_set(self, switch, state):
         self.settings.set_boolean('user-folders', state)
         self.add_user_folder_section.props.visible = state
+        self.section_user_folders.props.visible = state
 
     @Gtk.Template.Callback()
     def on_add_user_folder_button_clicked(self, btn):

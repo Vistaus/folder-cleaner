@@ -33,6 +33,7 @@ class Sorting():
         folders, files = get_files_and_folders(self.base_folder)
         extensions = base
         user_extensions = self.settings.get_value('saved-user-folders').unpack()
+        is_user_extension_exist = self.settings.get_boolean('user-folders')
         no_error = True
         for f in files:
             try:
@@ -45,7 +46,7 @@ class Sorting():
 
                 content_type = _("Unsorted")
 
-                if user_extensions:
+                if is_user_extension_exist and user_extensions:
                     for k, v in user_extensions.items():
                         if ext == k:
                             content_type = v.capitalize()
