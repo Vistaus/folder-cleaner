@@ -11,9 +11,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from locale import gettext as _
 import gi
-import re
 
 gi.require_version('Gtk', '3.0')
 gi.require_version('Handy', '1')
@@ -78,7 +76,7 @@ class UserFoldersBoxRow(Handy.ActionRow):
 
     def non_letters_check(self, text):
         if text:
-            return True if re.match('^[A-Za-z0-9 _]+$', text) else False
+            return True if GLib.Regex.match_simple('^[A-Za-z0-9 _]+$', text, 0, 0) else False
 
     def check_entry(self, e, func):
         text = e.props.text.strip()
