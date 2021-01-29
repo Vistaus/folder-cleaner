@@ -16,7 +16,6 @@ from .constants import folder_cleaner_constants as constants
 from .basic_formats import base
 from locale import gettext as _
 import gi
-import os.path
 
 gi.require_version('GExiv2', '0.10')
 from gi.repository import Gio, GLib, GExiv2
@@ -63,8 +62,10 @@ class Sorting():
                         if ext == k:
                             content_type = v.capitalize()
 
-                destination_folder = Gio.File.new_for_path(os.path.join(self.base_folder, content_type))
-                full_path_to_file = os.path.join(destination_folder.get_path(), simple_file.get_basename())
+                destination_folder = Gio.File.new_for_path(GLib.build_pathv(GLib.DIR_SEPARATOR_S,
+                                                                            [self.base_folder, content_type]))
+                full_path_to_file = GLib.build_pathv(GLib.DIR_SEPARATOR_S, [destination_folder.get_path(),
+                                                                            simple_file.get_basename()])
                 destination_for_files = Gio.File.new_for_path(full_path_to_file)
 
                 if destination_folder.get_path() not in folders:
@@ -91,8 +92,10 @@ class Sorting():
             try:
                 simple_file = Gio.File.new_for_path(f)
                 name, ext = simple_file.get_basename().rsplit('.', 1)
-                destination_folder = Gio.File.new_for_path(os.path.join(self.base_folder, ext))
-                destination_path = os.path.join(destination_folder.get_path(), simple_file.get_basename())
+                destination_folder = Gio.File.new_for_path(GLib.build_pathv(GLib.DIR_SEPARATOR_S,
+                                                                            [self.base_folder, ext]))
+                destination_path = GLib.build_pathv(GLib.DIR_SEPARATOR_S, [destination_folder.get_path(),
+                                                                           simple_file.get_basename()])
                 destination_for_files = Gio.File.new_for_path(destination_path)
 
                 if ext not in folders:
@@ -128,12 +131,13 @@ class Sorting():
                     # TODO
                     filedate = tag[:10].replace(':', '')
 
-                    folder_for_photo = os.path.join(self.base_folder, filedate)
+                    folder_for_photo = GLib.build_pathv(GLib.DIR_SEPARATOR_S, [self.base_folder, filedate])
 
                     # Gio.Files
                     photo_file = Gio.File.new_for_path(f)
                     destination_folder = Gio.File.new_for_path(folder_for_photo)
-                    destination_path = os.path.join(folder_for_photo, photo_file.get_basename())
+                    destination_path = GLib.build_pathv(GLib.DIR_SEPARATOR_S, [folder_for_photo,
+                                                                               photo_file.get_basename()])
                     destination_for_photo = Gio.File.new_for_path(destination_path)
 
                     if filedate not in folders:
