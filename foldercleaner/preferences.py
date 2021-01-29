@@ -55,7 +55,6 @@ class PreferencesWindow(Handy.PreferencesWindow):
 
         self.sorting_combobox.props.active = 1 if self.sorted_by_category else 0
         self.photo_sorting_combobox.active = self.settings.get_int('photo-sort-by')
-        self.section_user_folders.props.visible = True if self.user_folders else False
         self.add_user_folder_section.props.visible = True if self.user_folders else False
 
         if self.user_saved_folders:
