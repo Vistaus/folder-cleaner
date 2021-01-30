@@ -15,6 +15,8 @@
 
 import locale
 import sys
+from typing import Optional
+
 import gi
 
 gi.require_version('Gtk', '3.0')
@@ -28,7 +30,7 @@ locale.textdomain('com.github.Latesil.folder-cleaner')
 
 
 def main():
-    app = Application()
+    app: Gtk.Application = Application()
     return app.run(sys.argv)
 
 
@@ -38,7 +40,7 @@ class Application(Gtk.Application):
         super().__init__(*args, application_id="com.github.Latesil.folder-cleaner",
                          flags=Gio.ApplicationFlags.FLAGS_NONE, **kwargs)
 
-        self.window = None
+        self.window: Optional[FolderCleaner] = None
 
         GLib.set_application_name(_('Folder Cleaner'))
         GLib.set_prgname("com.github.Latesil.folder-cleaner")

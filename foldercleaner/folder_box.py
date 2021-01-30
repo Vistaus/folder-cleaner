@@ -12,6 +12,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from locale import gettext as _
+from typing import Dict
+
 import gi
 
 gi.require_version('Gtk', '3.0')
@@ -29,16 +31,11 @@ class FolderBox(Gtk.ListBoxRow):
     _sort_photos_button = Gtk.Template.Child()
     _folder_box_label = Gtk.Template.Child()
 
-    i = 0
-
     def __init__(self, label, *args, **kwargs):
         super().__init__(**kwargs)
-        FolderBox.i += 1
-
-        self.label = label
-        self.settings = Gio.Settings.new(constants['main_settings_path'])
-        self.settings.set_int('count', FolderBox.i)
-        self.sort = Sorting(self.label)
+        self.label: str = label
+        self.settings: Gio.Settings = Gio.Settings.new(constants['main_settings_path'])
+        self.sort: Sorting = Sorting(self.label)
         self.settings.connect("changed::photo-sort", self.on_photos_sort_change, self._sort_photos_button)
 
         if self.settings.get_boolean('photo-sort'):
@@ -47,15 +44,17 @@ class FolderBox(Gtk.ListBoxRow):
             self._sort_photos_button.props.visible = False
 
     @Gtk.Template.Callback()
-    def on__sort_photos_button_clicked(self, button):
+    def on__sort_photos_button_clicked(self, button: Gtk.Button) -> None:
+
+        # TODO other exifs
         if self.settings.get_int('photo-sort-by') == 0:
-            sort_exif = 'Exif.Image.DateTime'
+            sort_exif: str = 'Exif.Image.DateTime'
 
         if self.sort.photos_by_exif(sort_exif):
             self.settings.set_boolean('is-sorted', True)
 
     @Gtk.Template.Callback()
-    def on__sort_files_clicked(self, button):
+    def on__sort_files_clicked(self, button: Gtk.Button) -> None:
         if self.settings.get_boolean('sort-by-category'):
             if self.sort.files_by_content():
                 self.settings.set_boolean('is-sorted', True)
@@ -64,16 +63,17 @@ class FolderBox(Gtk.ListBoxRow):
                 self.settings.set_boolean('is-sorted', True)
 
     @Gtk.Template.Callback()
-    def on__open_folder_clicked(self, button):
+    def on__open_folder_clicked(self, button: Gtk.Button) -> None:
         GLib.spawn_async(['/usr/bin/xdg-open', self.label])
 
     @Gtk.Template.Callback()
-    def on__close_folder_clicked(self, button):
-        FolderBox.i -= 1
-        self.settings.set_int('count', FolderBox.i)
+    def on__close_folder_clicked(self, button: Gtk.Button) -> None:
+        saved_folders: Dict[str, str] = self.settings.get_value('saved-folders').unpack()
+        saved_folders.remove(self.label)
+        self.settings.set_value('saved-folders', GLib.Variant('as', saved_folders))
         self.destroy()
 
-    def on_photos_sort_change(self, settings, key, button):
+    def on_photos_sort_change(self, settings: Gio.Settings, key: str, button: Gtk.Button) -> None:
         if settings.get_boolean(key):
             button.props.visible = True
         else:

@@ -11,8 +11,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+from typing import Dict, Callable
 import gi
-
 gi.require_version('Gtk', '3.0')
 gi.require_version('Handy', '1')
 from gi.repository import Gtk, Gio, GLib, Handy
@@ -31,18 +31,16 @@ class UserFoldersBoxRow(Handy.ActionRow):
 
     def __init__(self, extension=None, folder=None, *args, **kwargs):
         super().__init__(**kwargs)
-        self.settings = Gio.Settings.new(constants['main_settings_path'])
-        self.subtitle = extension if extension else constants['default_extension_name']
-        self.title = folder if folder else constants['default_folder_name']
+        self.settings: Gio.Settings = Gio.Settings.new(constants['main_settings_path'])
+        self.subtitle: str = extension if extension else constants['default_extension_name']
+        self.title: str = folder if folder else constants['default_folder_name']
         self.set_title(self.title)  # folder
         self.set_subtitle(self.subtitle)  # extension
 
     @Gtk.Template.Callback()
-    def on_remove_user_folder_button_clicked(self, btn):
-        folders = self.settings.get_value('saved-user-folders').unpack()
+    def on_remove_user_folder_button_clicked(self, btn: Gtk.Button) -> None:
+        folders: Dict[str, str] = self.settings.get_value('saved-user-folders').unpack()
         folders.pop(self.get_subtitle(), None)
-        # print('user folders after deleting:', folders)
-        # print('subtitle was', self.get_subtitle())
         self.destroy()
         self.settings.set_value('saved-user-folders', GLib.Variant('a{ss}', folders))
 
@@ -50,21 +48,21 @@ class UserFoldersBoxRow(Handy.ActionRow):
     # check if two folders are the same
 
     @Gtk.Template.Callback()
-    def on_file_folder_button_popover_entry_changed(self, entry):
+    def on_file_folder_button_popover_entry_changed(self, entry: Gtk.Entry) -> None:
         if self.check_entry(entry, self.non_letters_check):
             self.set_title(entry.get_text().strip())  # folder
 
     @Gtk.Template.Callback()
-    def on_file_extension_button_popover_entry_changed(self, entry):
+    def on_file_extension_button_popover_entry_changed(self, entry: Gtk.Entry) -> None:
         if self.check_entry(entry, self.non_letters_check):
             self.set_subtitle(entry.get_text().strip())  # extension      
 
-    def non_letters_check(self, text):
+    def non_letters_check(self, text: str) -> bool:
         if text:
             return True if GLib.Regex.match_simple('^[A-Za-z0-9 _]+$', text, 0, 0) else False
 
-    def check_entry(self, e, func):
-        text = e.props.text.strip()
+    def check_entry(self, e: Gtk.Entry, func: Callable[[str], bool]) -> bool:
+        text: str = e.props.text.strip()
         e.props.secondary_icon_name = ''
         if text:
             if not func(text):
