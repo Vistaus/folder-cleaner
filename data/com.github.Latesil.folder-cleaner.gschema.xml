@@ -11,11 +11,6 @@
       <summary>Is files sorted</summary>
       <description>Only for internal usage.</description>
     </key>
-    <key type="i" name="user-folder-count">
-      <default>0</default>
-      <summary>How many user folders are</summary>
-      <description>For internal usage only</description>
-    </key>
     <key type="b" name="photo-sort">
       <default>false</default>
       <summary>Is photo sort active</summary>
