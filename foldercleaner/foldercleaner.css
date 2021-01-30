@@ -1,6 +1,13 @@
 .folder_box {
     border-radius: 8px;
+    border-color: #dedddc;
+    border-style: solid;
+    border-width: 1px;
+}
+
+.folder_box_dark {
+    border-radius: 8px;
     border-color: #1f1f1f;
     border-style: solid;
-    border-width: 0.5px;
+    border-width: 1px;
 }

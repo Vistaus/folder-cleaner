@@ -69,7 +69,7 @@
                               <property name="halign">center</property>
                               <property name="margin-top">10</property>
                               <style>
-                                <class name="folder_box"/> 
+                                <class name="folder_box"/>
                               </style>
                             </object>
                             <packing>

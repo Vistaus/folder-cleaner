@@ -36,7 +36,7 @@ class FolderCleaner(Handy.ApplicationWindow):
         super().__init__(*args, title=_("Folder Cleaner"), application=app)
         self.set_size_request(400, 300)
         self.set_wmclass("Folder Cleaner", _("Folder Cleaner"))
-        self.settings = Gio.Settings.new(constants['main_settings_path'])
+        self.settings: Gio.Settings = Gio.Settings.new(constants['main_settings_path'])
         self.settings.connect("changed::saved-folders", self.on_saved_folders_change, None)
         self.settings.connect("changed::is-sorted", self.on_is_sorted_change, None)
         saved_folders: List[str] = self.settings.get_value('saved-folders').unpack()
@@ -61,6 +61,7 @@ class FolderCleaner(Handy.ApplicationWindow):
                     self._main_list_box.props.visible = True
                 folder._folder_box_label.set_label(path)
                 self._main_list_box.insert(folder, -1)
+
 
     @Gtk.Template.Callback()
     def on__add_button_clicked(self, button: Gtk.Button) -> None:
@@ -126,6 +127,10 @@ class FolderCleaner(Handy.ApplicationWindow):
         for child in children:
             saved_folders.append(child.label)
         self.settings.set_value('saved-folders', GLib.Variant('as', saved_folders))
+
+    def on_theme_changed(self, settings: Gio.Settings, key: str) -> None:
+        self.current_theme: str = settings.get_string(key)
+        print(self.current_theme)
 
     def on_saved_folders_change(self, settings: Gio.Settings, key: str, widget: Gtk.Widget) -> None:
         if len(self._main_list_box.get_children()) > 0:
