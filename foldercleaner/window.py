@@ -128,10 +128,6 @@ class FolderCleaner(Handy.ApplicationWindow):
             saved_folders.append(child.label)
         self.settings.set_value('saved-folders', GLib.Variant('as', saved_folders))
 
-    def on_theme_changed(self, settings: Gio.Settings, key: str) -> None:
-        self.current_theme: str = settings.get_string(key)
-        print(self.current_theme)
-
     def on_saved_folders_change(self, settings: Gio.Settings, key: str, widget: Gtk.Widget) -> None:
         if len(self._main_list_box.get_children()) > 0:
             self._main_label_box.props.visible = False
