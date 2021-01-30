@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemalist>
   <schema id="com.github.Latesil.folder-cleaner" path="/com/github/Latesil/folder-cleaner/">
-    <key type="i" name="count">
-      <default>0</default>
-      <summary>Count active folders</summary>
-      <description>How many folders in app.</description>
-    </key>
     <key type="b" name="is-sorted">
       <default>false</default>
       <summary>Is files sorted</summary>
