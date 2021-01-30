@@ -11,15 +11,12 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from locale import gettext as _
-from typing import Dict
 
+from typing import List
 import gi
-
 gi.require_version('Gtk', '3.0')
 gi.require_version('GExiv2', '0.10')
-from gi.repository import Gtk, Gio, GLib, GExiv2
-
+from gi.repository import Gtk, Gio, GLib
 from .constants import folder_cleaner_constants as constants
 from .sorting import Sorting
 
@@ -68,7 +65,7 @@ class FolderBox(Gtk.ListBoxRow):
 
     @Gtk.Template.Callback()
     def on__close_folder_clicked(self, button: Gtk.Button) -> None:
-        saved_folders: Dict[str, str] = self.settings.get_value('saved-folders').unpack()
+        saved_folders: List[str] = self.settings.get_value('saved-folders').unpack()
         saved_folders.remove(self.label)
         self.settings.set_value('saved-folders', GLib.Variant('as', saved_folders))
         self.destroy()
