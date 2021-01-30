@@ -13,7 +13,9 @@
 
 
 from typing import List
+
 import gi
+
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, Gio, GLib
 from .constants import folder_cleaner_constants as constants
@@ -67,7 +69,6 @@ class FolderBox(Gtk.ListBoxRow):
         saved_folders.remove(self.label)
         self.destroy()
         self.settings.set_value('saved-folders', GLib.Variant('as', saved_folders))
-
 
     def on_photos_sort_change(self, settings: Gio.Settings, key: str, button: Gtk.Button) -> None:
         if settings.get_boolean(key):

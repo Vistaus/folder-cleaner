@@ -14,11 +14,9 @@
 from locale import gettext as _
 import gi
 from typing import Dict, List, Tuple, Any
-
 gi.require_version('Gtk', '3.0')
 gi.require_version('Handy', '1')
 from gi.repository import Gtk, Gio, GLib, Gdk, Handy
-
 from .folder_box import FolderBox
 from .preferences import PreferencesWindow
 from .aboutdialog import AboutWindow
@@ -130,7 +128,6 @@ class FolderCleaner(Handy.ApplicationWindow):
         self.settings.set_value('saved-folders', GLib.Variant('as', saved_folders))
 
     def on_saved_folders_change(self, settings: Gio.Settings, key: str, widget: Gtk.Widget) -> None:
-        print(self._main_list_box.get_children())
         if len(self._main_list_box.get_children()) > 0:
             self._main_label_box.props.visible = False
             self._main_list_box.props.visible = True
