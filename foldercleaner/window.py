@@ -66,7 +66,7 @@ class FolderCleaner(Handy.ApplicationWindow):
 
     @Gtk.Template.Callback()
     def on__add_button_clicked(self, button: Gtk.Button) -> None:
-        saved_folders: List[str] = []
+        saved_folders: List[str] = self.settings.get_value('saved-folders').unpack()
         chooser: Gtk.FileChooserDialog = Gtk.FileChooserDialog(title=_("Open Folder"),
                                         transient_for=self,
                                         action=Gtk.FileChooserAction.SELECT_FOLDER,
@@ -110,12 +110,10 @@ class FolderCleaner(Handy.ApplicationWindow):
                 from_file.move(to_file, Gio.FileCopyFlags.NONE)
             except GLib.Error as err:
                 print('%s: %s. (code: %s)' % (err.domain, err.message, err.code))
-
         self.settings.reset('operations')
 
         for folder in folders_made:
             GLib.spawn_async(['/usr/bin/rm', '-r', folder])
-
         self.settings.reset('folders-made')
 
     @Gtk.Template.Callback()
@@ -132,6 +130,7 @@ class FolderCleaner(Handy.ApplicationWindow):
         self.settings.set_value('saved-folders', GLib.Variant('as', saved_folders))
 
     def on_saved_folders_change(self, settings: Gio.Settings, key: str, widget: Gtk.Widget) -> None:
+        print(self._main_list_box.get_children())
         if len(self._main_list_box.get_children()) > 0:
             self._main_label_box.props.visible = False
             self._main_list_box.props.visible = True
@@ -151,6 +150,7 @@ class FolderCleaner(Handy.ApplicationWindow):
     ) -> None:
         drop_source: Tuple[str, Any] = GLib.filename_from_uri(data.get_text())
         folder_path: str = drop_source[0].rstrip()
+        saved_folders: List[str] = self.settings.get_value('saved-folders').unpack()
 
         try:
             if GLib.file_test(folder_path, GLib.FileTest.IS_DIR):
@@ -160,6 +160,8 @@ class FolderCleaner(Handy.ApplicationWindow):
                 self._main_list_box.props.visible = True
                 folder._folder_box_label.set_label(label)
                 self._main_list_box.insert(folder, -1)
+                saved_folders.append(label)
+                self.settings.set_value('saved-folders', GLib.Variant('as', saved_folders))
             else:
                 raise GLib.Error(message=f'Error: {folder_path} is not a folder.')
         except GLib.Error as err:

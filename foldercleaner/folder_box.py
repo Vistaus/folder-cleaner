@@ -15,7 +15,6 @@
 from typing import List
 import gi
 gi.require_version('Gtk', '3.0')
-gi.require_version('GExiv2', '0.10')
 from gi.repository import Gtk, Gio, GLib
 from .constants import folder_cleaner_constants as constants
 from .sorting import Sorting
@@ -42,7 +41,6 @@ class FolderBox(Gtk.ListBoxRow):
 
     @Gtk.Template.Callback()
     def on__sort_photos_button_clicked(self, button: Gtk.Button) -> None:
-
         # TODO other exifs
         if self.settings.get_int('photo-sort-by') == 0:
             sort_exif: str = 'Exif.Image.DateTime'
@@ -67,8 +65,9 @@ class FolderBox(Gtk.ListBoxRow):
     def on__close_folder_clicked(self, button: Gtk.Button) -> None:
         saved_folders: List[str] = self.settings.get_value('saved-folders').unpack()
         saved_folders.remove(self.label)
-        self.settings.set_value('saved-folders', GLib.Variant('as', saved_folders))
         self.destroy()
+        self.settings.set_value('saved-folders', GLib.Variant('as', saved_folders))
+
 
     def on_photos_sort_change(self, settings: Gio.Settings, key: str, button: Gtk.Button) -> None:
         if settings.get_boolean(key):
