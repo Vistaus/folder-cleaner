@@ -31,6 +31,7 @@ class FolderCleaner(Handy.ApplicationWindow):
     _main_revealer = Gtk.Template.Child()
     _main_label_box = Gtk.Template.Child()
     _main_box = Gtk.Template.Child()
+    _main_frame = Gtk.Template.Child()
 
     def __init__(self, app, *args, **kwargs):
         super().__init__(*args, title=_("Folder Cleaner"), application=app)
@@ -46,19 +47,12 @@ class FolderCleaner(Handy.ApplicationWindow):
         self._main_box.drag_dest_set_target_list(None)
         self._main_box.drag_dest_add_text_targets()
 
-        css_provider: Gtk.CssProvider = Gtk.CssProvider()
-        css_provider.load_from_resource(constants['UI_PATH'] + 'foldercleaner.css')
-        screen: Gdk.Screen = Gdk.Screen.get_default()
-
-        context: Gtk.StyleContext = Gtk.StyleContext()
-        context.add_provider_for_screen(screen, css_provider, Gtk.STYLE_PROVIDER_PRIORITY_USER)
-
         if saved_folders:
             self._main_label_box.props.visible = False
             for path in saved_folders:
                 folder: FolderBox = FolderBox(path)
-                if not self._main_list_box.props.visible:
-                    self._main_list_box.props.visible = True
+                if not self._main_frame.props.visible:
+                    self._main_frame.props.visible = True
                 folder._folder_box_label.set_label(path)
                 self._main_list_box.insert(folder, -1)
 
@@ -76,7 +70,7 @@ class FolderCleaner(Handy.ApplicationWindow):
             self._main_label_box.props.visible = False
             label: str = chooser.get_filename()
             folder: FolderBox = FolderBox(label)
-            self._main_list_box.props.visible = True
+            self._main_frame.props.visible = True
             folder._folder_box_label.set_label(label)
             self._main_list_box.insert(folder, -1)
             saved_folders.append(label)
@@ -131,10 +125,10 @@ class FolderCleaner(Handy.ApplicationWindow):
     def on_saved_folders_change(self, settings: Gio.Settings, key: str, widget: Gtk.Widget) -> None:
         if len(self._main_list_box.get_children()) > 0:
             self._main_label_box.props.visible = False
-            self._main_list_box.props.visible = True
+            self._main_frame.props.visible = True
         else:
             self._main_label_box.props.visible = True
-            self._main_list_box.props.visible = False
+            self._main_frame.props.visible = False
 
     def on_is_sorted_change(self, settings: Gio.Settings, key: str, widget: Gtk.Widget) -> None:
         if settings.get_boolean(key):
@@ -155,7 +149,7 @@ class FolderCleaner(Handy.ApplicationWindow):
                 self._main_label_box.props.visible = False
                 label: str = folder_path
                 folder: FolderBox = FolderBox(label)
-                self._main_list_box.props.visible = True
+                self._main_frame.props.visible = True
                 folder._folder_box_label.set_label(label)
                 self._main_list_box.insert(folder, -1)
                 saved_folders.append(label)

@@ -1,6 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
+  <object class="GtkPopover" id="popover1">
+    <property name="can-focus">False</property>
+    <child>
+      <object class="GtkBox">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="margin-start">10</property>
+        <property name="margin-end">10</property>
+        <property name="margin-top">10</property>
+        <property name="margin-bottom">10</property>
+        <property name="orientation">vertical</property>
+        <child>
+          <object class="GtkModelButton" id="_preferences_button">
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">True</property>
+            <property name="text" translatable="yes">Preferences</property>
+            <signal name="clicked" handler="on__preferences_button_clicked" swapped="no"/>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkModelButton" id="_about_button">
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">True</property>
+            <property name="text" translatable="yes">About</property>
+            <signal name="clicked" handler="on__about_button_clicked" swapped="no"/>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">2</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
   <template class="_main_window" parent="HdyApplicationWindow">
+    <property name="can-focus">False</property>
     <property name="default-width">700</property>
     <property name="default-height">400</property>
     <property name="startup-id">com.github.Latesil.folder-cleaner</property>
@@ -8,10 +51,12 @@
     <child>
       <object class="GtkBox">
         <property name="visible">True</property>
+        <property name="can-focus">False</property>
         <property name="orientation">vertical</property>
         <child>
           <object class="HdyHeaderBar" id="_header_bar">
             <property name="visible">True</property>
+            <property name="can-focus">False</property>
             <property name="title" translatable="yes">Folder Cleaner</property>
             <property name="show-close-button">True</property>
             <child>
@@ -36,106 +81,123 @@
                 <child>
                   <object class="GtkImage" id="_main_menu_image">
                     <property name="visible">True</property>
+                    <property name="can-focus">False</property>
                     <property name="icon-name">open-menu-symbolic</property>
                   </object>
                 </child>
               </object>
               <packing>
                 <property name="pack-type">end</property>
+                <property name="position">1</property>
               </packing>
             </child>
           </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
         </child>
         <child>
           <object class="GtkOverlay" id="_main_overlay">
             <property name="visible">True</property>
-              <child>
-                <object class="GtkScrolledWindow" id="_main_scrolled_window">
-                  <property name="visible">True</property>
-                  <property name="can-focus">True</property>
-                  <property name="shadow-type">in</property>
-                  <child>
-                    <object class="GtkViewport">
-                      <property name="visible">True</property>
-                      <child>
-                        <object class="GtkBox" id="_main_box">
-                          <property name="visible">True</property>
-                          <property name="can-focus">False</property>
-                          <property name="orientation">vertical</property>
-                          <child>
-                            <object class="GtkListBox" id="_main_list_box">
-                              <property name="can-focus">False</property>
-                              <property name="selection-mode">none</property>
-                              <property name="halign">center</property>
-                              <property name="margin-top">10</property>
-                              <style>
-                                <class name="folder_box" />
-                              </style>
-                            </object>
-                            <packing>
-                              <property name="expand">False</property>
-                              <property name="fill">True</property>
-                              <property name="position">0</property>
-                            </packing>
-                          </child>
-                          <child>
-                            <object class="GtkBox" id="_main_label_box">
-                              <property name="visible">True</property>
-                              <property name="can-focus">False</property>
-                              <property name="halign">center</property>
-                              <property name="valign">center</property>
-                              <property name="orientation">vertical</property>
-                              <property name="spacing">10</property>
-                              <child>
-                                <object class="GtkLabel" id="start_label">
-                                  <property name="visible">True</property>
-                                  <property name="can-focus">False</property>
-                                  <property name="halign">center</property>
-                                  <property name="label" translatable="yes">Click Add to choose a folder
+            <property name="can-focus">False</property>
+            <child>
+              <object class="GtkScrolledWindow" id="_main_scrolled_window">
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="shadow-type">in</property>
+                <child>
+                  <object class="GtkViewport">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <child>
+                      <object class="GtkBox" id="_main_box">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="orientation">vertical</property>
+                        <child>
+                          <object class="GtkFrame" id="_main_frame">
+                            <property name="visible">False</property>
+                            <property name="halign">center</property>
+                            <property name="label-xalign">0</property>
+                            <property name="label-yalign">0</property>
+                            <property name="shadow-type">out</property>
+                            <property name="margin-top">10</property>
+                            <child>
+                              <object class="GtkListBox" id="_main_list_box">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="selection-mode">none</property>
+                              </object>
+                            </child>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">False</property>
+                            <property name="position">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkBox" id="_main_label_box">
+                            <property name="visible">True</property>
+                            <property name="halign">center</property>
+                            <property name="valign">center</property>
+                            <property name="orientation">vertical</property>
+                            <property name="spacing">10</property>
+                            <child>
+                              <object class="GtkLabel" id="start_label">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="halign">center</property>
+                                <property name="label" translatable="yes">Click Add to choose a folder
 or drag folder here.</property>
-                                  <property name="justify">center</property>
-                                  <attributes>
-                                    <attribute name="foreground" value="#88888a8a8585"/>
-                                    <attribute name="size" value="15360"/>
-                                  </attributes>
-                                </object>
-                                <packing>
-                                  <property name="expand">False</property>
-                                  <property name="fill">True</property>
-                                  <property name="pack-type">end</property>
-                                  <property name="position">0</property>
-                                </packing>
-                              </child>
-                              <child>
-                                <object class="GtkImage" id="add_image">
-                                  <property name="visible">True</property>
-                                  <property name="can-focus">False</property>
-                                  <property name="opacity">0.3000000002235174</property>
-                                  <property name="halign">center</property>
-                                  <property name="valign">baseline</property>
-                                  <property name="pixel-size">100</property>
-                                  <property name="icon-name">folder-new-symbolic</property>
-                                  <property name="icon_size">6</property>
-                                </object>
-                                <packing>
-                                  <property name="expand">False</property>
-                                  <property name="fill">True</property>
-                                  <property name="position">1</property>
-                                </packing>
-                              </child>
-                            </object>
-                            <packing>
-                              <property name="expand">True</property>
-                              <property name="fill">True</property>
-                              <property name="position">1</property>
-                            </packing>
-                          </child>
-                        </object>
-                      </child>
-                    </object>
-                  </child>
-                </object>
-              </child>
+                                <property name="justify">center</property>
+                                <attributes>
+                                  <attribute name="foreground" value="#88888a8a8585"/>
+                                  <attribute name="size" value="15360"/>
+                                </attributes>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">True</property>
+                                <property name="pack-type">end</property>
+                                <property name="position">0</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkImage" id="add_image">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="opacity">0.3000000002235174</property>
+                                <property name="halign">center</property>
+                                <property name="valign">baseline</property>
+                                <property name="pixel-size">100</property>
+                                <property name="icon-name">folder-new-symbolic</property>
+                                <property name="icon_size">6</property>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">True</property>
+                                <property name="position">1</property>
+                              </packing>
+                            </child>
+                          </object>
+                          <packing>
+                            <property name="expand">True</property>
+                            <property name="fill">True</property>
+                            <property name="position">1</property>
+                          </packing>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="index">-1</property>
+              </packing>
+            </child>
             <child type="overlay">
               <object class="GtkRevealer" id="_main_revealer">
                 <property name="visible">True</property>
@@ -203,52 +265,11 @@ or drag folder here.</property>
           </object>
           <packing>
             <property name="expand">True</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
           </packing>
         </child>
       </object>
     </child>
   </template>
-  <object class="GtkPopover" id="popover1">
-    <property name="can-focus">False</property>
-    <child>
-      <object class="GtkBox">
-        <property name="visible">True</property>
-        <property name="can-focus">False</property>
-        <property name="margin-start">10</property>
-        <property name="margin-end">10</property>
-        <property name="margin-top">10</property>
-        <property name="margin-bottom">10</property>
-        <property name="orientation">vertical</property>
-        <child>
-          <object class="GtkModelButton" id="_preferences_button">
-            <property name="visible">True</property>
-            <property name="can-focus">True</property>
-            <property name="receives-default">True</property>
-            <property name="text" translatable="yes">Preferences</property>
-            <signal name="clicked" handler="on__preferences_button_clicked" swapped="no"/>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">1</property>
-          </packing>
-        <!--test-->
-        </child>
-        <child>
-          <object class="GtkModelButton" id="_about_button">
-            <property name="visible">True</property>
-            <property name="can-focus">True</property>
-            <property name="receives-default">True</property>
-            <property name="text" translatable="yes">About</property>
-            <signal name="clicked" handler="on__about_button_clicked" swapped="no"/>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">2</property>
-          </packing>
-        </child>
-      </object>
-    </child>
-  </object>
 </interface>
