@@ -109,92 +109,80 @@
                 <property name="shadow-type">in</property>
                 <child>
                   <object class="GtkViewport">
-                    <property name="visible">True</property>
+                  <property name="visible">True</property>
                     <property name="can-focus">False</property>
                     <child>
-                      <object class="GtkBox" id="_main_box">
+                      <object class="HdyClamp">
                         <property name="visible">True</property>
-                        <property name="can-focus">False</property>
-                        <property name="orientation">vertical</property>
                         <child>
-                          <object class="GtkFrame" id="_main_frame">
-                            <property name="visible">False</property>
-                            <property name="halign">center</property>
-                            <property name="label-xalign">0</property>
-                            <property name="label-yalign">0</property>
-                            <property name="shadow-type">out</property>
-                            <property name="margin-top">10</property>
-                            <child>
-                              <object class="GtkListBox" id="_main_list_box">
-                                <property name="visible">True</property>
-                                <property name="can-focus">False</property>
-                                <property name="selection-mode">none</property>
-                              </object>
-                            </child>
-                          </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">False</property>
-                            <property name="position">0</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkBox" id="_main_label_box">
+                          <object class="GtkBox" id="_main_box">
                             <property name="visible">True</property>
-                            <property name="halign">center</property>
-                            <property name="valign">center</property>
                             <property name="orientation">vertical</property>
-                            <property name="spacing">10</property>
-                            <child>
-                              <object class="GtkLabel" id="start_label">
-                                <property name="visible">True</property>
-                                <property name="can-focus">False</property>
-                                <property name="halign">center</property>
-                                <property name="label" translatable="yes">Click Add to choose a folder
+                            <property name="halign">fill</property>
+                              <child>
+                                <object class="HdyPreferencesGroup" id="_main_list_box">
+                                  <property name="visible">True</property>
+                                  <property name="margin-top">10</property>
+                                </object>
+                              </child>
+                              <child>
+                                <object class="GtkBox" id="_main_label_box">
+                                  <property name="visible">True</property>
+                                  <property name="valign">center</property>
+                                  <property name="orientation">vertical</property>
+                                  <property name="spacing">10</property>
+                                  <child>
+                                    <object class="GtkLabel" id="start_label">
+                                      <property name="visible">True</property>
+                                      <property name="can-focus">False</property>
+                                      <property name="halign">center</property>
+                                      <property name="label" translatable="yes">Click Add to choose a folder
 or drag folder here.</property>
-                                <property name="justify">center</property>
-                                <attributes>
-                                  <attribute name="foreground" value="#88888a8a8585"/>
-                                  <attribute name="size" value="15360"/>
-                                </attributes>
+                                      <property name="justify">center</property>
+                                      <attributes>
+                                        <attribute name="foreground" value="#88888a8a8585"/>
+                                        <attribute name="size" value="15360"/>
+                                      </attributes>
+                                    </object>
+                                    <packing>
+                                      <property name="expand">False</property>
+                                      <property name="fill">True</property>
+                                      <property name="pack-type">end</property>
+                                      <property name="position">0</property>
+                                    </packing>
+                                  </child>
+                                  <child>
+                                  <object class="GtkImage" id="add_image">
+                                    <property name="visible">True</property>
+                                    <property name="can-focus">False</property>
+                                    <property name="opacity">0.3000000002235174</property>
+                                    <property name="halign">center</property>
+                                    <property name="valign">baseline</property>
+                                    <property name="pixel-size">100</property>
+                                    <property name="icon-name">folder-new-symbolic</property>
+                                    <property name="icon_size">6</property>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                    <property name="position">1</property>
+                                  </packing>
+                                </child>
                               </object>
                               <packing>
-                                <property name="expand">False</property>
-                                <property name="fill">True</property>
-                                <property name="pack-type">end</property>
-                                <property name="position">0</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <object class="GtkImage" id="add_image">
-                                <property name="visible">True</property>
-                                <property name="can-focus">False</property>
-                                <property name="opacity">0.3000000002235174</property>
-                                <property name="halign">center</property>
-                                <property name="valign">baseline</property>
-                                <property name="pixel-size">100</property>
-                                <property name="icon-name">folder-new-symbolic</property>
-                                <property name="icon_size">6</property>
-                              </object>
-                              <packing>
-                                <property name="expand">False</property>
+                                <property name="expand">True</property>
                                 <property name="fill">True</property>
                                 <property name="position">1</property>
                               </packing>
                             </child>
                           </object>
-                          <packing>
-                            <property name="expand">True</property>
-                            <property name="fill">True</property>
-                            <property name="position">1</property>
-                          </packing>
+                            </child>
+                          </object>
                         </child>
                       </object>
                     </child>
                   </object>
-                </child>
-              </object>
-              <packing>
+                  <packing>
                 <property name="index">-1</property>
               </packing>
             </child>

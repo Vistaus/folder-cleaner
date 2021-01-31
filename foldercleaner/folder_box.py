@@ -17,21 +17,23 @@ from typing import List
 import gi
 
 gi.require_version('Gtk', '3.0')
-from gi.repository import Gtk, Gio, GLib
+gi.require_version('Handy', '1')
+from gi.repository import Gtk, Gio, GLib, Handy
 from .constants import folder_cleaner_constants as constants
 from .sorting import Sorting
 
 
 @Gtk.Template(resource_path=constants['UI_PATH'] + 'folder_box.ui')
-class FolderBox(Gtk.ListBoxRow):
+class FolderBox(Handy.ActionRow):
     __gtype_name__ = "folder_box_row"
 
     _sort_photos_button = Gtk.Template.Child()
-    _folder_box_label = Gtk.Template.Child()
 
     def __init__(self, label, *args, **kwargs):
         super().__init__(**kwargs)
         self.label: str = label
+        self.set_title(self.label)
+        self.set_icon_name('folder')
         self.settings: Gio.Settings = Gio.Settings.new(constants['main_settings_path'])
         self.sort: Sorting = Sorting(self.label)
         self.settings.connect("changed::photo-sort", self.on_photos_sort_change, self._sort_photos_button)
@@ -66,7 +68,7 @@ class FolderBox(Gtk.ListBoxRow):
     @Gtk.Template.Callback()
     def on__close_folder_clicked(self, button: Gtk.Button) -> None:
         saved_folders: List[str] = self.settings.get_value('saved-folders').unpack()
-        saved_folders.remove(self.label)
+        saved_folders.remove(self.get_title())
         self.destroy()
         self.settings.set_value('saved-folders', GLib.Variant('as', saved_folders))
 
