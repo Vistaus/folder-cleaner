@@ -72,7 +72,6 @@ class FolderCleaner(Handy.ApplicationWindow):
             self._main_list_box.props.visible = True
             folder.set_title(label)
             self._main_list_box.add(folder)
-            # self._main_list_box.insert(folder, -1)
             saved_folders.append(label)
             self.settings.set_value('saved-folders', GLib.Variant('as', saved_folders))
             chooser.destroy()
@@ -152,7 +151,6 @@ class FolderCleaner(Handy.ApplicationWindow):
                 self._main_list_box.props.visible = True
                 folder.set_title(label)
                 self._main_list_box.add(folder)
-                # self._main_list_box.insert(folder, -1)
                 saved_folders.append(label)
                 self.settings.set_value('saved-folders', GLib.Variant('as', saved_folders))
             else:
